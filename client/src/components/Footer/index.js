@@ -4,7 +4,7 @@ import { FaGithub } from 'react-icons/fa';
 export const Footer = () => {
   return (
     <div>
-      <h1>
+      <p>
         <a
           href="https://github.com/dpbam'
           target='_blank'
@@ -13,8 +13,8 @@ export const Footer = () => {
           <FaGithub />
           Derek Phelps
         </a>
-      </h1>
-      <h1>
+      </p>
+      <p>
         <a
           href="https://github.com/emholmes target='_blank'
           rel='noreferrer noopener"
@@ -22,8 +22,8 @@ export const Footer = () => {
           <FaGithub />
           Erin Holmes
         </a>
-      </h1>
-      <h1>
+      </p>
+      <p>
         <a
           href="https://github.com/freezenleo target='_blank'
           rel='noreferrer noopener"
@@ -31,8 +31,8 @@ export const Footer = () => {
           <FaGithub />
           Jiaming (Clark) Zhou
         </a>
-      </h1>
-      <h1>
+      </p>
+      <p>
         <a
           href="https://github.com/meghankbock target='_blank'
           rel='noreferrer noopener"
@@ -40,8 +40,8 @@ export const Footer = () => {
           <FaGithub />
           Meghan Bock
         </a>
-      </h1>
-      <h1>
+      </p>
+      <p>
         <a
           href="https://github.com/TimPrimmer target='_blank'
           rel='noreferrer noopener"
@@ -49,7 +49,7 @@ export const Footer = () => {
           <FaGithub />
           Tim Primmer
         </a>
-      </h1>
+      </p>
     </div>
   );
 };
