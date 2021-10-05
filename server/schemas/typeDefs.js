@@ -9,6 +9,8 @@ const typeDefs = gql`
         email: String
         zipcode: String
         petCount: Int
+        postCount: Int
+        donationCount: Int
         pets: [Pet]
         posts: [Thought]
     }
