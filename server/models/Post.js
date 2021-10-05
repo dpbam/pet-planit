@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose');
-//const replySchema = require('./Reaction');
+const replySchema = require('./Reaction');
 const dateFormat = require('../utils/dateFormat');
 
 const postSchema = new Schema(
@@ -19,6 +19,10 @@ const postSchema = new Schema(
     username: {
       type: String,
       required: true
+    },
+    subFeed: {
+        type: String,
+        required: true
     },
     replies: [replySchema]
   },

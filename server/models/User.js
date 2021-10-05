@@ -20,6 +20,10 @@ const userSchema = new Schema(
       required: true,
       minlength: 5
     },
+    zipcode: {
+      type: String,
+      maxlength: 5
+    },
     pets: [
       {
         type: Schema.Types.ObjectId,

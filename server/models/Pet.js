@@ -19,7 +19,9 @@ const petSchema = new Schema(
       // match: enums: 
     },
     petAge: {
-        type: Int
+        type: Number,
+        min: 1,
+        max: 100
     },
     about: {
         type: String,
