@@ -75,7 +75,8 @@ const typeDefs = gql`
         editPost(postId: ID!, postText: String!): Post
         deletePost(postId: ID!): Post
         addReply(postId: ID!, replyText: String!): Post
-        editReply(replyId: ID!, replyText: String!): Post
+        editReply(postId: ID!, replyId: ID!, replyText: String!): Post
+        deleteReply(postId: ID!, replyId: ID!): Post
         addDonation(donationAmount: Int!, donationRecipient: String!): Donation
     }
 `;
