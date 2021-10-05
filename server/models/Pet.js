@@ -20,6 +20,7 @@ const petSchema = new Schema(
     },
     petAge: {
         type: Number,
+        required: true,
         min: 1,
         max: 100
     },

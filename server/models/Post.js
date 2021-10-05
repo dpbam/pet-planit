@@ -20,7 +20,7 @@ const postSchema = new Schema(
       type: String,
       required: true
     },
-    subFeed: {
+    feedName: {
         type: String,
         required: true
     },
