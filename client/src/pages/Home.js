@@ -1,16 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 
-// import Login from "../components/Login/Login";
+import Login from "../components/Login/Login";
 import Signup from "../components/Signup/Signup";
 
 const Home = () => {
+  const [activeForm, setActiveForm] = useState("signin");
   return (
     <main className="content">
       <div className="hero">
-        <div className="signup-form">
-          <Signup />
-        </div>
-        {/* <Login /> */}
+        {activeForm === "signin" && (
+          <div className="signup-form">
+            <Signup />
+            <p>Already a user? <span onClick={() => setActiveForm("login")}>Login {'>'}</span></p>
+          </div>
+        )}
+        {activeForm === "login" && (
+          <div className="login-form">
+            <Login />
+            <p>Don't have an account? <span onClick={() => setActiveForm("signin")}>Sign-up {'>'}</span></p>
+          </div>
+        )} 
       </div>
       <div className="about">
         <h2 id="about">About</h2>
