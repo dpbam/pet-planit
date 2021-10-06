@@ -1,18 +1,27 @@
 import React from "react";
 import { Link } from "react-router-dom";
+
 import Auth from "../../utils/auth";
 
 const Header = () => {
+  const logout = (event) => {
+    event.preventDefault();
+    Auth.logout();
+  };
+
   return (
     <header>
       <Link to="/">
-        <h1>Animal Farm</h1>
+        <h1>Pet Social Network</h1>
       </Link>
 
       <nav>
         {Auth.loggedIn() ? (
           <>
-            
+            <Link to="/pawfeed">Pawfeed</Link>
+            <Link to='/profile'>My Profile</Link>
+            <Link to="/donate">Donate</Link>
+            <a href='/' onClick={logout}>Logout</a>
           </>
         ) : (
           <>
