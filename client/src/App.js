@@ -13,8 +13,8 @@ function App() {
           <Switch>
             <Route exact path="/" component={Home} />
 
-            {/* Temp(?) solution to if a user hits a relative path that doesn't exist */}
-            <Route render={() => <h1 className='display-2'>404</h1>} />
+            {/* Possible solution to if a user hits a relative path that doesn't exist, can change later */}
+            <Route render={() => <h2>404</h2>} />
           </Switch>
         </div>
         <Footer />
