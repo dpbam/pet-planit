@@ -39,7 +39,7 @@ const Signup = () => {
 
   return (
     <div>
-      <h3>Welcome to Pet Social Network</h3>
+      <h3>Welcome!</h3>
       <h4>Sign Up</h4>
         {/* <form onSubmit={handleFormSubmit}> */}
         <form>

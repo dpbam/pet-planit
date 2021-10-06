@@ -80,36 +80,46 @@ header nav ul li a:hover {
   background-image: url(./images/hammock-dogs.jpg);
   background-size: cover;
   width: 100%;
-  min-height: 700px;
+  min-height: 650px;
   background-position: center;
 }
 
-.signup-form {
+.signup-form,
+.login-form {
   background-color: #FFF;
-  width: 420px;
-  height: 600px;
-  margin: 60px;
+  width: 400px;
+  height: 550px;
+  margin: 40px 60px;
+  align-self: center;
 }
 
-.signup-form div {
-  padding: 20px;
+.login-form {
+  height: 470px;
 }
 
-.signup-form h3 {
+.signup-form div,
+.login-form div {
+  padding: 15px 20px 10px;
+}
+
+.signup-form h3,
+.login-form h3 {
   font-size: 24px;
-  padding-top: 40px;
+  padding-top: 35px;
   text-align: center;
   font-weight: normal;
 }
 
-.signup-form h4 {
-  font-size: 22px;
-  padding-top: 40px;
+.signup-form h4,
+.login-form h4 {
+  font-size: 20px;
+  padding-top: 35px;
   text-align: center;
   font-weight: normal;
 }
 
-.signup-form h4:after {
+.signup-form h4:after,
+.login-form h4::after {
   content: "";
   display: block;
   margin: 0 auto;
@@ -118,25 +128,30 @@ header nav ul li a:hover {
   border-bottom: 2px solid var(--light-grey);
 }
 
-.signup-form form {
+.signup-form form,
+.login-form form {
   display: flex;
   flex-wrap: wrap;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
-.signup-form label {
+.signup-form label,
+.login-form label {
   flex: 100%;
   margin: 15px 15px 6px;
 }
 
-.signup-form form input {
+.signup-form form input,
+.login-form form input {
   flex: 100%;
-  height: 40px;
+  height: 35px;
   margin: 0 15px;
   padding: 2px 5px;
+  border-width: 1px;
 }
 
-.signup-form form button {
+.signup-form form button,
+.login-form form button {
   flex: 0 1 50%;
   padding: 10px;
   margin: 25px auto 15px;
@@ -148,13 +163,22 @@ header nav ul li a:hover {
   cursor: pointer;
 }
 
-.signup-form form button:hover {
+.signup-form form button:hover,
+.login-form form button:hover {
   background-color: var(--dark-red);
 }
 
-.signup-form p {
+.signup-form p,
+.login-form p {
   text-align: center;
-  margin-top: 25px;
+}
+
+.signup-form p span:hover,
+.login-form p span:hover {
+  color: var(--dark-red);
+  border-bottom: 1px solid var(--dark-red);
+  padding-bottom: 2px;
+  cursor: pointer;
 }
 
 .about {
