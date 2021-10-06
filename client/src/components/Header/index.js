@@ -17,17 +17,17 @@ const Header = () => {
 
       <nav>
         {Auth.loggedIn() ? (
-          <>
-            <Link to="/pawfeed">Pawfeed</Link>
-            <Link to='/profile'>My Profile</Link>
-            <Link to="/donate">Donate</Link>
-            <a href='/' onClick={logout}>Logout</a>
-          </>
+          <ul>
+            <li><Link to="/pawfeed">Pawfeed</Link></li>
+            <li><Link to='/profile'>My Profile</Link></li>
+            <li><Link to="/donate">Donate</Link></li>
+            <li><a href='/' onClick={logout}>Logout</a></li>
+          </ul>
         ) : (
-          <>
-            <a href="#about">About</a>
-            <Link to="/">Sign-up / Login</Link>
-          </>
+          <ul>
+            <li><a href="#about">About</a></li>
+            <li><Link to="/">Sign-up / Login</Link></li>
+          </ul>
         )}
       </nav>
     </header>
