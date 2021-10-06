@@ -38,50 +38,48 @@ const Signup = () => {
   // };
 
   return (
-    <main className='flex-row justify-center mb-4'>
-      <div className='col-12 col-md-6'>
-        <div className='card'>
-          <h4 className='card-header'>Sign Up</h4>
-          <div className='card-body'>
-            {/* <form onSubmit={handleFormSubmit}> */}
-            <form>
-              <input
-                className='form-input'
-                placeholder='Your username'
-                name='username'
-                type='username'
-                id='username'
-                value={formState.username}
-                onChange={handleChange}
-              />
-              <input
-                className='form-input'
-                placeholder='Your email'
-                name='email'
-                type='email'
-                id='email'
-                value={formState.email}
-                onChange={handleChange}
-              />
-              <input
-                className='form-input'
-                placeholder='******'
-                name='password'
-                type='password'
-                id='password'
-                value={formState.password}
-                onChange={handleChange}
-              />
-              <button className='btn d-block w-100' type='submit'>
-                Submit
-              </button>
-            </form>
-            <p>Already a user? Login {'>'}</p>
-            {/* {error && <div>Signup failed</div>} */}
-          </div>
-        </div>
-      </div>
-    </main>
+    <div>
+      <h3>Welcome to Pet Social Network</h3>
+      <h4>Sign Up</h4>
+        {/* <form onSubmit={handleFormSubmit}> */}
+        <form>
+          <label for="name">Name:</label>
+          <input
+            className='form-input'
+            placeholder='Your name'
+            name='name'
+            type='name'
+            id='name'
+            value={formState.username}
+            onChange={handleChange}
+          />
+          <label for="email">Email:</label>
+          <input
+            className='form-input'
+            placeholder='Your email'
+            name='email'
+            type='email'
+            id='email'
+            value={formState.email}
+            onChange={handleChange}
+          />
+          <label for="password">Password:</label>
+          <input
+            className='form-input'
+            placeholder='******'
+            name='password'
+            type='password'
+            id='password'
+            value={formState.password}
+            onChange={handleChange}
+          />
+          <button className='btn d-block w-100' type='submit'>
+            Submit
+          </button>
+        </form>
+        <p>Already a user? Login {'>'}</p>
+        {/* {error && <div>Signup failed</div>} */}
+    </div>
   );
 };
 

@@ -1,3 +1,16 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --dark-blue: #28283c;
+  --tomato-red: #b93625;
+  --dark-red: #78261b;
+  --light-grey: #D8D6D6;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -17,16 +30,15 @@ header {
   flex-wrap: wrap;
   justify-content: space-between;
   position: sticky;
-  background-color: #fff;
-  border-bottom: 4px solid #506cf0;
-  border-bottom: 4px solid var(--secondary-color);
+  background-color: var(--dark-blue);
   top: 0;
   z-index: 9999;
 }
 
 h1 {
-  padding: 20px 30px;
-  margin-left: 30px;
+  margin: 30px 40px;
+  color: #FFF;
+  font-weight: normal;
 }
 
 header a {
@@ -52,8 +64,93 @@ header nav ul li a {
   font-size: 18px;
   cursor: pointer;
   border-bottom: 2px solid transparent;
+  color: #FFF;
 }
 
 header nav ul li a:hover {
-  border-bottom: 2px solid #000;
+  border-bottom: 2px solid #FFF;
 }
+
+.hero {
+  display: flex;
+  justify-content: end;
+  background-image: url(./images/hammock-dogs.jpg);
+  background-size: cover;
+  width: 100%;
+  min-height: 700px;
+  background-position: center;
+}
+
+.signup-form {
+  background-color: #FFF;
+  width: 420px;
+  height: 600px;
+  margin: 60px;
+}
+
+.signup-form div {
+  padding: 20px;
+}
+
+.signup-form h3 {
+  font-size: 24px;
+  padding-top: 40px;
+  text-align: center;
+  font-weight: normal;
+}
+
+.signup-form h4 {
+  font-size: 22px;
+  padding-top: 40px;
+  text-align: center;
+  font-weight: normal;
+}
+
+.signup-form h4:after {
+  content: "";
+  display: block;
+  margin: 0 auto;
+  width: 150px;
+  padding-top: 15px;
+  border-bottom: 2px solid var(--light-grey);
+}
+
+.signup-form form {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.signup-form label {
+  flex: 100%;
+  margin: 15px 15px 6px;
+}
+
+.signup-form form input {
+  flex: 100%;
+  height: 40px;
+  margin: 0 15px;
+  padding: 2px 5px;
+}
+
+.signup-form form button {
+  flex: 0 1 50%;
+  padding: 10px;
+  margin: 25px auto 15px;
+  background-color: var(--tomato-red);
+  color: #fff;
+  font-size: 1.125rem;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+.signup-form form button:hover {
+  background-color: var(--dark-red);
+}
+
+.signup-form p {
+  text-align: center;
+  margin-top: 25px;
+}
+
