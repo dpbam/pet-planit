@@ -13,6 +13,14 @@ const exampleProfile = {
     age: 10,
     about: "Quis amet culpa incididunt elit sit exercitation reprehenderit sit nulla non ad laborum elit velit. Pariatur cupidatat reprehenderit esse id occaecat officia quis magna. Cupidatat duis labore dolor enim non pariatur. Do anim nostrud id enim. Do mollit incididunt eu reprehenderit ut incididunt.",
     owner: "Test"
+  },
+  {
+    name: "Ricky",
+    type: "dog",
+    breed: "Brussels Griffon",
+    age: 11,
+    about: "Quis amet culpa incididunt elit sit exercitation reprehenderit sit nulla non ad laborum elit velit. Pariatur cupidatat reprehenderit esse id occaecat officia quis magna. Cupidatat duis labore dolor enim non pariatur. Do anim nostrud id enim. Do mollit incididunt eu reprehenderit ut incididunt.",
+    owner: "Test"
   }]
 }
 
