@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import Auth from "../../utils/auth";
 
 const Header = () => {
+  const [activeNav, setActiveNav] = useState("signup");
+
   const logout = (event) => {
     event.preventDefault();
     Auth.logout();
@@ -25,8 +27,8 @@ const Header = () => {
           </ul>
         ) : (
           <ul>
-            <li><a href="#about">About</a></li>
-            <li><a href="/#">Sign-up / Login</a></li>
+            <li><a href="#about" className={activeNav === "about" && "active"} onClick={() => setActiveNav("about")}>About</a></li>
+            <li><a href="/#" className={activeNav === "signup" && "active"} onClick={() => setActiveNav("signup")}>Sign-up / Login</a></li>
           </ul>
         )}
       </nav>

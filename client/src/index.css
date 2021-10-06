@@ -70,6 +70,10 @@ header nav ul li a:hover {
   border-bottom: 2px solid #FFF;
 }
 
+header .active {
+  border-bottom: 2px solid #FFF;
+}
+
 .content {
   min-height: (100vh - 255px);
 }
