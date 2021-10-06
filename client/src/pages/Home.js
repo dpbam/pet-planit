@@ -5,7 +5,7 @@ import Signup from "../components/Signup/Signup";
 
 const Home = () => {
   return (
-    <main>
+    <main className="content">
       <div className="hero">
         <div className="signup-form">
           <Signup />

@@ -54,7 +54,6 @@ header nav ul {
   list-style-type: none;
   display: flex;
   flex-wrap: wrap;
-  padding-top: 10px;
 }
 
 header nav ul li a {
@@ -69,6 +68,10 @@ header nav ul li a {
 
 header nav ul li a:hover {
   border-bottom: 2px solid #FFF;
+}
+
+.content {
+  min-height: (100vh - 255px);
 }
 
 .hero {
@@ -170,4 +173,33 @@ header nav ul li a:hover {
 .about p {
   padding: 30px 20px;
   text-align: center;
+}
+
+footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  padding: 30px;
+  text-align: center;
+  background-color: var(--dark-blue);
+  height: 120px;
+  align-items: center;
+}
+
+footer a svg {
+  margin-right: 8px;
+  vertical-align: bottom;
+  width: 1.3em;
+  height: 1.3em;
+}
+
+footer a {
+  color: #FFF;
+  text-decoration: none;
+  padding-bottom: 5px;
+  border-bottom: 2px solid transparent;
+}
+
+footer a:hover {
+  border-bottom: 2px solid #FFF;
 }
