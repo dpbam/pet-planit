@@ -28,13 +28,10 @@ const petSchema = new Schema(
         type: String,
         trim: true,
     },
-    owner: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "User",
+    owner: {
+        type: String,
         required: true
       },
-    ],
   },
   {
     toJSON: {
