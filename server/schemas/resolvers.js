@@ -40,11 +40,11 @@ const resolvers = {
       const params = feedName ? { feedName } : {};
       return Feed.find(params).populate("posts");
     },
-    posts: async (parent, { feedName }) => {
+    postsByFeed: async (parent, { feedName }) => {
       const params = feedName ? { feedName } : {};
       return Post.find(params).sort({ createdAt: -1 });
     },
-    posts: async (parent, { username }) => {
+    postsByUser: async (parent, { username }) => {
       const params = username ? { username } : {};
       return Post.find(params).sort({ createdAt: -1 });
     },

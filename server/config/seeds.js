@@ -4,6 +4,7 @@ const db = require("./connection");
 const { User, Pet, Feed, Post, Donation } = require("../models");
 
 db.once("open", async () => {
+  console.log("seed start");
   await User.deleteMany({});
   await Pet.deleteMany({});
   await Feed.deleteMany({});
@@ -36,46 +37,37 @@ db.once("open", async () => {
     "boston terrier",
   ];
 
-  for (let i = 0; i < 100; i += 1) {
-    const randomUserIndex = Math.floor(Math.random() * createdUsers.ops.length);
-    const { username, _id: userId } = createdUsers.ops[randomUserIndex];
+  for (let i = 0; i < 50; i += 1) {
+    const { username, _id: userId } = createdUsers.ops[i];
+    const randomPetTypeIndex = Math.floor(Math.random() * petTypeArr.length);
+    const randomDogBreedIndex = Math.floor(Math.random() * dogBreedArr.length);
 
-    let petId = userId;
+    const owner = username;
+    const petName = faker.name.firstName();
+    const petType = petTypeArr[randomPetTypeIndex];
+    let dogBreed = "N/A";
+    const petAge = faker.datatype.number({
+      min: 1,
+      max: 15,
+    });
+    const about = faker.lorem.sentences();
 
-    while (petId === userId) {
-      const randomPetTypeIndex = Math.floor(
-        Math.random() * petTypeArr.length
-      );
-      const randomDogBreedIndex = Math.floor(
-        Math.random() * dogBreedArr.length
-      );
-      const owner = username;
-      const petName = faker.name.firstName();
-      const petType = petTypeArr[randomPetTypeIndex];
-      let dogBreed = "N/A";
-      const petAge = faker.datatype.number({
-        min: 1,
-        max: 15,
-      });
-      const about = faker.lorem.sentences();
-
-      if (petType === "dog") {
-        dogBreed = dogBreedArr[randomDogBreedIndex];
-      }
-      const createdPet = await Pet.create({
-        owner,
-        petName,
-        petType,
-        dogBreed,
-        petAge,
-        about,
-      });
-      const updatedUser = await User.updateOne(
-        { _id: userId },
-        { $push: { pets: createdPet._id } }
-      );
-      createdPets.push(createdPet);
+    if (petType === "dog") {
+      dogBreed = dogBreedArr[randomDogBreedIndex];
     }
+    const createdPet = await Pet.create({
+      owner,
+      petName,
+      petType,
+      dogBreed,
+      petAge,
+      about,
+    });
+    const updatedUser = await User.updateOne(
+      { _id: userId },
+      { $push: { pets: createdPet._id } }
+    );
+    createdPets.push(createdPet);
   }
 
   // create feeds
