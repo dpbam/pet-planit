@@ -30,8 +30,12 @@ const resolvers = {
         .populate("posts")
         .populate("donations");
     },
+    pets: async () => {
+        return Pet.find();
+    },
     pet: async (parent, { owner }) => {
-      return Pet.find({ owner });
+        const params = owner ? { owner } : {};
+      return Pet.find(params);
     },
     feeds: async () => {
       return Feed.find().populate("posts");
@@ -39,6 +43,9 @@ const resolvers = {
     feed: async (parent, { feedName }) => {
       const params = feedName ? { feedName } : {};
       return Feed.find(params).populate("posts");
+    },
+    posts: async () => {
+        return Post.find();
     },
     postsByFeed: async (parent, { feedName }) => {
       const params = feedName ? { feedName } : {};
@@ -73,9 +80,10 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
+    // need to make sure pet owner is updated when username updated!!
     updateUser: async (parent, args, context) => {
       if (context.user) {
-        const updatedUserData = await User.findByIdAndUpdate(
+        let updatedUserData = await User.findByIdAndUpdate(
           { _id: context.user._id },
           { ...args },
           { new: true, runValidators: true }
@@ -103,7 +111,7 @@ const resolvers = {
     updatePet: async (parent, { petId, ...args }, context) => {
       if (context.user) {
         const updatedPet = await Pet.findByIdAndUpdate(
-          { id: petId },
+          { _id: petId },
           { ...args },
           { new: true, runValidators: true }
         );
@@ -119,7 +127,7 @@ const resolvers = {
     },
     deletePet: async (parent, petId, context) => {
       if (context.user) {
-        const deletedPet = await Pet.findByAndDelete({
+        const deletedPet = await Pet.findByIdAndDelete({
           _id: petId,
         });
 

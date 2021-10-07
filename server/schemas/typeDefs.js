@@ -13,6 +13,7 @@ const typeDefs = gql`
         donationCount: Int
         pets: [Pet]
         posts: [Post]
+        donations: [Donation]
     }
     type Pet {
         _id: ID
@@ -60,8 +61,10 @@ const typeDefs = gql`
         users: [User]
         user(username: String!): User
         pet(owner: String!): [Pet]
+        pets: [Pet]
         feeds: [Feed]
-        feed(feedName: String!): Feed
+        feed(feedName: String!): [Feed]
+        posts: [Post]
         postsByFeed(feedName: String!): [Post]
         postsByUser(username: String!): [Post]
         post(_id: ID!): Post
@@ -69,10 +72,10 @@ const typeDefs = gql`
     type Mutation {
         login(email: String!, password: String!): Auth
         addUser(username: String!, email: String!, password: String!, zipcode: String): Auth
-        updateUser(userId: ID!, email: String!, password: String!, zipcode: String): Auth
-        addPet(petName: String!, petType: String!, petAge: Int!, about: String): Pet
-        updatePet(petId: ID!, petName: String!, petType: String!, petAge: Int!, about: String): Pet
-        deletePet(petId: ID!): Pet
+        updateUser(username: String!, email: String!, password: String!, zipcode: String): Auth
+        addPet(petName: String!, petType: String!, petAge: Int!, dogBreed: String, about: String): Pet
+        updatePet(petId: ID!, petName: String!, petType: String!, petAge: Int!, dogBreed: String, about: String): Pet
+        deletePet(petId: ID!): Auth
         addPost(postText: String!): Post
         updatePost(postId: ID!, postText: String!): Post
         deletePost(postId: ID!): Post
