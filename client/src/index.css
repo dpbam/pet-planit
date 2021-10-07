@@ -17,6 +17,17 @@ code {
   margin: 20px 0px 5px 0px;
 }
 
+#profile-section label {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+#profile-section textarea {
+  font-size: 15px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  vertical-align: middle;
+}
+
 .pet-box {
   margin-bottom: 10px;
   display: flex;
@@ -27,43 +38,180 @@ code {
   border-width: 1px;
 }
 
-.pet-detail-container {
+.profile-detail-container {
   display: flex;
   flex-wrap: wrap;
   padding: 0px 10px 10px 10px;
+  justify-content: space-between;
 }
 
-.pet-detail-container textarea {
+.profile-detail-container textarea {
   width: 100%;
   min-width: 100%;
   max-width: 100%;
   height: 30px;
-  resize: none; 
+  margin-top: 5px;
+  resize: none;
 }
 
-.pet-detail-container label {
+.profile-detail-container label {
   width: 100%;
 }
 
+.profile-details-holder {
+  width: 60%;
+}
+
+.profile-button-holder {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .pet-details-1 {
   width: 30%;
 }
 
+.pet-details-2 {
+  width: 50%;
+}
+
+.pet-details-3 {
+  width: 20%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+}
+
 .pet-about-textarea {
-  height: auto !important;
+  height: 104px !important;
 }
 
 .pet-about-label {
   height: 10%;
 }
 
-.about-container {
-  height: auto !important;
+.pet-play-wrapper, .pet-age-wrapper {
+  width: 49%;
+}
+
+.pet-play-wrapper {
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.pet-play-wrapper label {
+  text-align: center;
+}
+
+input[type="radio"]:disabled {
+  -webkit-appearance: none;
+  width: 15px;
+  height: 15px;
+  padding: 0px;
+  background-clip: content-box;
+  border: 2px solid #bbbbbb;
+  background-color: white;
+  border-radius: 50%;
+}
+
+input[type="radio"]:checked {
+  background-color: #6666FF;
+}
+
+
+.button {
+  color: white;
+  height: 35px;
+  width: 65px;
+  border-radius: 7px;
+  border: none;
+}
+
+.pet-edit, .profile-edit {
+  background-color: #6666FF;
+}
+
+.pet-delete {
+  background-color: #FF666F;
+}
+
+.pet-button-holder {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.pet-image-container {
+  height: 125px;
+  width: 125px;
+}
+
+.pet-image-container img {
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 50%;
+  object-fit: cover;
+  height: 125px;
+  width: 125px;
+}
+
+.profile-image-container {
+  height: 175px;
+  width: 175px;
+}
+
+.profile-image-container img {
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 50%;
+  object-fit: cover;
+  height: 175px;
+  width: 175px;
+}
+
+.profile-image-holder {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
 }
 
 #profile-info {
   padding: 10px 0px 10px 0px;
+  display: flex;
+  justify-content: center;
+}
+
+#profile-posts {
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+  align-items: flex-start;
+}
+
+#profile-posts label {
+  width: 100%;
+}
+
+#posts-container {
+  border-style: solid;
+  border-width: 1px;
+  width: 100%;
+  height: 170px;
+  padding: 10px;
+}
+
+#posts-container ul {
+  margin: 0px;
+  padding-left: 20px;
 }
 
 #profile-info, #profile-posts {
