@@ -3,18 +3,6 @@ const faker = require("faker");
 const db = require("./connection");
 const { User, Pet, Feed, Post, Donation } = require("../models");
 
-const petTypeArr = ["dog", "cat"];
-const dogBreedArr = [
-  "golden retriever",
-  "labrador",
-  "pit bull terrier",
-  "huskey",
-  "french bulldog",
-  "boston terrier",
-];
-const feedArr = ["General", "Pet Adoption", "Pet Sitting", "Pet Advice", "Dog Dates", "Lost Pets"];
-const donationRecipientArr = ["Austin Pets Alive!", "Austin Animal Center", "Friends of Austin Animal Center", "ASPCA"];
-
 db.once("open", async () => {
   await User.deleteMany({});
   await Pet.deleteMany({});
@@ -38,6 +26,15 @@ db.once("open", async () => {
 
   // create pet data
   let createdPets = [];
+  const petTypeArr = ["dog", "cat"];
+  const dogBreedArr = [
+    "golden retriever",
+    "labrador",
+    "pit bull terrier",
+    "huskey",
+    "french bulldog",
+    "boston terrier",
+  ];
 
   for (let i = 0; i < 100; i += 1) {
     const randomUserIndex = Math.floor(Math.random() * createdUsers.ops.length);
@@ -47,15 +44,15 @@ db.once("open", async () => {
 
     while (petId === userId) {
       const randomPetTypeIndex = Math.floor(
-        Math.random() * petTypeArr.ops.length
+        Math.random() * petTypeArr.length
       );
       const randomDogBreedIndex = Math.floor(
-        Math.random() * dogBreedArr.ops.length
+        Math.random() * dogBreedArr.length
       );
       const owner = username;
       const petName = faker.name.firstName();
-      const petType = petTypeArr.ops[randomPetTypeIndex];
-      const dogBreed = "";
+      const petType = petTypeArr[randomPetTypeIndex];
+      let dogBreed = "N/A";
       const petAge = faker.datatype.number({
         min: 1,
         max: 15,
@@ -63,7 +60,7 @@ db.once("open", async () => {
       const about = faker.lorem.sentences();
 
       if (petType === "dog") {
-        dogBreed = dogBreedArr.ops[randomDogBreedIndex];
+        dogBreed = dogBreedArr[randomDogBreedIndex];
       }
       const createdPet = await Pet.create({
         owner,
@@ -83,9 +80,17 @@ db.once("open", async () => {
 
   // create feeds
   const feedData = [];
+  const feedArr = [
+    "General",
+    "Pet Adoption",
+    "Pet Sitting",
+    "Pet Advice",
+    "Dog Dates",
+    "Lost Pets",
+  ];
   for (let i = 0; i < feedArr.length; i++) {
-      const feedName = feedArr[i];
-      feedData.push({ feedName });
+    const feedName = feedArr[i];
+    feedData.push({ feedName });
   }
 
   const createdFeeds = await Feed.collection.insertMany(feedData);
@@ -109,9 +114,9 @@ db.once("open", async () => {
     );
 
     const updatedFeed = await Feed.updateOne(
-        { _id: feedId },
-        { $push: { posts: createdPost._id } }
-      );
+      { _id: feedId },
+      { $push: { posts: createdPost._id } }
+    );
 
     createdPosts.push(createdPost);
   }
@@ -123,9 +128,7 @@ db.once("open", async () => {
     const randomUserIndex = Math.floor(Math.random() * createdUsers.ops.length);
     const { username } = createdUsers.ops[randomUserIndex];
 
-    const randomPostIndex = Math.floor(
-      Math.random() * createdPosts.length
-    );
+    const randomPostIndex = Math.floor(Math.random() * createdPosts.length);
     const { _id: postId } = createdPosts[randomPostIndex];
 
     await Post.updateOne(
@@ -137,19 +140,33 @@ db.once("open", async () => {
 
   // create donations
   let createdDonations = [];
+  const donationRecipientArr = [
+    "Austin Pets Alive!",
+    "Austin Animal Center",
+    "Friends of Austin Animal Center",
+    "ASPCA",
+  ];
   for (let i = 0; i < 20; i += 1) {
-    const donationAmount = 5*(faker.datatype.number({
+    const donationAmount =
+      5 *
+      faker.datatype.number({
         min: 1,
         max: 20,
-      }));
+      });
 
     const randomUserIndex = Math.floor(Math.random() * createdUsers.ops.length);
     const { username, _id: userId } = createdUsers.ops[randomUserIndex];
 
-    const randomRecipientIndex = Math.floor(Math.random() * donationRecipientArr.ops.length);
-    const donationRecipient = donationRecipientArr.ops[randomRecipientIndex];
+    const randomRecipientIndex = Math.floor(
+      Math.random() * donationRecipientArr.length
+    );
+    const donationRecipient = donationRecipientArr[randomRecipientIndex];
 
-    const createdDonation = await Donation.create({ donationAmount, username, donationRecipient });
+    const createdDonation = await Donation.create({
+      donationAmount,
+      username,
+      donationRecipient,
+    });
 
     const updatedUser = await User.updateOne(
       { _id: userId },
