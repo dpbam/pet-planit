@@ -55,3 +55,25 @@ export const QUERY_PET = gql`
     }
   }
 `;
+
+export const QUERY_POSTS = gql`
+  query posts($username: String) {
+    posts(username: $username) {
+      _id
+      postText
+      feedName
+      createdAt
+      username
+      replyCount
+      replies {
+        _id
+        replyText
+        createdAt
+        username
+      }
+    }
+  }
+`;
+
+export const QUERY_POST = gql`
+    query post()`;
