@@ -337,7 +337,7 @@ footer a:hover {
   text-align: center;
 }
 
-input[type="radio"]:disabled {
+input[type="radio"], input[type="radio"]:disabled  {
   -webkit-appearance: none;
   width: 15px;
   height: 15px;
@@ -347,6 +347,7 @@ input[type="radio"]:disabled {
   background-color: white;
   border-radius: 50%;
 }
+
 
 input[type="radio"]:checked {
   background-color: #6666FF;

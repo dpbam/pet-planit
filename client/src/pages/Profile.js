@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import $ from 'jquery';
 
 // TODO add interests
@@ -16,13 +16,26 @@ const Profile = (props) => {
     posts
   } = props.profile;
 
-
   const [editingProfile, setEditingProfile] = useState(false);
   const [editingPet, setEditingPet] = useState(false);
+  const [statePets, setPets] = useState(pets);
+
 
   const editProfile = () => {
     setEditingProfile(!editingProfile);
     // TODO add logic for graphql mutation to update profile
+  }
+
+  const resetTextAreas = () => {
+    let pets = $(document.getElementsByClassName("pet-box"));
+    let pet = $(pets);
+    let textAreas = pet.find('textarea');
+    console.log(textAreas);
+    $.each(textAreas, (index, area) => {
+      console.log(area);
+      //$(area).val("test");
+     // $(area).remove();
+    });
   }
 
   const editPet = (petnum) => {
@@ -33,9 +46,7 @@ const Profile = (props) => {
 
     let petPlayButtons = $(document.getElementsByClassName("pet-play-button"));
 
-    console.log(petPlayButtons);
     $.each(petPlayButtons, (index, button) => {
-      console.log($(button).attr('pet'), petnum);
       if (Number($(button).attr('pet')) === petnum) {
         $(button).attr('disabled', !$(button).is('[disabled]')); // flips the editability of the radial buttons
       }
@@ -57,6 +68,38 @@ const Profile = (props) => {
     }
 
     // TODO add logic for graphql mutation to update pets
+  }
+
+  const deletePet = (petnum) => {
+    if (petnum > -1) {
+      let tempArr = [];
+      for( var i = 0; i < statePets.length; i++){ 
+                                   
+        if (i != petnum) { 
+          tempArr.push(statePets[i]);
+        }
+    }
+    resetTextAreas();
+      setPets(tempArr);
+      console.log(statePets);
+    }
+  }
+
+  const addPet = () => {
+    let tempArr = [...statePets]; // Have to use the spread operator so it creates a new reference. aka without this it wont re-render on state change
+    tempArr.push({
+      name: "",
+      type: "",
+      breed: "",
+      age: 0,
+      about: "",
+      owner: "Timbo",
+      playdate: false,
+      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Question_Mark.svg/1200px-Question_Mark.svg.png"
+    });
+    console.log(statePets);
+    setPets(tempArr);
+    console.log(statePets);
   }
 
   return (
@@ -149,21 +192,22 @@ const Profile = (props) => {
 
       <h2>Pets</h2>
       <form id="profile-pets">
-        {pets.map((pet, index) => (
+
+        {statePets && statePets.map((pet, index) => (
           <div key={index} className="pet-box" pet={index}>
             <div className="pet-details-1">
 
-              <div className="profile-detail-container">
+              <div className="profile-detail-container" key={pet.name}>
                 <label>Name</label>
                 <textarea type="text" name="pet-name" defaultValue={pet.name} readOnly />
               </div>
 
-              <div className="profile-detail-container">
+              <div className="profile-detail-container" key={pet.type}>
                 <label>Kind of Pet</label>
                 <textarea type="text" name="pet-type" defaultValue={pet.type} readOnly />
               </div>
 
-              <div className="profile-detail-container">
+              <div className="profile-detail-container" key={pet.breed}>
                 <label>Breed</label>
                 <textarea type="text" name="pet-breed" defaultValue={pet.breed} readOnly />
               </div>
@@ -173,24 +217,24 @@ const Profile = (props) => {
             <div className="pet-details-2">
 
               <div className="profile-detail-container">
-                <div className="pet-age-wrapper">
+                <div className="pet-age-wrapper" key={pet.age}>
                   <label className="pet-age-label">Age</label>
                   <textarea className="pet-age-textarea" type="text" name="pet-age" defaultValue={pet.age} readOnly />
                 </div>
-                <div className="pet-play-wrapper">
+                <div className="pet-play-wrapper" key={pet.playdate}>
                   <label className="pet-playdate-label">Playdates?</label>
 
                   <div className="playdate-buttons">
-                    <input type="radio" className="pet-play-button" pet={index} name={pet.name + "-playdate"} defaultChecked={pet.playdate} disabled={true}  />Yes
+                    <input type="radio" className="pet-play-button" pet={index} name={pet.name + "-playdate" + index} defaultChecked={pet.playdate} disabled={true} />Yes
                   </div>
                   <div className="playdate-buttons">
-                    <input type="radio" className="pet-play-button" pet={index} name={pet.name + "-playdate"} defaultChecked={!pet.playdate}  disabled={true}  />No
+                    <input type="radio" className="pet-play-button" pet={index} name={pet.name + "-playdate" + index} defaultChecked={!pet.playdate} disabled={true} />No
                   </div>
 
                 </div>
               </div>
 
-              <div className="profile-detail-container about-container">
+              <div className="profile-detail-container about-container" key={pet.about}>
                 <label className="pet-about-label">About me</label>
                 <textarea className="pet-about-textarea" type="text" name="pet-about" defaultValue={pet.about} readOnly />
               </div>
@@ -200,7 +244,7 @@ const Profile = (props) => {
             <div className="pet-details-3">
               <div className="pet-button-holder">
                 <button type="button" className="pet-edit button" petnum={index} onClick={() => editPet(index)}>Edit</button>
-                <button type="button" className="pet-delete button">X</button>
+                <button type="button" className="pet-delete button" onClick={() => deletePet(index)}>X</button>
               </div>
               <div className="pet-image-container">
                 <img src={pet.image} alt={username + "'s pet " + pet.type + " " + pet.name} />
@@ -209,7 +253,7 @@ const Profile = (props) => {
           </div>
         ))}
 
-        <button type="button" className="pet-add button">Add another pet</button>
+        <button type="button" className="pet-add button" onClick={addPet} >Add another pet</button>
       </form>
     </section >
   );
