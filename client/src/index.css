@@ -255,3 +255,67 @@ footer a:hover {
   background-position-y: center;
   height: 425px;
 }
+
+.donate-h1 {
+  text-align: center;
+  padding: 40px 20px 30px;
+}
+
+.donate-paws p,
+.donate-site p {
+  margin: 0 auto;
+  font-size: 20px;
+  max-width: 50%;
+  text-align: center;
+}
+
+.donate-paws div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  width: 80%;
+  margin: 40px auto;
+}
+
+.donate-paws button {
+  font-size: 16px;
+  background-color: var(--tomato-red);
+  color: #FFF;
+  width: 240px;
+  margin: 10px;
+  padding: 12px;
+  border-radius: 6px;
+  border: none;
+}
+
+.donate-paws button:hover {
+  background-color: var(--dark-red);
+  cursor: pointer;
+}
+
+.donation-divider {
+  display: flex;
+  justify-content: center;
+}
+
+.donation-divider hr {
+  width: 40%;
+  border: none;
+  border-bottom: 1px solid var(--light-grey);
+  align-self: center;
+  margin: 0 20px;
+}
+
+
+.donate-site p {
+  padding: 50px 20px 30px;
+}
+
+.donate-site small {
+  display: block;
+  width: 35%;
+  margin: 0 auto;
+  padding: 0 20px 40px;
+  text-align: center;
+  color: #908A8A;
+}
