@@ -76,4 +76,20 @@ export const QUERY_POSTS = gql`
 `;
 
 export const QUERY_POST = gql`
-    query post()`;
+  query post($id: ID!) {
+    post(_id: $id) {
+      _id
+      postText
+      feedName
+      createdAt
+      username
+      replyCount
+      replies {
+        _id
+        replyText
+        createdAt
+        username
+      }
+    }
+  }
+`;
