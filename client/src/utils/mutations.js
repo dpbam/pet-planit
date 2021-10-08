@@ -23,3 +23,36 @@ export const ADD_USER = gql`
     }
   }
 `;
+
+export const UPDATE_USER = gql`
+  mutation updateUser($id: ID!) {
+    updateUser(id: $id) {
+      _id
+      username
+      email
+      firstName
+      lastName
+      zipcode
+      interests
+      petCount
+      postCount
+      donationCount
+      pets {
+        _id
+        petName
+        petType
+        petBreed
+        petAge
+        about
+        owner
+      }
+      posts {
+        _id
+        postText
+        feedName
+        username
+        replies
+      }
+    }
+  }
+`;
