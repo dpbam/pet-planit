@@ -269,7 +269,7 @@ footer a:hover {
 .profile-detail-container {
   display: flex;
   flex-wrap: wrap;
-  padding: 0px 10px 10px 10px;
+  padding: 0px 0px 10px 10px;
   justify-content: space-between;
 }
 
@@ -366,6 +366,10 @@ input[type="radio"]:checked {
 
 .pet-edit, .profile-edit, .pet-add {
   background-color: #6666FF;
+}
+
+.profile-save, .pet-save {
+  background-color: #44ad52;
 }
 
 .pet-add {
