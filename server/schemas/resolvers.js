@@ -31,10 +31,10 @@ const resolvers = {
         .populate("donations");
     },
     pets: async () => {
-        return Pet.find();
+      return Pet.find();
     },
     pet: async (parent, { owner }) => {
-        const params = owner ? { owner } : {};
+      const params = owner ? { owner } : {};
       return Pet.find(params);
     },
     feeds: async () => {
@@ -45,7 +45,7 @@ const resolvers = {
       return Feed.find(params).populate("posts");
     },
     posts: async () => {
-        return Post.find();
+      return Post.find();
     },
     postsByFeed: async (parent, { feedName }) => {
       const params = feedName ? { feedName } : {};
@@ -125,11 +125,9 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
-    deletePet: async (parent, petId, context) => {
+    deletePet: async (parent, { petId }, context) => {
       if (context.user) {
-        const deletedPet = await Pet.findByIdAndDelete({
-          _id: petId,
-        });
+        const deletedPet = await Pet.findByIdAndDelete(petId);
 
         await User.findByIdAndUpdate(
           { _id: context.user._id },
@@ -174,11 +172,9 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
-    deletePost: async (parent, postId, context) => {
+    deletePost: async (parent, { postId }, context) => {
       if (context.user) {
-        const deletedPost = await Post.findByIdAndDelete({
-          _id: postId,
-        });
+        const deletedPost = await Post.findByIdAndDelete(postId);
 
         await User.findByIdAndUpdate(
           { _id: context.user._id },
@@ -204,12 +200,13 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
+    // need to fix
     updateReply: async (parent, { replyId, postId, replyText }, context) => {
       if (context.user) {
         const updatedReplyPost = await Post.findByIdAndUpdate(
           { _id: postId },
           {
-            $addToSet: { replies: { replyId: replyId, replyText: replyText } },
+            $addToSet: { replies: { _id: replyId, replyText: replyText } },
           },
           { new: true, runValidators: true }
         );
@@ -217,6 +214,7 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
+    // need to fix
     deleteReply: async (parent, { replyId, postId }, context) => {
       if (context.user) {
         const deletedReplyPost = await Post.findByIdAndUpdate(

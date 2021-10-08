@@ -75,8 +75,8 @@ const typeDefs = gql`
         updateUser(username: String!, email: String!, password: String!, zipcode: String): Auth
         addPet(petName: String!, petType: String!, petAge: Int!, dogBreed: String, about: String): Pet
         updatePet(petId: ID!, petName: String!, petType: String!, petAge: Int!, dogBreed: String, about: String): Pet
-        deletePet(petId: ID!): Auth
-        addPost(postText: String!): Post
+        deletePet(petId: ID!): Pet
+        addPost(postText: String!, feedName: String!): Post
         updatePost(postId: ID!, postText: String!): Post
         deletePost(postId: ID!): Post
         addReply(postId: ID!, replyText: String!): Post
