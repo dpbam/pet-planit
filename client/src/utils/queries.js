@@ -22,6 +22,22 @@ export const QUERY_USER = gql`
         about
         owner
       }
+      posts {
+        _id
+        postText
+        feedName
+        createdAt
+        username
+        replyCount
+        replies
+      }
+      donations {
+        _id
+        donationAmount
+        donationRecipient
+        createdAt
+        username
+      }
     }
   }
 `;
