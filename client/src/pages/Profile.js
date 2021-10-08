@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import $ from 'jquery';
 
 // TODO add interests
@@ -24,18 +24,6 @@ const Profile = (props) => {
   const editProfile = () => {
     setEditingProfile(!editingProfile);
     // TODO add logic for graphql mutation to update profile
-  }
-
-  const resetTextAreas = () => {
-    let pets = $(document.getElementsByClassName("pet-box"));
-    let pet = $(pets);
-    let textAreas = pet.find('textarea');
-    console.log(textAreas);
-    $.each(textAreas, (index, area) => {
-      console.log(area);
-      //$(area).val("test");
-     // $(area).remove();
-    });
   }
 
   const editPet = (petnum) => {
@@ -75,31 +63,31 @@ const Profile = (props) => {
       let tempArr = [];
       for( var i = 0; i < statePets.length; i++){ 
                                    
-        if (i != petnum) { 
+        if (i !== petnum) { 
           tempArr.push(statePets[i]);
         }
     }
-    resetTextAreas();
       setPets(tempArr);
-      console.log(statePets);
     }
+
+    // TODO add logic for graphql mutation to update pets
   }
 
   const addPet = () => {
     let tempArr = [...statePets]; // Have to use the spread operator so it creates a new reference. aka without this it wont re-render on state change
     tempArr.push({
-      name: "",
-      type: "",
-      breed: "",
+      name: "New Pet",
+      type: "?",
+      breed: "N/A",
       age: 0,
-      about: "",
+      about: "N/A",
       owner: "Timbo",
       playdate: false,
       image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Question_Mark.svg/1200px-Question_Mark.svg.png"
     });
-    console.log(statePets);
     setPets(tempArr);
-    console.log(statePets);
+
+    // TODO add logic for graphql mutation to update pets
   }
 
   return (
@@ -194,7 +182,7 @@ const Profile = (props) => {
       <form id="profile-pets">
 
         {statePets && statePets.map((pet, index) => (
-          <div key={index} className="pet-box" pet={index}>
+          <div key={index + pet.name} className="pet-box" pet={index}>
             <div className="pet-details-1">
 
               <div className="profile-detail-container" key={pet.name}>
