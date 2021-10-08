@@ -7,6 +7,8 @@ import Profile from "./pages/Profile";
 
 const exampleProfile = {
   username: "Timbo",
+  firstName: "Tim",
+  lastName: "Primmer",
   email: "test@gmail.com",
   zipcode: "54321",
   image: "https://avatars.githubusercontent.com/u/28116353?v=4",
@@ -47,7 +49,7 @@ function App() {
         <div>
           <Switch>
             <Route exact path="/" component={Home} />
-            <Profile profile={exampleProfile} />
+            <Route exact path="/profile" component={() => (<Profile profile={exampleProfile} />)}/>
             {/* Possible solution to if a user hits a relative path that doesn't exist, can change later */}
             <Route render={() => <h2>404</h2>} />
           </Switch>

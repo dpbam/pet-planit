@@ -6,6 +6,8 @@ const Profile = (props) => {
 
   const {
     username,
+    firstName,
+    lastName,
     email,
     zipcode,
     image,
@@ -23,8 +25,12 @@ const Profile = (props) => {
 
           <div className="profile-details-holder">
             <div className="profile-detail-container">
-              <label>Username</label>
-              <textarea type="text" name="owner-name" defaultValue={username} readOnly />
+              <label>First name</label>
+              <textarea type="text" name="owner-fname" defaultValue={firstName} readOnly />
+            </div>
+            <div className="profile-detail-container">
+              <label>Last name</label>
+              <textarea type="text" name="owner-lname" defaultValue={lastName} readOnly />
             </div>
             <div className="profile-detail-container">
               <label>Email</label>

@@ -41,6 +41,7 @@ h1 {
 header a {
   text-decoration: none;
 }
+
 header nav {
   padding-right: 35px;
   display: flex;
@@ -85,8 +86,7 @@ header .active {
   background-position: center;
 }
 
-.signup-form,
-.login-form {
+.signup-form, .login-form {
   background-color: #FFF;
   width: 400px;
   height: 550px;
@@ -102,13 +102,11 @@ header .active {
   height: 470px;
 }
 
-.signup-form div,
-.login-form div {
+.signup-form div, .login-form div {
   padding: 15px 20px 10px;
 }
 
-.signup-form h3,
-.login-form h3 {
+.signup-form h3, .login-form h3 {
   font-size: 24px;
   padding-top: 35px;
   text-align: center;
@@ -119,8 +117,7 @@ header .active {
   padding-top: 25px;
 }
 
-.signup-form h4,
-.login-form h4 {
+.signup-form h4, .login-form h4 {
   font-size: 20px;
   padding-top: 35px;
   text-align: center;
@@ -131,8 +128,7 @@ header .active {
   padding-top: 25px;
 }
 
-.signup-form h4:after,
-.login-form h4::after {
+.signup-form h4:after, .login-form h4::after {
   content: "";
   display: block;
   margin: 0 auto;
@@ -141,21 +137,18 @@ header .active {
   border-bottom: 2px solid var(--light-grey);
 }
 
-.signup-form form,
-.login-form form {
+.signup-form form, .login-form form {
   display: flex;
   flex-wrap: wrap;
   margin-top: 10px;
 }
 
-.signup-form label,
-.login-form label {
+.signup-form label, .login-form label {
   flex: 100%;
   margin: 15px 15px 6px;
 }
 
-.signup-form form input,
-.login-form form input {
+.signup-form form input, .login-form form input {
   flex: 100%;
   height: 35px;
   margin: 0 15px;
@@ -163,8 +156,7 @@ header .active {
   border-width: 1px;
 }
 
-.signup-form form button,
-.login-form form button {
+.signup-form form button, .login-form form button {
   flex: 0 1 50%;
   padding: 10px;
   margin: 25px auto 15px;
@@ -176,18 +168,15 @@ header .active {
   cursor: pointer;
 }
 
-.signup-form form button:hover,
-.login-form form button:hover {
+.signup-form form button:hover, .login-form form button:hover {
   background-color: var(--dark-red);
 }
 
-.signup-form p,
-.login-form p {
+.signup-form p, .login-form p {
   text-align: center;
 }
 
-.signup-form p span:hover,
-.login-form p span:hover {
+.signup-form p span:hover, .login-form p span:hover {
   color: var(--dark-red);
   border-bottom: 1px solid var(--dark-red);
   padding-bottom: 2px;
@@ -261,7 +250,7 @@ footer a:hover {
 }
 
 #profile-pets {
-  display:flex;
+  display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
@@ -302,6 +291,7 @@ footer a:hover {
 }
 
 .profile-button-holder {
+  padding: 10px 0px 10px 0px;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -382,20 +372,28 @@ input[type="radio"]:checked {
   width: 150px;
 }
 
-
 .pet-delete {
   background-color: #FF666F;
 }
 
 .pet-button-holder {
+  padding: 10px 0px 10px 0px;
   width: 100%;
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
 
-.pet-image-container, .profile-image-container {
+.pet-image-container {
   width: 50%;
+  max-width: 150px;
+  min-width: 100px;
+  position: relative;
+}
+
+.profile-image-container {
+  width: 50%;
+  min-width: 100px;
   position: relative;
 }
 
@@ -446,7 +444,7 @@ input[type="radio"]:checked {
   border-style: solid;
   border-width: 1px;
   width: 100%;
-  height: 170px;
+  height: 90%;
   padding: 10px;
 }
 
