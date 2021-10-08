@@ -38,9 +38,9 @@ const Signup = () => {
   // };
 
   return (
-    <div>
-      <h3>Welcome!</h3>
-      <h4>Sign Up</h4>
+    <div className="signup">
+      <p>Welcome!</p>
+      <h1>Sign Up</h1>
         {/* <form onSubmit={handleFormSubmit}> */}
         <form>
           <label htmlFor="name">Name:</label>

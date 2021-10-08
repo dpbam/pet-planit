@@ -40,9 +40,9 @@ const Login = (props) => {
   // };
 
   return (
-    <div>
-      <h3>Welcome back!</h3>
-      <h4>Login</h4>
+    <div className="login">
+      <p>Welcome back!</p>
+      <h1>Login</h1>
         {/* <form onSubmit={handleFormSubmit}> */}
         <form>
           <label htmlFor="email">Email:</label> 

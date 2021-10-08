@@ -36,8 +36,9 @@ header {
   z-index: 9999;
 }
 
-h1 {
+.site-name {
   margin: 30px 40px;
+  font-size: 32px;
   color: #FFF;
   font-weight: normal;
 }
@@ -112,32 +113,32 @@ header .active {
   padding: 15px 20px 10px;
 }
 
-.signup-form h3,
-.login-form h3 {
+.signup p,
+.login p {
   font-size: 24px;
   padding-top: 35px;
   text-align: center;
   font-weight: normal;
 }
 
-.signup-form h3 {
+.signup p {
   padding-top: 25px;
 }
 
-.signup-form h4,
-.login-form h4 {
+.signup-form h1,
+.login-form h1 {
   font-size: 20px;
   padding-top: 35px;
   text-align: center;
   font-weight: normal;
 }
 
-.signup-form h4 {
+.signup-form h1 {
   padding-top: 25px;
 }
 
-.signup-form h4:after,
-.login-form h4::after {
+.signup-form h1:after,
+.login-form h1::after {
   content: "";
   display: block;
   margin: 0 auto;
