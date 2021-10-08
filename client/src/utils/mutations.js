@@ -133,6 +133,18 @@ export const UPDATE_REPLY = gql`
     }
 `;
 
+export const DELETE_REPLY = gql`
+    mutation deleteReply($postId: ID!, $replyId: ID!) {
+
+    }
+`;
+
+export const ADD_DONATION = gql`
+    mutation addDonation($donationAmount: Int!, $donationRecipient: String!) {
+
+    }
+`;
+
 // export const ADD_FRIEND = gql`
 //   mutation addFriend($id: ID!) {
 //     addFriend(friendId: $id) {
