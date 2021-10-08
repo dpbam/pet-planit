@@ -41,3 +41,17 @@ export const QUERY_USER = gql`
     }
   }
 `;
+
+export const QUERY_PET = gql`
+  query pet($id: ID!) {
+    pet(_id: $id) {
+      _id
+      petName
+      petType
+      petBreed
+      petAge
+      about
+      owner
+    }
+  }
+`;
