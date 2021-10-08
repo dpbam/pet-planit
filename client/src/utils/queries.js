@@ -1,5 +1,38 @@
 import { gql } from '@apollo/client';
 
+export const QUERY_ME = gql`
+  {
+    me {
+      _id
+      username
+      email
+      firstName
+      lastName
+      zipcode
+      interests
+      petCount
+      postCount
+      donationCount
+      pets {
+        _id
+        petName
+        petType
+        petBreed
+        petAge
+        about
+        owner
+      }
+    }
+  }
+`;
+
+// not sure how to do this one
+export const QUERY_USERS = gql`
+    query users($username: String!) {
+
+    }
+`;
+
 export const QUERY_USER = gql`
   query user($username: String!) {
     user(username: $username) {
@@ -43,8 +76,8 @@ export const QUERY_USER = gql`
 `;
 
 export const QUERY_PET = gql`
-  query pet($id: ID!) {
-    pet(_id: $id) {
+  query pet($owner: String!) {
+    pet(owner: $owner) {
       _id
       petName
       petType
@@ -54,6 +87,13 @@ export const QUERY_PET = gql`
       owner
     }
   }
+`;
+
+// not sure how to do this one
+export const QUERY_PETS = gql`
+    query pets($petId: ID!) {
+
+    }
 `;
 
 export const QUERY_POSTS = gql`
@@ -89,32 +129,6 @@ export const QUERY_POST = gql`
         replyText
         createdAt
         username
-      }
-    }
-  }
-`;
-
-export const QUERY_ME = gql`
-  {
-    me {
-      _id
-      username
-      email
-      firstName
-      lastName
-      zipcode
-      interests
-      petCount
-      postCount
-      donationCount
-      pets {
-        _id
-        petName
-        petType
-        petBreed
-        petAge
-        about
-        owner
       }
     }
   }

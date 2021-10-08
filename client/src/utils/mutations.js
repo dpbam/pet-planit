@@ -87,25 +87,43 @@ export const UPDATE_USER = gql`
 
 export const ADD_PET = gql`
     mutation addPet($petName: String!, $petType: String!, $petAge: Int!, $petBreed: String, $about: String) {
+        addPet(petName: $petName, petType: $petType, petAge: $petAge, petBreed: $petBreed, about: $about) {
 
+        }
     }
 `;
 
 export const UPDATE_PET = gql`
-    mutation updatePet($petId: ID!, $petName: String!, $petType: String!, $petAge: Int!, $petBreed: String, $about: String) {
-
-    }
+  mutation updatePet(
+    $petId: ID!
+    $petName: String!
+    $petType: String!
+    $petAge: Int!
+    $petBreed: String
+    $about: String
+  ) {
+    updatePet(
+      petId: $petId
+      petName: $petName
+      petType: $petType
+      petAge: $petAge
+      petBreed: $petBreed
+      about: $about
+    )
+  }
 `;
 
 export const DELETE_PET = gql`
     mutation deletePet($petId: ID!) {
+        deletePet(petId: $petId) {
 
+        }
     }
 `;
 
 export const ADD_POST = gql`
-  mutation addPost($postText: String!) {
-    addPost(postText: $postText, feedName: String!) {
+  mutation addPost($postText: String!, $feedName: String!) {
+    addPost(postText: $postText, feedName: $feedName) {
       _id
       postText
       feedName
@@ -119,42 +137,55 @@ export const ADD_POST = gql`
 
 export const UPDATE_POST = gql`
     mutation updatePost($postId: ID!, $postText: String!) {
+        updatePost(postId: $postId, postText: $postText) {
+
+        }
 
     }
 `;
 
 export const DELETE_POST = gql`
-    mutation deletePost(postId: ID!) {
+    mutation deletePost($postId: ID!) {
+        deletePost(postId: $postId) {
+
+        }
 
     }
 `;
 
 // I think I'm doing this one right
 export const ADD_REPLY = gql`
-    mutation addReply($postId: ID!, $replyText: String!) {
-        addReply(postId: $postId, replyText: $replyText) {
-            $_id
-            replyText
-            createdAt
-            username
-        }
+  mutation addReply($postId: ID!, $replyText: String!) {
+    addReply(postId: $postId, replyText: $replyText) {
+      _id
+      replyText
+      createdAt
+      username
     }
+  }
 `;
 
 export const UPDATE_REPLY = gql`
     mutation updateReply($postId: ID!, $replyId: ID!, $replyText: String!) {
-
+        updateReply(postId: $postId, replyId: $replyId, replyText: $replyText) {
+            
+        }
     }
 `;
 
 export const DELETE_REPLY = gql`
     mutation deleteReply($postId: ID!, $replyId: ID!) {
+        deleteReply(postId: $postId, replyId: $replyId) {
 
+        }
     }
 `;
 
 export const ADD_DONATION = gql`
     mutation addDonation($donationAmount: Int!, $donationRecipient: String!) {
+        addDonation(donationAmount: $donationAmount, donationRecipient: $donationRecipient) {
+            
+        }
 
     }
 `;
