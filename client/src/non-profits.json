@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "name": "Wildlife Conservation Society",
+    "url": "https://secure.wcs.org/donate/protect-wild-protect-world"
+  },
+  {
+    "id": 2,
+    "name": "Humane Society",
+    "url": "https://secured.humanesociety.org/page/81880/donate/1"
+  },
+  {
+    "id": 3,
+    "name": "Austin Pets Alive",
+    "url": "https://www.austinpetsalive.org/donate"
+  },
+  {
+    "id": 4,
+    "name": "African Wildlife Foundation",
+    "url": "https://secure.awf.org/"
+  },
+  {
+    "id": 5,
+    "name": "ASPCA",
+    "url": "https://secure.aspca.org/donate/donate"
+  }
+]

@@ -25,6 +25,7 @@ code {
     monospace;
 }
 
+/* Header/Nav Styles */
 header {
   display: flex;
   flex-wrap: wrap;
@@ -78,6 +79,7 @@ header .active {
   min-height: calc(100vh - 215px);
 }
 
+/* Home/Signup/Login Styles */
 .hero {
   display: flex;
   justify-content: flex-end;
@@ -215,6 +217,7 @@ header .active {
   text-align: center;
 }
 
+/* Footer styles */
 footer {
   display: flex;
   flex-wrap: wrap;
@@ -242,4 +245,12 @@ footer a {
 
 footer a:hover {
   border-bottom: 2px solid #FFF;
+}
+
+/* Donate page styles */
+.hero-donate {
+  background-image: url("./images/dog-cat-snuggle.jpg");
+  background-size: cover;
+  background-position-y: center;
+  height: 425px;
 }
