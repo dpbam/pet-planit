@@ -3,7 +3,7 @@ import { FaGithub } from 'react-icons/fa';
 
 export const Footer = () => {
   return (
-    <div>
+    <footer>
       <p>
         <a
           href="https://github.com/dpbam'
@@ -50,7 +50,7 @@ export const Footer = () => {
           Tim Primmer
         </a>
       </p>
-    </div>
+    </footer>
   );
 };
 

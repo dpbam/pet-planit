@@ -1,11 +1,26 @@
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
-import Nav from "./components/Nav";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import Home from "./pages/Home";
 
 function App() {
   return (
-    <div>
-      <Nav />
-    </div>
+    <Router>
+      <div>
+        <Header />
+        <div>
+          <Switch>
+            <Route exact path="/" component={Home} />
+
+            {/* Possible solution to if a user hits a relative path that doesn't exist, can change later */}
+            <Route render={() => <h2>404</h2>} />
+          </Switch>
+        </div>
+        <Footer />
+      </div>
+    </Router>
+    
   );
 }
 
