@@ -97,6 +97,10 @@ header .active {
   align-self: center;
 }
 
+.signup-form {
+  height: 580px;
+}
+
 .login-form {
   height: 470px;
 }
@@ -114,12 +118,20 @@ header .active {
   font-weight: normal;
 }
 
+.signup-form h3 {
+  padding-top: 25px;
+}
+
 .signup-form h4,
 .login-form h4 {
   font-size: 20px;
   padding-top: 35px;
   text-align: center;
   font-weight: normal;
+}
+
+.signup-form h4 {
+  padding-top: 25px;
 }
 
 .signup-form h4:after,

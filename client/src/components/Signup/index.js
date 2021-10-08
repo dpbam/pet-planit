@@ -53,6 +53,16 @@ const Signup = () => {
             value={formState.username}
             onChange={handleChange}
           />
+          <label htmlFor="email">Zipcode:</label>
+          <input
+            className='form-input'
+            placeholder='Zipcode'
+            name='zipcode'
+            type='zipcode'
+            id='zipcode'
+            value={formState.zipcode}
+            onChange={handleChange}
+          />
           <label htmlFor="email">Email:</label>
           <input
             className='form-input'
