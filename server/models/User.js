@@ -20,9 +20,22 @@ const userSchema = new Schema(
       required: true,
       minlength: 5,
     },
+    firstName: {
+      type: String,
+      required: true,
+      minlength: 1
+    },
+    lastName: {
+      type: String,
+      required: true,
+      minlength: 1
+    },
     zipcode: {
       type: String,
       maxlength: 5,
+    },
+    interests: {
+      type: String 
     },
     pets: [
       {
