@@ -272,8 +272,8 @@ footer a:hover {
 .donate-paws div {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
-  width: 80%;
+  justify-content: center;
+  width: 70%;
   margin: 40px auto;
 }
 
@@ -282,7 +282,7 @@ footer a:hover {
   background-color: var(--tomato-red);
   color: #FFF;
   width: 240px;
-  margin: 10px;
+  margin: 15px 20px;
   padding: 12px;
   border-radius: 6px;
   border: none;
@@ -305,7 +305,6 @@ footer a:hover {
   align-self: center;
   margin: 0 20px;
 }
-
 
 .donate-site p {
   padding: 50px 20px 30px;
