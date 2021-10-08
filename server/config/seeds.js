@@ -28,38 +28,26 @@ db.once("open", async () => {
   // create pet data
   let createdPets = [];
   const petTypeArr = ["dog", "cat"];
-  const dogBreedArr = [
-    "golden retriever",
-    "labrador",
-    "pit bull terrier",
-    "huskey",
-    "french bulldog",
-    "boston terrier",
-  ];
 
   for (let i = 0; i < 50; i += 1) {
     const { username, _id: userId } = createdUsers.ops[i];
     const randomPetTypeIndex = Math.floor(Math.random() * petTypeArr.length);
-    const randomDogBreedIndex = Math.floor(Math.random() * dogBreedArr.length);
 
     const owner = username;
     const petName = faker.name.firstName();
     const petType = petTypeArr[randomPetTypeIndex];
-    let dogBreed = "N/A";
+    const petBreed = "N/A";
     const petAge = faker.datatype.number({
       min: 1,
       max: 15,
     });
     const about = faker.lorem.sentences();
 
-    if (petType === "dog") {
-      dogBreed = dogBreedArr[randomDogBreedIndex];
-    }
     const createdPet = await Pet.create({
       owner,
       petName,
       petType,
-      dogBreed,
+      petBreed,
       petAge,
       about,
     });

@@ -22,7 +22,7 @@ const typeDefs = gql`
         _id: ID
         petName: String
         petType: String
-        dogBreed: String
+        petBreed: String
         petAge: Int
         about: String
         owner: String
@@ -76,8 +76,8 @@ const typeDefs = gql`
         login(email: String!, password: String!): Auth
         addUser(username: String!, email: String!, password: String!, firstName: String!, lastName: String!, zipcode: String): Auth
         updateUser(username: String!, email: String!, password: String!, firstName: String!, lastName: String!, zipcode: String): Auth
-        addPet(petName: String!, petType: String!, petAge: Int!, dogBreed: String, about: String): Pet
-        updatePet(petId: ID!, petName: String!, petType: String!, petAge: Int!, dogBreed: String, about: String): Pet
+        addPet(petName: String!, petType: String!, petAge: Int!, petBreed: String, about: String): Pet
+        updatePet(petId: ID!, petName: String!, petType: String!, petAge: Int!, petBreed: String, about: String): Pet
         deletePet(petId: ID!): Pet
         addPost(postText: String!, feedName: String!): Post
         updatePost(postId: ID!, postText: String!): Post

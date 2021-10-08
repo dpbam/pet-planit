@@ -13,7 +13,7 @@ const petSchema = new Schema(
       required: true,
       // match: enums: dog, cat, ...
     },
-    dogBreed: {
+    petBreed: {
       type: String,
       required: true,
       // match: enums: 
