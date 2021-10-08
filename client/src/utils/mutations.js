@@ -21,7 +21,14 @@ export const ADD_USER = gql`
     $lastName: String!
     $zipcode: String
   ) {
-    addUser(username: $username, email: $email, password: $password) {
+    addUser(
+      username: $username
+      email: $email
+      password: $password
+      firstName: $firstName
+      lastName: $lastName
+      zipcode: $zipcode
+    ) {
       token
       user {
         _id
@@ -40,7 +47,14 @@ export const UPDATE_USER = gql`
     $lastName: String!
     $zipcode: String
   ) {
-    updateUser(id: $id) {
+    updateUser(
+      username: $username
+      email: $email
+      password: $password
+      firstName: $firstName
+      lastName: $lastName
+      zipcode: $zipcode
+    ) {
       _id
       username
       email
