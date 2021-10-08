@@ -93,3 +93,29 @@ export const QUERY_POST = gql`
     }
   }
 `;
+
+export const QUERY_ME = gql`
+  {
+    me {
+      _id
+      username
+      email
+      firstName
+      lastName
+      zipcode
+      interests
+      petCount
+      postCount
+      donationCount
+      pets {
+        _id
+        petName
+        petType
+        petBreed
+        petAge
+        about
+        owner
+      }
+    }
+  }
+`;
