@@ -24,5 +24,8 @@
   "homepage": "https://github.com/dpbam/pet-social-network#readme",
   "devDependencies": {
     "concurrently": "^6.3.0"
+  },
+  "dependencies": {
+    "dotenv": "^10.0.0"
   }
 }
