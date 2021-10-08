@@ -1,4 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useQuery } from '@apollo/client';
+import { useStoreContext } from '../../utils/GlobalState';
+import { } from '../../utils/actions';
+
 import { Link } from 'react-router-dom';
 
 import { useStoreContext } from '../../utils/GlobalState';
