@@ -27,21 +27,13 @@ const exampleProfile = {
     playdate: false,
     image: "http://cdn.akc.org/content/hero/smiley_border_terrier_hero.jpg"
   }],
-  posts: [{
-    title: "Test post 1"
-  },
-  {
-    title: "Test post 2"
-  },
-  {
-    title: "Test post 3"
-  },
-  {
-    title: "Test post 4"
-  },
-  {
-    title: "Test post 5"
-  }]
+  posts: [
+    { title: "Test post 1" },
+    { title: "Test post 2" },
+    { title: "Test post 3" },
+    { title: "Test post 4" },
+    { title: "Test post 5" }
+  ]
 }
 
 

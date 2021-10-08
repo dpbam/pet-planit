@@ -1,5 +1,6 @@
 import React from 'react';
 
+// TODO add interests
 
 const Profile = (props) => {
 
@@ -52,7 +53,7 @@ const Profile = (props) => {
           <div id="posts-container">
             <ul>
               {posts.map((post, index) => (
-                <li className="profile-post">
+                <li className="profile-post" key={index}>
                   <a href="./">{post.title}</a>
                 </li>
               ))}
@@ -138,9 +139,8 @@ const Profile = (props) => {
           </div>
         ))}
 
-
+        <button type="button" className="pet-add button">Add another pet</button>
       </form>
-
     </section >
   );
 
