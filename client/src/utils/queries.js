@@ -29,7 +29,40 @@ export const QUERY_ME = gql`
 // not sure how to do this one
 export const QUERY_USERS = gql`
     query users($username: String!) {
-
+        _id
+      username
+      email
+      firstName
+      lastName
+      zipcode
+      interests
+      petCount
+      postCount
+      donationCount
+      pets {
+        _id
+        petName
+        petType
+        petBreed
+        petAge
+        about
+        owner
+      }
+      posts {
+        _id
+        postText
+        feedName
+        createdAt
+        username
+        replyCount
+        replies
+      }
+      donations {
+        _id
+        donationAmount
+        donationRecipient
+        createdAt
+        username
     }
 `;
 
@@ -100,17 +133,25 @@ export const QUERY_PETS = gql`
 
 // not sure how to do this one
 export const QUERY_FEEDS = gql`
-    query feeds() {
-
+  query feeds($feedName: String!) {
+    feed(feedName: $feedName) {
+      _id
+      feedName
+      posts
+      postCount
     }
+  }
 `;
 
 export const QUERY_FEED = gql`
-    query feed($feedName: String!) {
-        feed(feedName: $feedName) {
-
-        }
+  query feed($feedName: String!) {
+    feed(feedName: $feedName) {
+      _id
+      feedName
+      posts
+      postCount
     }
+  }
 `;
 
 // is this right?
