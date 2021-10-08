@@ -39,28 +39,53 @@ const Signup = () => {
 
   return (
     <div>
-      <h3>Welcome!</h3>
       <h4>Sign Up</h4>
         {/* <form onSubmit={handleFormSubmit}> */}
         <form>
-          <label htmlFor="name">Name:</label>
-          <input
-            className='form-input'
-            placeholder='Your name'
-            name='name'
-            type='name'
-            id='name'
-            value={formState.username}
-            onChange={handleChange}
-          />
+          <div className="full-name">
+            <div>
+              <label htmlFor="first-name">First name:</label>
+              <input
+                className='form-input'
+                placeholder='Your first name'
+                name='first-name'
+                type='text'
+                id='first-name'
+                value={formState.firstName}
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <label htmlFor="last-name">Last name:</label>
+              <input
+                className='form-input'
+                placeholder='Your last name'
+                name='last-name'
+                type='text'
+                id='last-name'
+                value={formState.lastName}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
           <label htmlFor="email">Zipcode:</label>
           <input
             className='form-input'
             placeholder='Zipcode'
             name='zipcode'
-            type='zipcode'
+            type='text'
             id='zipcode'
             value={formState.zipcode}
+            onChange={handleChange}
+          />
+          <label htmlFor="name">Username:</label>
+          <input
+            className='form-input'
+            placeholder='Username'
+            name='username'
+            type='text'
+            id='username'
+            value={formState.username}
             onChange={handleChange}
           />
           <label htmlFor="email">Email:</label>

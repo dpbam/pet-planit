@@ -93,7 +93,7 @@ header .active {
   background-color: #FFF;
   width: 400px;
   height: 550px;
-  margin: 40px 60px;
+  margin: 30px 60px;
   align-self: center;
 }
 
@@ -131,14 +131,14 @@ header .active {
 }
 
 .signup-form h4 {
-  padding-top: 25px;
+  padding-top: 15px;
 }
 
 .signup-form h4:after,
 .login-form h4::after {
   content: "";
   display: block;
-  margin: 0 auto;
+  margin: 0 auto 22px;
   width: 150px;
   padding-top: 15px;
   border-bottom: 2px solid var(--light-grey);
@@ -182,6 +182,31 @@ header .active {
 .signup-form form button:hover,
 .login-form form button:hover {
   background-color: var(--dark-red);
+}
+
+form .full-name {
+  display: inline-flex;
+  padding: 0;
+  align-items: baseline;
+}
+
+form .full-name div {
+  padding: 0;
+}
+
+form .full-name div:first-child {
+  margin: 0 0 0 15px;
+}
+
+label[for="first-name"],
+label[for="last-name"] {
+  margin: 0;
+}
+
+#first-name,
+#last-name {
+  margin: 6px 0 0;
+  
 }
 
 .signup-form p,
