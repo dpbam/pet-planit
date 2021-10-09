@@ -80,7 +80,6 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    // need to make sure pet owner is updated when username updated!!
     updateUser: async (parent, args, context) => {
       if (context.user) {
         let updatedUserData = await User.findByIdAndUpdate(
@@ -200,7 +199,6 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
-    // need to fix
     updateReply: async (parent, { replyId, postId, replyText }, context) => {
       if (context.user) {
         const updatedReplyPost = await Post.findByIdAndUpdate(
@@ -214,7 +212,6 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
-    // need to fix
     deleteReply: async (parent, { replyId, postId }, context) => {
       if (context.user) {
         const deletedReplyPost = await Post.findByIdAndUpdate(
