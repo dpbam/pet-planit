@@ -2,18 +2,18 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { QUERY_POST } from '../utils/queries';
-import ReactionList from '../components/Reply';
-import ReactionForm from '../components/ReactionForm';
+import ReplyList from '../components/Reply';
+import ReplyForm from '../components/ReplyForm';
 import Auth from '../utils/auth';
 
-const SingleNews = props => {
-    const { id: newsId } = useParams();
+const SinglePawFeed = props => {
+    const { id: postId } = useParams();
 
-    const { loading, data } = useQuery(QUERY_NEWS, {
-        variables: { id: newsId }
+    const { loading, data } = useQuery(QUERY_POST, {
+        variables: { id: postId }
     });
 
-    const news = data?.news || {};
+    const post = data?.news || {};
 
     if (loading) {
         return <div>Loading...</div>;
@@ -24,18 +24,18 @@ const SingleNews = props => {
             <div className="card mb-3">
                 <p className="card-header">
                     <span style={{ fontWeight: 700 }} className="text-light">
-                        {news.username}
+                        {post.username}
                     </span>{' '}
-                    news on {news.createdAt}
+                    post on {post.createdAt}
                 </p>
                 <div className="card-body">
-                    <p>{news.newsText}</p>
+                    <p>{post.postText}</p>
                 </div>
             </div>
-            {news.reactionCount > 0 && <ReactionList reactions={news.reactions} />}
-            {Auth.loggedIn() && <ReactionForm newsId={news._id} />}
+            {post.replyCount > 0 && <ReplyList replies={post.replies} />}
+            {Auth.loggedIn() && <ReplyForm postId={post._id} />}
         </div>
     );
 };
 
-export default SingleNews;
+export default SinglePawFeed;
