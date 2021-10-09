@@ -14,13 +14,13 @@ const Donate = () => {
           ))}
         </div>
       </section>
-      <div className="donation-divider">
+      {/* <div className="donation-divider">
         <hr />OR<hr />
       </div>
       <section className="donate-site">
           <p>Consider donating to keep this website up and running&#42;:</p>
           <small>&#42;50% of proceeds will be donated to an animal rescue non-profit each month.</small>
-      </section>
+      </section> */}
     </main>
   );
   
