@@ -24,6 +24,10 @@ const petSchema = new Schema(
         min: 1,
         max: 100
     },
+    playDate: {
+        type: Boolean,
+        default: false 
+      },
     about: {
         type: String,
         trim: true,
