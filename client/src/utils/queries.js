@@ -28,8 +28,8 @@ export const QUERY_ME = gql`
 
 // not sure how to do this one
 export const QUERY_USERS = gql`
-    query users($username: String!) {
-        _id
+    query users {
+      _id
       username
       email
       firstName
@@ -109,47 +109,11 @@ export const QUERY_USER = gql`
   }
 `;
 
-export const QUERY_PET = gql`
-  query pet($owner: String!) {
-    pet(owner: $owner) {
-      _id
-      petName
-      petType
-      petBreed
-      petAge
-      about
-      owner
-    }
-  }
-`;
-
-// not sure how to do this one
-// export const QUERY_PETS = gql`
-//     query pets($petId: ID!) {
-//         pets(petId: $petId) {
-
-//         }
-//   }
-// `;
-
-// not sure how to do this one
 export const QUERY_FEEDS = gql`
-  query feeds($feedName: String!) {
-    feed(feedName: $feedName) {
+  query {
+    feeds {
       _id
       feedName
-      posts
-      postCount
-    }
-  }
-`;
-
-export const QUERY_FEED = gql`
-  query feed($feedName: String!) {
-    feed(feedName: $feedName) {
-      _id
-      feedName
-      posts
       postCount
     }
   }
@@ -157,8 +121,8 @@ export const QUERY_FEED = gql`
 
 // is this right?
 export const QUERY_POSTS = gql`
-  query posts($username: String) {
-    posts(username: $username) {
+  query posts {
+    posts {
       _id
       postText
       feedName
@@ -174,14 +138,6 @@ export const QUERY_POSTS = gql`
     }
   }
 `;
-
-// not sure how to do this one
-// export const QUERY_POSTS_BY_FEED = gql`
-//     query postsByFeed($feedName: String!) {
-//         postsByFeed(feedName: $feedName) {
-//         }
-//     }
-// `;
 
 export const QUERY_POSTS_BY_USER = gql`
   query postsByUser($username: String!) {
