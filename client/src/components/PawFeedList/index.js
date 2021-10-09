@@ -21,7 +21,6 @@ const PawFeedList = ({ currentFeed }) => {
 
     return (
         <div>
-            <h3>{feedName}</h3>
             {posts.length ? (
                 <div className="flex-row">
                     {filterFeeds().map((post) => (
@@ -38,6 +37,9 @@ const PawFeedList = ({ currentFeed }) => {
             ) : (
                 <h3>You haven't added any post yet!</h3>
             )}
+            {loading ? (
+                <div>Loading...</div>
+            ) : null}
         </div>
     )
 }

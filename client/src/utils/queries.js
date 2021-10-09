@@ -63,7 +63,8 @@ export const QUERY_USERS = gql`
         donationRecipient
         createdAt
         username
-    }
+      }
+  }
 `;
 
 export const QUERY_USER = gql`
@@ -123,13 +124,13 @@ export const QUERY_PET = gql`
 `;
 
 // not sure how to do this one
-export const QUERY_PETS = gql`
-    query pets($petId: ID!) {
-        pets(petId: $petId) {
-            
-        }
-    }
-`;
+// export const QUERY_PETS = gql`
+//     query pets($petId: ID!) {
+//         pets(petId: $petId) {
+
+//         }
+//   }
+// `;
 
 // not sure how to do this one
 export const QUERY_FEEDS = gql`
@@ -175,12 +176,12 @@ export const QUERY_POSTS = gql`
 `;
 
 // not sure how to do this one
-export const QUERY_POSTS_BY_FEED = gql`
-    query postsByFeed($feedName: String!) {
-        postsByFeed(feedName: $feedName) {
-        }
-    }
-`;
+// export const QUERY_POSTS_BY_FEED = gql`
+//     query postsByFeed($feedName: String!) {
+//         postsByFeed(feedName: $feedName) {
+//         }
+//     }
+// `;
 
 export const QUERY_POSTS_BY_USER = gql`
   query postsByUser($username: String!) {

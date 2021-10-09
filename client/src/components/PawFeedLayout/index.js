@@ -5,11 +5,9 @@ function PawFeedLayout(post) {
     const {
         _id,
         postText,
-        feedName,
         createdAt,
         username,
         replyCount,
-        replies
     } = post;
 
     return (

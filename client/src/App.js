@@ -6,6 +6,34 @@ import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import PawFeeds from "./pages/PawFeeds"
 import SinglePawFeed from "./pages/SinglePawFeed";
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  createHttpLink,
+} from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
+
+const httpLink = createHttpLink({
+  uri: '/graphql',
+});
+
+//middleware function retrieve the token and combine with existing httpLink later
+const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem('id_token');
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : '',
+    },
+  };
+});
+
+//combine authLink with existing httpLink
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache(),
+});
 
 const exampleProfile = {
   username: "Timbo",
@@ -55,23 +83,24 @@ const exampleProfile = {
 
 function App() {
   return (
-    <Router>
-      <div>
-        <Header />
+    <ApolloProvider client={client}>
+      <Router>
         <div>
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/profile" component={() => (<Profile profile={exampleProfile} />)} />
-            <Route exact path="/pawfeeds" component={PawFeeds} />
-            <Route exact path="/pawfeeds/:id" component={SinglePawFeed} />
-            {/* Possible solution to if a user hits a relative path that doesn't exist, can change later */}
-            <Route render={() => <h2>404</h2>} />
-          </Switch>
+          <Header />
+          <div>
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/profile" component={() => (<Profile profile={exampleProfile} />)} />
+              <Route exact path="/pawfeeds" component={PawFeeds} />
+              <Route exact path="/pawfeeds/:id" component={SinglePawFeed} />
+              {/* Possible solution to if a user hits a relative path that doesn't exist, can change later */}
+              <Route render={() => <h2>404</h2>} />
+            </Switch>
+          </div>
+          <Footer />
         </div>
-        <Footer />
-      </div>
-    </Router>
-
+      </Router>
+    </ApolloProvider>
   );
 }
 
