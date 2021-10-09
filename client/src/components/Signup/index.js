@@ -53,7 +53,7 @@ const Signup = () => {
                 id='first-name'
                 value={formState.firstName}
                 onChange={handleChange}
-                required="true"
+                required={true}
               />
             </div>
             <div>
@@ -66,7 +66,7 @@ const Signup = () => {
                 id='last-name'
                 value={formState.lastName}
                 onChange={handleChange}
-                required="true"
+                required={true}
               />
             </div>
           </div>
@@ -79,7 +79,7 @@ const Signup = () => {
             id='zipcode'
             value={formState.zipcode}
             onChange={handleChange}
-            required="true"
+            required={true}
           />
           <label htmlFor="name">Username&#42;</label>
           <input
@@ -90,7 +90,7 @@ const Signup = () => {
             id='username'
             value={formState.username}
             onChange={handleChange}
-            required="true"
+            required={true}
           />
           <label htmlFor="email">Email&#42;</label>
           <input
@@ -101,7 +101,7 @@ const Signup = () => {
             id='email'
             value={formState.email}
             onChange={handleChange}
-            required="true"
+            required={true}
           />
           <label htmlFor="password">Password&#42;</label>
           <input
@@ -112,9 +112,9 @@ const Signup = () => {
             id='password'
             value={formState.password}
             onChange={handleChange}
-            required="true"
+            required={true}
           />
-          <p class="required">&#42;Required field</p>
+          <p className="required">&#42;Required field</p>
           <button className='btn d-block w-100' type='submit'>
             Submit
           </button>

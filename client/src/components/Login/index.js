@@ -54,7 +54,7 @@ const Login = (props) => {
             id='email'
             value={formState.email}
             onChange={handleChange}
-            required="true"
+            required={true}
           />
           <label htmlFor="password">Password&#42;</label>
           <input
@@ -65,9 +65,9 @@ const Login = (props) => {
             id='password'
             value={formState.password}
             onChange={handleChange}
-            required="true"
+            required={true}
           />
-          <p class="required">&#42;Required field</p>
+          <p className="required">&#42;Required field</p>
           <button className='btn d-block w-100' type='submit'>
             Submit
           </button>
