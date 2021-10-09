@@ -6,6 +6,9 @@ import React, { useState } from 'react';
 
 const Signup = () => {
   const [formState, setFormState] = useState({
+    firstName: '',
+    lastName: '',
+    zipcode: '',
     username: '',
     email: '',
     password: '',
