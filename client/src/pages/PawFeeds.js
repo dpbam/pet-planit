@@ -7,7 +7,7 @@ import Auth from '../utils/auth';
 
 const PawFeeds = () => {
     const { loading, data } = useQuery(QUERY_POSTS);
-    const posts = data?.thoughts || [];
+    const posts = data?.posts || [];
 
     console.log('posts', posts);
 
