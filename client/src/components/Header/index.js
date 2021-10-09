@@ -13,8 +13,8 @@ const Header = () => {
 
   return (
     <header>
-      <Link to="/">
-        <h1>Pet Social Network</h1>
+      <Link to="/" className="site-name">
+        Pet Social Network
       </Link>
 
       <nav>
@@ -27,8 +27,8 @@ const Header = () => {
           </ul>
         ) : (
           <ul>
-            <li><a href="#about" className={activeNav === "about" && "active"} onClick={() => setActiveNav("about")}>About</a></li>
-            <li><a href="/#" className={activeNav === "signup" && "active"} onClick={() => setActiveNav("signup")}>Sign-up / Login</a></li>
+            <li><a href="#about" className={activeNav === "about" ? "active" : ""} onClick={() => setActiveNav("about")}>About</a></li>
+            <li><a href="/#" className={activeNav === "signup" ? "active" : ""} onClick={() => setActiveNav("signup")}>Sign-up / Login</a></li>
           </ul>
         )}
       </nav>
