@@ -1,0 +1,40 @@
+import React from "react";
+import { Link } from "react-router-dom";
+
+function PawFeedLayout(post) {
+    const {
+        _id,
+        postText,
+        feedName,
+        createdAt,
+        username,
+        replyCount,
+        replies
+    } = post;
+
+    return (
+        <div key={_id} className="card mb-3">
+            <p className="card-header">
+                <Link
+                    to={`/profile/${username}`}
+                    style={{ fontWeight: 700 }}
+                    className="text-light"
+                >
+                    {username}
+                </Link>{' '}
+                post on {createdAt}
+            </p>
+            <div className="card-body">
+                <Link to={`/pawfeeds/${_id}`}>
+                    <p>{postText}</p>
+                    <p className="mb-0">
+                        Replies: {replyCount} || Click to{' '}
+                        {replyCount ? 'see' : 'start'} the pets fun!
+                    </p>
+                </Link>
+            </div>
+        </div>
+    );
+}
+
+export default PawFeedLayout;

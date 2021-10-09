@@ -12,7 +12,7 @@ function FeedMenu({ setFeed }) {
                 <button
                     key={feed._id}
                     onClick={() => {
-                        setCategory(feed._id);
+                        setFeed(feed._id);
                     }}
                 >
                     {feed.feedName}
