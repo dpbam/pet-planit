@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Link } from 'react-router-dom';
 
-const PawFeed = ({ posts, feedName }) => {
+const PawFeedList = ({ posts, feedName }) => {
     if (!posts.length) {
         return <h3>No Paw Feed Yet</h3>
     }
@@ -24,7 +24,7 @@ const PawFeed = ({ posts, feedName }) => {
                             post on {post.createdAt}
                         </p>
                         <div className="card-body">
-                            <Link to={`/pawfeed/${post._id}`}>
+                            <Link to={`/pawfeeds/${post._id}`}>
                                 <p>{post.postText}</p>
                                 <p className="mb-0">
                                     Reactions: {post.replyCount} || Click to{' '}
@@ -38,4 +38,4 @@ const PawFeed = ({ posts, feedName }) => {
     )
 }
 
-export default PawFeed;
+export default PawFeedList;

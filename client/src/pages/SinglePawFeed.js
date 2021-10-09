@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { QUERY_POST } from '../utils/queries';
-import ReplyList from '../components/Reply';
+import ReplyList from '../components/ReplyList';
 import ReplyForm from '../components/ReplyForm';
 import Auth from '../utils/auth';
 
