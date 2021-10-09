@@ -13,6 +13,8 @@ const SinglePawFeed = props => {
         variables: { id: postId }
     });
 
+    console.log('postData', data);
+
     const post = data?.news || {};
 
     if (loading) {

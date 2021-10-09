@@ -73,6 +73,7 @@ export const UPDATE_USER = gql`
         petAge
         about
         owner
+        playDate
       }
       posts {
         _id
@@ -92,6 +93,7 @@ export const ADD_PET = gql`
     $petAge: Int!
     $petBreed: String
     $about: String
+    $playDate: Boolean
   ) {
     addPet(
       petName: $petName
@@ -99,6 +101,7 @@ export const ADD_PET = gql`
       petAge: $petAge
       petBreed: $petBreed
       about: $about
+      playDate: $playDate
     ) {
       _id
       petName
@@ -107,6 +110,7 @@ export const ADD_PET = gql`
       petAge
       about
       owner
+      playDate
     }
   }
 `;
@@ -119,6 +123,7 @@ export const UPDATE_PET = gql`
     $petAge: Int!
     $petBreed: String
     $about: String
+    $playDate: Boolean
   ) {
     updatePet(
       petId: $petId
@@ -127,6 +132,7 @@ export const UPDATE_PET = gql`
       petAge: $petAge
       petBreed: $petBreed
       about: $about
+      playDate: $playDate
     ) {
       _id
       petName
@@ -135,6 +141,7 @@ export const UPDATE_PET = gql`
       petAge
       about
       owner
+      playDate
     }
   }
 `;
@@ -149,6 +156,7 @@ export const DELETE_PET = gql`
       petAge
       about
       owner
+      playDate
     }
   }
 `;
@@ -195,7 +203,6 @@ export const DELETE_POST = gql`
   }
 `;
 
-// I think I'm doing this one right
 export const ADD_REPLY = gql`
   mutation addReply($postId: ID!, $replyText: String!) {
     addReply(postId: $postId, replyText: $replyText) {

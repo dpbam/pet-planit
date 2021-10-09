@@ -6,7 +6,7 @@ function FeedMenu({ setFeed }) {
     const { data: feedData } = useQuery(QUERY_FEEDS);
     const feeds = feedData?.feeds || [];
 
-    console.log('Feedmenu', feeds);
+    console.log('feed menu', feedData);
     return (
         <div>
             {feeds.map((feed) => (
