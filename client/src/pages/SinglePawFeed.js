@@ -1,8 +1,8 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
-import { QUERY_NEWS } from '../utils/queries';
-import ReactionList from '../components/ReactionList';
+import { QUERY_POST } from '../utils/queries';
+import ReactionList from '../components/Reply';
 import ReactionForm from '../components/ReactionForm';
 import Auth from '../utils/auth';
 
