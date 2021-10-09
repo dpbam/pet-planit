@@ -28,6 +28,7 @@ const typeDefs = gql`
         playDate: Boolean
         about: String
         owner: String
+        petPic: String
     }
     type Feed {
         _id: ID
@@ -78,8 +79,8 @@ const typeDefs = gql`
         login(email: String!, password: String!): Auth
         addUser(username: String!, email: String!, password: String!, firstName: String!, lastName: String!, zipcode: String, profilePic: String): Auth
         updateUser(username: String!, email: String!, password: String!, firstName: String!, lastName: String!, zipcode: String, profilePic: String): Auth
-        addPet(petName: String!, petType: String!, petAge: Int!, petBreed: String, playDate: Boolean, about: String): Pet
-        updatePet(petId: ID!, petName: String!, petType: String!, petAge: Int!, petBreed: String, playDate: Boolean, about: String): Pet
+        addPet(petName: String!, petType: String!, petAge: Int!, petBreed: String, playDate: Boolean, about: String, petPic: String): Pet
+        updatePet(petId: ID!, petName: String!, petType: String!, petAge: Int!, petBreed: String, playDate: Boolean, about: String, petPic: String): Pet
         deletePet(petId: ID!): Pet
         addPost(postText: String!, feedName: String!): Post
         updatePost(postId: ID!, postText: String!): Post

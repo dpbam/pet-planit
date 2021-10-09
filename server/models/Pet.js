@@ -14,28 +14,30 @@ const petSchema = new Schema(
       // match: enums: dog, cat, ...
     },
     petBreed: {
-      type: String,
-      required: true,
-      // match: enums: 
+      type: String
+      // match: enums:
     },
     petAge: {
-        type: Number,
-        required: true,
-        min: 1,
-        max: 100
+      type: Number,
+      required: true,
+      min: 1,
+      max: 100,
     },
     playDate: {
-        type: Boolean,
-        default: false 
-      },
+      type: Boolean,
+      default: false,
+    },
     about: {
-        type: String,
-        trim: true,
+      type: String,
+      trim: true,
     },
     owner: {
-        type: String,
-        required: true
-      },
+      type: String,
+      required: true,
+    },
+    petPic: {
+      type: String,
+    }
   },
   {
     toJSON: {
