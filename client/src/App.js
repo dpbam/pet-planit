@@ -4,6 +4,7 @@ import './App.css';
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
+import Donate from "./pages/Donate";
 import Profile from "./pages/Profile";
 import PawFeeds from "./pages/PawFeeds"
 import SinglePawFeed from "./pages/SinglePawFeed";

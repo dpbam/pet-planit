@@ -22,6 +22,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
+/* Header/Nav Styles */
 header {
   display: flex;
   flex-wrap: wrap;
@@ -32,8 +33,9 @@ header {
   z-index: 9999;
 }
 
-h1 {
+.site-name {
   margin: 30px 40px;
+  font-size: 32px;
   color: #FFF;
   font-weight: normal;
 }
@@ -76,6 +78,7 @@ header .active {
   min-height: calc(100vh - 215px);
 }
 
+/* Home/Signup/Login Styles */
 .hero {
   display: flex;
   justify-content: flex-end;
@@ -90,7 +93,7 @@ header .active {
   background-color: #FFF;
   width: 400px;
   height: 550px;
-  margin: 40px 60px;
+  margin: 30px 60px;
   align-self: center;
 }
 
@@ -106,32 +109,32 @@ header .active {
   padding: 15px 20px 10px;
 }
 
-.signup-form h3, .login-form h3 {
+.signup p, .login p {
   font-size: 24px;
-  padding-top: 35px;
+  padding-top: 30px;
   text-align: center;
   font-weight: normal;
 }
 
-.signup-form h3 {
+.signup p {
   padding-top: 25px;
 }
 
-.signup-form h4, .login-form h4 {
+.signup-form h1, .login-form h1 {
   font-size: 20px;
-  padding-top: 35px;
+  padding-top: 25px;
   text-align: center;
   font-weight: normal;
 }
 
-.signup-form h4 {
+.signup-form h1 {
   padding-top: 25px;
 }
 
-.signup-form h4:after, .login-form h4::after {
+.signup-form h1:after, .login-form h1::after {
   content: "";
   display: block;
-  margin: 0 auto;
+  margin: 0 auto 15px;
   width: 150px;
   padding-top: 15px;
   border-bottom: 2px solid var(--light-grey);
@@ -159,7 +162,7 @@ header .active {
 .signup-form form button, .login-form form button {
   flex: 0 1 50%;
   padding: 10px;
-  margin: 25px auto 15px;
+  margin: 10px auto 15px;
   background-color: var(--tomato-red);
   color: #fff;
   font-size: 1.125rem;
@@ -172,8 +175,32 @@ header .active {
   background-color: var(--dark-red);
 }
 
+form .full-name {
+  display: inline-flex;
+  padding: 0;
+  align-items: baseline;
+}
+
+form .full-name div {
+  padding: 0;
+}
+
+form .full-name div:first-child {
+  margin: 0 0 0 15px;
+}
+
+label[for="first-name"], label[for="last-name"] {
+  margin: 0;
+}
+
+#first-name, #last-name {
+  margin: 6px 0 0;
+  
+}
+
 .signup-form p, .login-form p {
   text-align: center;
+  font-size: 14px;
 }
 
 .signup-form p span:hover, .login-form p span:hover {
@@ -181,6 +208,14 @@ header .active {
   border-bottom: 1px solid var(--dark-red);
   padding-bottom: 2px;
   cursor: pointer;
+}
+
+p.required {
+  font-size: 12px;
+  flex: 100%;
+  height: 16px;
+  text-align: right;
+  margin: 5px 15px 0 0;
 }
 
 .about {
@@ -201,6 +236,7 @@ header .active {
   text-align: center;
 }
 
+/* Footer styles */
 footer {
   display: flex;
   flex-wrap: wrap;
@@ -230,6 +266,76 @@ footer a:hover {
   border-bottom: 2px solid #FFF;
 }
 
+/* Donate page styles */
+.hero-donate {
+  background-image: url("./images/dog-cat-snuggle.jpg");
+  background-size: cover;
+  background-position-y: center;
+  height: 425px;
+}
+
+.donate-h1 {
+  text-align: center;
+  padding: 40px 20px 30px;
+}
+
+.donate-paws p,
+.donate-site p {
+  margin: 0 auto;
+  font-size: 20px;
+  max-width: 50%;
+  text-align: center;
+}
+
+.donate-paws div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 70%;
+  margin: 40px auto;
+}
+
+.donate-paws button {
+  font-size: 16px;
+  background-color: var(--tomato-red);
+  color: #FFF;
+  width: 240px;
+  margin: 15px 20px;
+  padding: 12px;
+  border-radius: 6px;
+  border: none;
+}
+
+.donate-paws button:hover {
+  background-color: var(--dark-red);
+  cursor: pointer;
+}
+
+.donation-divider {
+  display: flex;
+  justify-content: center;
+}
+
+.donation-divider hr {
+  width: 40%;
+  border: none;
+  border-bottom: 1px solid var(--light-grey);
+  align-self: center;
+  margin: 0 20px;
+}
+
+.donate-site p {
+  padding: 50px 20px 30px;
+}
+
+.donate-site small {
+  display: block;
+  width: 35%;
+  margin: 0 auto;
+  padding: 0 20px 40px;
+  text-align: center;
+  color: #908A8A;
+}
 #profile-section {
   padding: 0px 50px 20px 50px
 }
