@@ -39,31 +39,60 @@ const Signup = () => {
 
   return (
     <div>
-      <h3>Welcome!</h3>
       <h4>Sign Up</h4>
         {/* <form onSubmit={handleFormSubmit}> */}
         <form>
-          <label htmlFor="name">Name:</label>
-          <input
-            className='form-input'
-            placeholder='Your name'
-            name='name'
-            type='name'
-            id='name'
-            value={formState.username}
-            onChange={handleChange}
-          />
-          <label htmlFor="email">Zipcode:</label>
+          <div className="full-name">
+            <div>
+              <label htmlFor="first-name">First name&#42;</label>
+              <input
+                className='form-input'
+                placeholder='Your first name'
+                name='first-name'
+                type='text'
+                id='first-name'
+                value={formState.firstName}
+                onChange={handleChange}
+                required={true}
+              />
+            </div>
+            <div>
+              <label htmlFor="last-name">Last name&#42;</label>
+              <input
+                className='form-input'
+                placeholder='Your last name'
+                name='last-name'
+                type='text'
+                id='last-name'
+                value={formState.lastName}
+                onChange={handleChange}
+                required={true}
+              />
+            </div>
+          </div>
+          <label htmlFor="email">Zipcode&#42;</label>
           <input
             className='form-input'
             placeholder='Zipcode'
             name='zipcode'
-            type='zipcode'
+            type='text'
             id='zipcode'
             value={formState.zipcode}
             onChange={handleChange}
+            required={true}
           />
-          <label htmlFor="email">Email:</label>
+          <label htmlFor="name">Username&#42;</label>
+          <input
+            className='form-input'
+            placeholder='Username'
+            name='username'
+            type='text'
+            id='username'
+            value={formState.username}
+            onChange={handleChange}
+            required={true}
+          />
+          <label htmlFor="email">Email&#42;</label>
           <input
             className='form-input'
             placeholder='Your email'
@@ -72,8 +101,9 @@ const Signup = () => {
             id='email'
             value={formState.email}
             onChange={handleChange}
+            required={true}
           />
-          <label htmlFor="password">Password:</label>
+          <label htmlFor="password">Password&#42;</label>
           <input
             className='form-input'
             placeholder='******'
@@ -82,7 +112,9 @@ const Signup = () => {
             id='password'
             value={formState.password}
             onChange={handleChange}
+            required={true}
           />
+          <p className="required">&#42;Required field</p>
           <button className='btn d-block w-100' type='submit'>
             Submit
           </button>
