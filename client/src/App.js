@@ -3,6 +3,7 @@ import './App.css';
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
+import Donate from "./pages/Donate";
 import Profile from "./pages/Profile";
 
 const exampleProfile = {
@@ -59,6 +60,7 @@ function App() {
         <div>
           <Switch>
             <Route exact path="/" component={Home} />
+            <Route exact path="/donate" component={Donate} />
             <Route exact path="/profile" component={() => (<Profile profile={exampleProfile} />)} />
             {/* Possible solution to if a user hits a relative path that doesn't exist, can change later */}
             <Route render={() => <h2>404</h2>} />

@@ -38,8 +38,9 @@ const Signup = () => {
   // };
 
   return (
-    <div>
-      <h4>Sign Up</h4>
+    <div className="signup">
+      <p>Welcome!</p>
+      <h1>Sign Up</h1>
         {/* <form onSubmit={handleFormSubmit}> */}
         <form>
           <div className="full-name">

@@ -13,8 +13,8 @@ const Header = () => {
 
   return (
     <header>
-      <Link to="/">
-        <h1>Pet Social Network</h1>
+      <Link to="/" className="site-name">
+        Pet Social Network
       </Link>
 
       <nav>
