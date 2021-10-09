@@ -44,7 +44,7 @@ const Signup = () => {
         <form>
           <div className="full-name">
             <div>
-              <label htmlFor="first-name">First name:</label>
+              <label htmlFor="first-name">First name&#42;</label>
               <input
                 className='form-input'
                 placeholder='Your first name'
@@ -53,10 +53,11 @@ const Signup = () => {
                 id='first-name'
                 value={formState.firstName}
                 onChange={handleChange}
+                required="true"
               />
             </div>
             <div>
-              <label htmlFor="last-name">Last name:</label>
+              <label htmlFor="last-name">Last name&#42;</label>
               <input
                 className='form-input'
                 placeholder='Your last name'
@@ -65,10 +66,11 @@ const Signup = () => {
                 id='last-name'
                 value={formState.lastName}
                 onChange={handleChange}
+                required="true"
               />
             </div>
           </div>
-          <label htmlFor="email">Zipcode:</label>
+          <label htmlFor="email">Zipcode&#42;</label>
           <input
             className='form-input'
             placeholder='Zipcode'
@@ -77,8 +79,9 @@ const Signup = () => {
             id='zipcode'
             value={formState.zipcode}
             onChange={handleChange}
+            required="true"
           />
-          <label htmlFor="name">Username:</label>
+          <label htmlFor="name">Username&#42;</label>
           <input
             className='form-input'
             placeholder='Username'
@@ -87,8 +90,9 @@ const Signup = () => {
             id='username'
             value={formState.username}
             onChange={handleChange}
+            required="true"
           />
-          <label htmlFor="email">Email:</label>
+          <label htmlFor="email">Email&#42;</label>
           <input
             className='form-input'
             placeholder='Your email'
@@ -97,8 +101,9 @@ const Signup = () => {
             id='email'
             value={formState.email}
             onChange={handleChange}
+            required="true"
           />
-          <label htmlFor="password">Password:</label>
+          <label htmlFor="password">Password&#42;</label>
           <input
             className='form-input'
             placeholder='******'
@@ -107,7 +112,9 @@ const Signup = () => {
             id='password'
             value={formState.password}
             onChange={handleChange}
+            required="true"
           />
+          <p class="required">&#42;Required field</p>
           <button className='btn d-block w-100' type='submit'>
             Submit
           </button>
