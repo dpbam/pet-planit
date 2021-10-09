@@ -35,7 +35,7 @@ const petSchema = new Schema(
       type: String,
       required: true,
     },
-    petPic: {
+    image: {
       type: String,
     }
   },
