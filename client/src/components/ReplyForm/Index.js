@@ -56,3 +56,5 @@ const ReplyForm = ({ postId }) => {
         </div>
     );
 }
+
+export default ReplyForm;
