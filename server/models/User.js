@@ -37,6 +37,9 @@ const userSchema = new Schema(
     interests: {
       type: String 
     },
+    profilePic: {
+      type: String
+    },
     pets: [
       {
         type: Schema.Types.ObjectId,
