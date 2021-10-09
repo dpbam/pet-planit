@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { useMutation } from '@apollo/client';
-import { ADD_Reply } from '../../utils/mutations';
+import { ADD_REPLY } from '../../utils/mutations';
 
 const ReplyForm = ({ postId }) => {
     const [replyText, setText] = useState('');
