@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
+import PawFeeds from "./pages/PawFeeds"
 
 const exampleProfile = {
   username: "Timbo",
@@ -59,6 +60,7 @@ function App() {
         <div>
           <Switch>
             <Route exact path="/" component={Home} />
+            <Route exact path="/pawfeeds" component={PawFeeds} />
             <Route exact path="/profile" component={() => (<Profile profile={exampleProfile} />)} />
             {/* Possible solution to if a user hits a relative path that doesn't exist, can change later */}
             <Route render={() => <h2>404</h2>} />

@@ -27,7 +27,7 @@ const PawFeedList = ({ posts, feedName }) => {
                             <Link to={`/pawfeeds/${post._id}`}>
                                 <p>{post.postText}</p>
                                 <p className="mb-0">
-                                    Reactions: {post.replyCount} || Click to{' '}
+                                    Replies: {post.replyCount} || Click to{' '}
                                     {post.replyCount ? 'see' : 'start'} the pets fun!
                                 </p>
                             </Link>
