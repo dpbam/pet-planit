@@ -34,9 +34,8 @@ const userSchema = new Schema(
       type: String,
       maxlength: 5,
     },
-    playDate: {
-      type: Boolean,
-      default: false 
+    interests: {
+      type: String 
     },
     pets: [
       {

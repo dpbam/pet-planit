@@ -204,9 +204,9 @@ const resolvers = {
     updateReply: async (parent, { replyId, postId, replyText }, context) => {
       if (context.user) {
         const updatedReplyPost = await Post.findByIdAndUpdate(
-          { _id: postId },
+          { _id: postId }, 
           {
-            $addToSet: { replies: { _id: replyId, replyText: replyText } },
+            $set: { replies: { _id: replyId, replyText: replyText, username: context.user.username } },
           },
           { new: true, runValidators: true }
         );
@@ -219,7 +219,7 @@ const resolvers = {
       if (context.user) {
         const deletedReplyPost = await Post.findByIdAndUpdate(
           { _id: postId },
-          { $removeFromSet: { replies: replyId } },
+          { $pull: { replies: { _id: replyId } } },
           { new: true }
         );
         return deletedReplyPost;
