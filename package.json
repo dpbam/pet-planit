@@ -8,7 +8,8 @@
     "start": "node server/server.js",
     "develop": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
     "install": "cd server && npm i && cd ../client && npm i",
-    "build": "cd client && npm run build"
+    "build": "cd client && npm run build",
+    "seed": "cd server && npm run seed"
   },
   "repository": {
     "type": "git",
@@ -23,5 +24,8 @@
   "homepage": "https://github.com/dpbam/pet-social-network#readme",
   "devDependencies": {
     "concurrently": "^6.3.0"
+  },
+  "dependencies": {
+    "jquery": "^3.6.0"
   }
 }
