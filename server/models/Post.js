@@ -4,11 +4,6 @@ const dateFormat = require('../utils/dateFormat');
 
 const postSchema = new Schema(
   {
-    postTitle: {
-      type: String,
-      minlength: 1,
-      maxlength: 50
-    },
     postText: {
       type: String,
       required: 'You need to leave a post!',
@@ -25,7 +20,7 @@ const postSchema = new Schema(
       type: String,
       required: true
     },
-    feed: {
+    feedName: {
       type: String,
       required: true
     },

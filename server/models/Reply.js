@@ -8,15 +8,8 @@ const replySchema = new Schema(
       required: true,
       trim: true
     },
-    user: {
-      //type: String,
-      type: Schema.Types.ObjectId,
-      ref: "User",
-      required: true
-    },
-    post: {
-      type: Schema.Types.ObjectId,
-      ref: "Post",
+    username: {
+      type: String,
       required: true
     },
     createdAt: {

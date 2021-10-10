@@ -18,12 +18,9 @@ db.once("open", async () => {
     const username = faker.internet.userName();
     const email = faker.internet.email(username);
     const password = faker.internet.password();
-    const firstName = faker.name.firstName();
-    const lastName = faker.name.lastName();
-    const image = 'http://cos.h-cdn.co/assets/15/25/1434726176-tom.jpg';
     const zipcode = faker.address.zipCode();
 
-    userData.push({ username, email, password, firstName, lastName, image, zipcode });
+    userData.push({ username, email, password, zipcode });
   }
 
   const createdUsers = await User.collection.insertMany(userData);
@@ -31,13 +28,12 @@ db.once("open", async () => {
   // create pet data
   let createdPets = [];
   const petTypeArr = ["dog", "cat"];
-  const imageArr = ["https://www.thefarmersdog.com/digest/wp-content/uploads/2020/05/Ears-pitbull-2-scaled.jpg", "https://www.adamsdrafting.com/wp/wp-content/uploads/2018/06/More-Grumpy-Cat.jpg"]
 
   for (let i = 0; i < 50; i += 1) {
-    const { _id: userId } = createdUsers.ops[i];
+    const { username, _id: userId } = createdUsers.ops[i];
     const randomPetTypeIndex = Math.floor(Math.random() * petTypeArr.length);
 
-    const owner = userId;
+    const owner = username;
     const petName = faker.name.firstName();
     const petType = petTypeArr[randomPetTypeIndex];
     const petBreed = "N/A";
@@ -46,14 +42,6 @@ db.once("open", async () => {
       max: 15,
     });
     const about = faker.lorem.sentences();
-    const playDate = faker.datatype.boolean();
-    let image = '';
-
-    if(petType === "dog") {
-      image = imageArr[0];
-    } else {
-      image = imageArr[1];
-    };
 
     const createdPet = await Pet.create({
       owner,
@@ -62,8 +50,6 @@ db.once("open", async () => {
       petBreed,
       petAge,
       about,
-      playDate,
-      image
     });
     const updatedUser = await User.updateOne(
       { _id: userId },
@@ -95,12 +81,12 @@ db.once("open", async () => {
     const postText = faker.lorem.words(Math.round(Math.random() * 20) + 1);
 
     const randomUserIndex = Math.floor(Math.random() * createdUsers.ops.length);
-    const { _id: userId } = createdUsers.ops[randomUserIndex];
+    const { username, _id: userId } = createdUsers.ops[randomUserIndex];
 
     const randomFeedIndex = Math.floor(Math.random() * createdFeeds.ops.length);
-    const { _id: feedId } = createdFeeds.ops[randomFeedIndex];
+    const { feedName, _id: feedId } = createdFeeds.ops[randomFeedIndex];
 
-    const createdPost = await Post.create({ postText: postText, user: userId, feed: feedId });
+    const createdPost = await Post.create({ postText, username, feedName });
 
     const updatedUser = await User.updateOne(
       { _id: userId },
@@ -120,19 +106,14 @@ db.once("open", async () => {
     const replyText = faker.lorem.words(Math.round(Math.random() * 20) + 1);
 
     const randomUserIndex = Math.floor(Math.random() * createdUsers.ops.length);
-    const { _id: userId } = createdUsers.ops[randomUserIndex];
+    const { username } = createdUsers.ops[randomUserIndex];
 
     const randomPostIndex = Math.floor(Math.random() * createdPosts.length);
     const { _id: postId } = createdPosts[randomPostIndex];
 
     await Post.updateOne(
       { _id: postId },
-      { $push: { replies: { replyText: replyText, user: userId, post: postId } } },
-      { runValidators: true }
-    );
-    await User.updateOne(
-      { _id: userId },
-      { $push: { replies: { replyText: replyText, user: userId, post: postId } } },
+      { $push: { replies: { replyText, username } } },
       { runValidators: true }
     );
   }
@@ -154,7 +135,7 @@ db.once("open", async () => {
       });
 
     const randomUserIndex = Math.floor(Math.random() * createdUsers.ops.length);
-    const { _id: userId } = createdUsers.ops[randomUserIndex];
+    const { username, _id: userId } = createdUsers.ops[randomUserIndex];
 
     const randomRecipientIndex = Math.floor(
       Math.random() * donationRecipientArr.length
@@ -163,7 +144,7 @@ db.once("open", async () => {
 
     const createdDonation = await Donation.create({
       donationAmount,
-      user: userId,
+      username,
       donationRecipient,
     });
 
