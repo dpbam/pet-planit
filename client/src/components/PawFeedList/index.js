@@ -19,7 +19,7 @@ const PawFeedList = ({ currentFeed }) => {
         }
 
         return posts.filter(
-            (post) => post.feedName._id === currentFeed
+            (post) => post.feedName === currentFeed
         );
     }
 
@@ -34,7 +34,7 @@ const PawFeedList = ({ currentFeed }) => {
                             postTitle={post.postTitle}
                             postText={post.postText}
                             createdAt={post.createdAt}
-                            user={post.user}
+                            username={post.username}
                             replyCount={post.replyCount}
                         />
                     ))}
