@@ -34,7 +34,7 @@ header {
 }
 
 .site-name {
-  margin: 30px 40px;
+  margin: 30px 0 30px 40px;
   font-size: 32px;
   color: #FFF;
   font-weight: normal;
@@ -605,4 +605,93 @@ a {
   background-color: lightgray ;
   font-style: italic;
   font-size: 90%;
+}
+
+@media screen and (max-width: 800px) {
+  .site-name {
+    margin-left: 25px;
+  }
+  header nav {
+    padding-right: 0;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  header nav {
+    flex: 1 100%;
+    justify-content: center;
+    margin-bottom: 30px;
+  }
+
+  .site-name {
+    flex: 1 100%;
+    text-align: center;
+    margin: 30px auto;
+  }
+
+  .signup-form, .login-form {
+    margin: 30px 20px;
+  }
+
+  .about {
+    width: 90%;
+  }
+
+  footer {
+    height: auto;
+  }
+
+  footer p {
+    padding: 15px 10px;
+  }
+}
+
+@media screen and (max-width: 525px) {
+  .signup-form, .login-form {
+    margin: 30px auto;
+  }
+
+  .about {
+    margin: 35px auto;
+    padding: 30px 20px;
+  }
+
+  .about p {
+    padding: 30px 0;
+  }
+}
+
+@media screen and (max-width: 465px) {
+  header nav ul li a {
+    margin: 10px;
+  }
+}
+
+@media screen and (max-width: 414px) {
+  form .full-name, form .full-name div {
+    display: contents;
+  }
+
+  label[for="first-name"], label[for="last-name"] {
+    flex: 100% 1;
+    margin: 12px 15px 6px;
+  }
+
+  #first-name, #last-name {
+    margin: 0 15px;
+  }
+
+  .signup-form {
+    height: 700px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .signup-form div, .login-form div {
+    padding: 0;
+  }
+
+  header nav ul li a {
+    margin: 7px;
+  }
 }
