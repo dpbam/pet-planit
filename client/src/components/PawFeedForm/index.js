@@ -5,17 +5,17 @@ import { ADD_POST } from '../../utils/mutations';
 import { QUERY_POSTS, QUERY_ME } from '../../utils/queries';
 
 const PostForm = () => {
+
+    const [postTitle, setTitle] = useState('');
     const [postText, setText] = useState('');
+    const [feedName, setFeedName] = useState('');
     const [characterCount, setCharacterCount] = useState(0);
 
     const [addPost, { error }] = useMutation(ADD_POST, {
         update(cache, { data: { addPost } }) {
             try {
-                //could potentially not exist yet, so wrap in a try...catch
-                //read what's currently in the cache
                 const { posts } = cache.readQuery({ query: QUERY_POSTS });
 
-                //prepend the newest thought to the front of the array
                 cache.writeQuery({
                     query: QUERY_POSTS,
                     data: { posts: [addPost, ...posts] }
@@ -24,7 +24,7 @@ const PostForm = () => {
             catch (e) {
                 console.log(e);
             }
-            //update me object's cache, appending new thought to the end of the array
+            //update me object's cache, appending new post to the end of the array
             const { me } = cache.readQuery({ query: QUERY_ME });
             cache.writeQuery({
                 query: QUERY_ME,
@@ -33,11 +33,20 @@ const PostForm = () => {
         }
     });
 
-    const handleChange = event => {
+    const handleChangeTitle = event => {
+        setTitle(event.target.value);
+    }
+
+    const handleChangeText = event => {
         if (event.target.value.length <= 280) {
             setText(event.target.value);
             setCharacterCount(event.target.value.length);
         }
+    }
+
+    const handleChangeFeedName = event => {
+        setFeedName(event.target.value);
+        console.log(event.target.value);
     }
 
     const handleFormSubmit = async event => {
@@ -45,10 +54,13 @@ const PostForm = () => {
 
         try {
             await addPost({
-                variables: { postText }
+                variables: { postTitle, postText }
             });
 
+            console.log('paw feed form', addPost)
+
             //clear form value
+            setTitle('');
             setText('');
             setCharacterCount(0);
         }
@@ -68,12 +80,31 @@ const PostForm = () => {
                 onSubmit={handleFormSubmit}
             >
                 <textarea
-                    placeholder="Create a Fun Paw Feed"
+                    placeholder="Paw Feed Title"
+                    value={postTitle}
+
+                    className="form-input col-12 col-md-9"
+                    onChange={handleChangeTitle}
+                ></textarea>
+                <textarea
+                    placeholder="Paw Feed Content"
                     value={postText}
 
                     className="form-input col-12 col-md-9"
-                    onChange={handleChange}
+                    onChange={handleChangeText}
                 ></textarea>
+                <select
+                    value={feedName}
+
+                    onChange={handleChangeFeedName}
+                >
+                    <option value="General">General</option>
+                    <option value="Pet Adoption">Pet Adoption</option>
+                    <option value="Pet Sitting">Pet Sitting</option>
+                    <option value="Pet Advice">Pet Advice</option>
+                    <option value="Dog Dates">Dog Dates</option>
+                    <option value="Lost Pets">Lost Pets</option>
+                </select>
                 <button className="btn col-12 col-md-3" type="submit">
                     Submit
                 </button>
