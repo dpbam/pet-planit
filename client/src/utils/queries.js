@@ -9,6 +9,7 @@ export const QUERY_ME = gql`
     lastName
     zipcode
     interests
+    image
     petCount
     postCount
     donationCount
@@ -18,9 +19,10 @@ export const QUERY_ME = gql`
       petType
       petBreed
       petAge
+      playDate
       about
       owner
-      playDate
+      image
     }
     posts {
       _id
@@ -50,6 +52,7 @@ export const QUERY_USERS = gql`
     lastName
     zipcode
     interests
+    image
     petCount
     postCount
     donationCount
@@ -59,9 +62,10 @@ export const QUERY_USERS = gql`
       petType
       petBreed
       petAge
+      playDate
       about
       owner
-      playDate
+      image
     }
     posts {
       _id
@@ -92,6 +96,7 @@ export const QUERY_USER = gql`
       lastName
       zipcode
       interests
+      image
       petCount
       postCount
       donationCount
@@ -101,9 +106,10 @@ export const QUERY_USER = gql`
         petType
         petBreed
         petAge
+        playDate
         about
         owner
-        playDate
+        image
       }
       posts {
         _id
@@ -133,9 +139,10 @@ export const QUERY_PET = gql`
       petType
       petBreed
       petAge
+      playDate
       about
       owner
-      playDate
+      image
     }
   }
 `;
