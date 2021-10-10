@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import $ from 'jquery';
+import Auth from '../utils/auth';
+import { useQuery, useMutation } from '@apollo/client';
+import { QUERY_ME, QUERY_USER } from '../utils/queries';
 
 // TODO add interests
 
@@ -10,6 +13,16 @@ const Profile = (props) => {
   const [editingPet, setEditingPet] = useState(false);
   const [statePets, setPets] = useState(currentProfile.pets);
   const [tempImage, setTempImage] = useState(currentProfile.image);
+
+  const loggedIn = Auth.loggedIn();
+  const userParam = currentProfile.username;
+  // const { loading, data } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
+  //   variables: { username: userParam }
+  // });
+
+  const { loading, data } = useQuery(QUERY_USER, {
+    variables: { username: userParam }
+  });
 
   let newPetTemplate = {
     name: "New Pet",
@@ -26,13 +39,16 @@ const Profile = (props) => {
     let tempProf = currentProfile;
     tempProf.pets = statePets;
     setCurrentProfile(tempProf);
-  }, [statePets]);
+  }, [statePets, currentProfile]);
 
   const editProfile = () => {
     setEditingProfile(!editingProfile);
 
     console.log(currentProfile, tempImage);
 
+    console.log(loading, data, loggedIn);
+
+    console.log(Auth.getProfile());
     if (editingProfile) {
 
 
@@ -221,6 +237,14 @@ const Profile = (props) => {
 
   return (
     <section id="profile-section">
+
+      {loading ? <p>loading</p> : null}
+      {loggedIn && data ? (
+        <div>
+          <h2>Logged in!</h2>
+          <p>{data}</p>
+        </div>
+      ) : null}
 
       <h2>{currentProfile.username}'s Farm</h2>
       <div id="profile-details">
