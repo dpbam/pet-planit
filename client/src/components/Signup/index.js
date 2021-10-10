@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
-// import { useMutation } from '@apollo/client';
-// import { ADD_USER } from '../../utils/mutations';
+import { useMutation } from '@apollo/client';
+import { ADD_USER } from '../../utils/mutations';
 
-// import Auth from '../../utils/auth';
+import Auth from '../../utils/auth';
 
 const Signup = () => {
   const [formState, setFormState] = useState({
+    firstName: '',
+    lastName: '',
+    zipcode: '',
     username: '',
     email: '',
     password: '',
   });
-  // const [addUser, { error }] = useMutation(ADD_USER);
+  const [addUser, { error }] = useMutation(ADD_USER);
 
   // update state based on form input changes
   const handleChange = (event) => {
@@ -23,33 +26,34 @@ const Signup = () => {
   };
 
   // submit form
-  // const handleFormSubmit = async (event) => {
-  //   event.preventDefault();
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
 
-  //   try {
-  //     const { data } = await addUser({
-  //       variables: { ...formState },
-  //     });
+    try {
+      const { data } = await addUser({
+        variables: { ...formState },
+      });
 
-  //     Auth.login(data.addUser.token);
-  //   } catch (e) {
-  //     console.error(e);
-  //   }
-  // };
+      Auth.login(data.addUser.token);
+      window.location.assign("/pawfeed");
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   return (
     <div className="signup">
       <p>Welcome!</p>
       <h1>Sign Up</h1>
-        {/* <form onSubmit={handleFormSubmit}> */}
-        <form>
+        <form onSubmit={handleFormSubmit}>
+        {/* <form> */}
           <div className="full-name">
             <div>
               <label htmlFor="first-name">First name&#42;</label>
               <input
                 className='form-input'
                 placeholder='Your first name'
-                name='first-name'
+                name='firstName'
                 type='text'
                 id='first-name'
                 value={formState.firstName}
@@ -62,7 +66,7 @@ const Signup = () => {
               <input
                 className='form-input'
                 placeholder='Your last name'
-                name='last-name'
+                name='lastName'
                 type='text'
                 id='last-name'
                 value={formState.lastName}
@@ -115,12 +119,13 @@ const Signup = () => {
             onChange={handleChange}
             required={true}
           />
+          {error && <span className="signup-error">Signup failed</span>}
           <p className="required">&#42;Required field</p>
           <button className='btn d-block w-100' type='submit'>
             Submit
           </button>
         </form>
-        {/* {error && <div>Signup failed</div>} */}
+        
     </div>
   );
 };

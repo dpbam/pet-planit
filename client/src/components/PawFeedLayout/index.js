@@ -25,7 +25,7 @@ function PawFeedLayout(post) {
                 post on {createdAt}
             </p>
             <div className="card-body">
-                <Link to={`/pawfeeds/${_id}`}>
+                <Link to={`/pawfeed/${_id}`}>
                     <p>{postText}</p>
                     <p className="mb-0">
                         Replies: {replyCount} || Click to{' '}
