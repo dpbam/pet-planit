@@ -5,7 +5,7 @@ const secret = process.env.SET_SECRET_KEY;
 const expiration = process.env.SET_EXPIRATION;
 
 module.exports = {
-    authMiddleware: function({ req }) {
+    authMiddleware: function ({ req }) {
         let token = req.body.token || req.query.token || req.headers.authorization;
 
         if (req.headers.authorization) {
@@ -25,7 +25,7 @@ module.exports = {
 
         return req;
     },
-    signToken: function({ username, email, _id }) {
+    signToken: function ({ username, email, _id }) {
         const payload = { username, email, _id };
 
         return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
