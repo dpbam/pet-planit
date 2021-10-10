@@ -160,11 +160,11 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
-    updatePost: async (parent, { postId, postText }, context) => {
+    updatePost: async (parent, { postId, args }, context) => {
       if (context.user) {
         const updatedPost = await Post.findByIdAndUpdate(
           { _id: postId },
-          { postText: postText },
+          { ...args },
           { new: true, runValidators: true }
         );
         console.log("updated post: ", updatedPost);

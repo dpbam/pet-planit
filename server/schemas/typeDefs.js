@@ -86,8 +86,8 @@ const typeDefs = gql`
         addPet(petName: String!, petType: String!, petAge: Int!, petBreed: String, playDate: Boolean, about: String, image: String): Pet
         updatePet(petId: ID!, petName: String, petType: String, petAge: Int, petBreed: String, playDate: Boolean, about: String, image: String): Pet
         deletePet(petId: ID!): Pet
-        addPost(feed: ID!, postText: String!): Post
-        updatePost(postId: ID!, postText: String!): Post
+        addPost(feed: ID!, postTitle: String, postText: String!): Post
+        updatePost(postId: ID!, postTitle: String, postText: String!): Post
         deletePost(postId: ID!): Post
         addReply(postId: ID!, replyText: String!): Post
         updateReply(postId: ID!, replyId: ID!, replyText: String!): Post
