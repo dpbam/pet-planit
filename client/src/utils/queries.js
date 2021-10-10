@@ -9,6 +9,7 @@ export const QUERY_ME = gql`
     lastName
     zipcode
     interests
+    image
     petCount
     postCount
     donationCount
@@ -18,9 +19,10 @@ export const QUERY_ME = gql`
       petType
       petBreed
       petAge
+      playDate
       about
       owner
-      playDate
+      image
     }
     posts {
       _id
@@ -50,6 +52,7 @@ export const QUERY_USERS = gql`
     lastName
     zipcode
     interests
+    image
     petCount
     postCount
     donationCount
@@ -59,9 +62,10 @@ export const QUERY_USERS = gql`
       petType
       petBreed
       petAge
+      playDate
       about
       owner
-      playDate
+      image
     }
     posts {
       _id
@@ -92,6 +96,7 @@ export const QUERY_USER = gql`
       lastName
       zipcode
       interests
+      image
       petCount
       postCount
       donationCount
@@ -101,9 +106,10 @@ export const QUERY_USER = gql`
         petType
         petBreed
         petAge
+        playDate
         about
         owner
-        playDate
+        image
       }
       posts {
         _id
@@ -133,9 +139,10 @@ export const QUERY_PET = gql`
       petType
       petBreed
       petAge
+      playDate
       about
       owner
-      playDate
+      image
     }
   }
 `;
@@ -167,6 +174,17 @@ export const QUERY_FEEDS = gql`
   }
 `;
 
+export const QUERY_FEED = gql`
+  query feed($feedName: String!) {
+    feed(feedName: $feedName) {
+      _id
+      feedName
+      posts
+      postCount
+    }
+  }
+`;
+
 export const QUERY_POST = gql`
   query post($id: ID!) {
     post(_id: $id) {
@@ -187,13 +205,23 @@ export const QUERY_POST = gql`
   }
 `;
 
+// export const QUERY_POST = gql`
+//   query post($id: ID!) {
+//     post(_id: $id) {
+//       _id
+//       postText
+//       feedName
+//     }
+//   }
+// `;
+
 export const QUERY_POSTS = gql`
   query posts {
     posts {
       _id
       postTitle
       postText
-      feedName 
+      feedName
       createdAt
       username
       replyCount
@@ -209,22 +237,22 @@ export const QUERY_POSTS = gql`
 
 // not sure how to do this one
 export const QUERY_POSTS_BY_FEED = gql`
-    query postsByFeed($feedName: String!) {
-        postsByFeed(feedName: $feedName) {
-          _id
-          postText
-          feedName
-          createdAt
-          username
-          replyCount
-          replies {
-          _id
-          replyText
-          createdAt
-          username
-          }
-        }
+  query postsByFeed($feedName: String!) {
+    postsByFeed(feedName: $feedName) {
+      _id
+      postText
+      feedName
+      createdAt
+      username
+      replyCount
+      replies {
+        _id
+        replyText
+        createdAt
+        username
+      }
     }
+  }
 `;
 
 export const QUERY_POSTS_BY_USER = gql`
