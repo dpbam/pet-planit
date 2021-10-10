@@ -23,7 +23,7 @@ const SinglePawFeed = props => {
 
     return (
         <div>
-            <div className="card mb-3">
+            <div className="card">
                 <p className="card-header">
                     <span style={{ fontWeight: 700 }} className="text-light">
                         {post.username}

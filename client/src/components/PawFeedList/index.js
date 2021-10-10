@@ -28,6 +28,7 @@ const PawFeedList = ({ currentFeed }) => {
                         <PawFeedLayout
                             key={post._id}
                             _id={post._id}
+                            // title={post.title}
                             postText={post.postText}
                             createdAt={post.createdAt}
                             username={post.username}
