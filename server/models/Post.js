@@ -4,6 +4,11 @@ const dateFormat = require('../utils/dateFormat');
 
 const postSchema = new Schema(
   {
+    postTitle: {
+      type: String,
+      minlength: 1,
+      maxlength: 50
+    },
     postText: {
       type: String,
       required: 'You need to leave a post!',
@@ -16,12 +21,16 @@ const postSchema = new Schema(
       default: Date.now,
       get: timestamp => dateFormat(timestamp)
     },
-    username: {
-      type: String,
+    user: {
+      // type: String,
+      type: Schema.Types.ObjectId,
+      ref: "User",
       required: true
     },
-    feedName: {
-        type: String,
+    feed: {
+        // type: String,
+        type: Schema.Types.ObjectId,
+        ref: "Feed",
         required: true
     },
     replies: [replySchema]

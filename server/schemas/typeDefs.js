@@ -14,9 +14,11 @@ const typeDefs = gql`
         image: String
         petCount: Int
         postCount: Int
+        replyCount: Int
         donationCount: Int
         pets: [Pet]
         posts: [Post]
+        replies: [Reply]
         donations: [Donation]
     }
     type Pet {
@@ -27,7 +29,7 @@ const typeDefs = gql`
         petAge: Int
         playDate: Boolean
         about: String
-        owner: String
+        owner: User
         image: String
     }
     type Feed {
@@ -38,10 +40,11 @@ const typeDefs = gql`
     }
     type Post {
         _id: ID
+        postTitle: String
         postText: String
-        feedName: String
         createdAt: String
-        username: String
+        user: User
+        feed: Feed
         replyCount: Int
         replies: [Reply]
     }
@@ -49,14 +52,15 @@ const typeDefs = gql`
         _id: ID
         replyText: String
         createdAt: String
-        username: String
+        post: Post
+        user: User
     }
     type Donation {
         _id: ID
         donationAmount: Int
         donationRecipient: String
         createdAt: String
-        username: String
+        user: User
     }
     type Auth {
         token: ID!
@@ -65,15 +69,16 @@ const typeDefs = gql`
     type Query {
         me: User
         users: [User]
-        user(username: String!): User
-        pet(owner: String!): [Pet]
+        user(userId: ID, username: String): User
         pets: [Pet]
+        pet(petId: ID!): Pet
+        petsByOwner(ownerId: ID, username: String): [Pet]
         feeds: [Feed]
-        feed(feedName: String!): [Feed]
+        feed(feedId: ID, feedName: String): Feed
         posts: [Post]
-        postsByFeed(feedName: String!): [Post]
-        postsByUser(username: String!): [Post]
-        post(_id: ID!): Post
+        postsByFeed(feedId: ID, feedName: String): [Post]
+        postsByUser(userId: ID, username: String): [Post]
+        post(postId: ID!): Post
     }
     type Mutation {
         login(email: String!, password: String!): Auth
@@ -82,8 +87,8 @@ const typeDefs = gql`
         addPet(petName: String!, petType: String!, petAge: Int!, petBreed: String, playDate: Boolean, about: String, image: String): Pet
         updatePet(petId: ID!, petName: String, petType: String, petAge: Int, petBreed: String, playDate: Boolean, about: String, image: String): Pet
         deletePet(petId: ID!): Pet
-        addPost(postText: String!, feedName: String!): Post
-        updatePost(postId: ID!, postText: String!): Post
+        addPost(feed: ID, feedName: String, postTitle: String, postText: String!): Post
+        updatePost(postId: ID!, postTitle: String, postText: String!): Post
         deletePost(postId: ID!): Post
         addReply(postId: ID!, replyText: String!): Post
         updateReply(postId: ID!, replyId: ID!, replyText: String!): Post

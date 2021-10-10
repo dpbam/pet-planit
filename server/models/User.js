@@ -1,5 +1,6 @@
 const { Schema, model } = require("mongoose");
 const bcrypt = require("bcrypt");
+const replySchema = require('./Reply');
 
 const userSchema = new Schema(
   {
@@ -52,6 +53,7 @@ const userSchema = new Schema(
         ref: "Post",
       },
     ],
+    replies: [replySchema],
     donations: [
       {
         type: Schema.Types.ObjectId,
@@ -91,6 +93,10 @@ userSchema.virtual("postCount").get(function () {
 
 userSchema.virtual("donationCount").get(function () {
   return this.donations.length;
+});
+
+userSchema.virtual('replyCount').get(function() {
+  return this.replies.length;
 });
 
 const User = model("User", userSchema);
