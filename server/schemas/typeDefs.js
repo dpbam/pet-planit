@@ -69,14 +69,15 @@ const typeDefs = gql`
     type Query {
         me: User
         users: [User]
-        user(username: String!): User
-        pet(owner: ID!): [Pet]
+        user(userId: ID, username: String): User
         pets: [Pet]
+        pet(petId: ID!): Pet
+        petsByOwner(ownerId: ID, username: String): [Pet]
         feeds: [Feed]
-        feed(feedName: String!): [Feed]
+        feed(feedId: ID, feedName: String): Feed
         posts: [Post]
-        postsByFeed(feed: ID!): [Post]
-        postsByUser(user: ID!): [Post]
+        postsByFeed(feedId: ID, feedName: String): [Post]
+        postsByUser(userId: ID, username: String): [Post]
         post(postId: ID!): Post
     }
     type Mutation {
@@ -86,7 +87,7 @@ const typeDefs = gql`
         addPet(petName: String!, petType: String!, petAge: Int!, petBreed: String, playDate: Boolean, about: String, image: String): Pet
         updatePet(petId: ID!, petName: String, petType: String, petAge: Int, petBreed: String, playDate: Boolean, about: String, image: String): Pet
         deletePet(petId: ID!): Pet
-        addPost(feed: ID!, postTitle: String, postText: String!): Post
+        addPost(feed: ID, feedName: String, postTitle: String, postText: String!): Post
         updatePost(postId: ID!, postTitle: String, postText: String!): Post
         deletePost(postId: ID!): Post
         addReply(postId: ID!, replyText: String!): Post

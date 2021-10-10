@@ -10,6 +10,7 @@ const resolvers = {
           .select("-__v -password")
           .populate("pets")
           .populate("posts")
+          .populate("replies")
           .populate("donations");
 
         return userData;
@@ -21,39 +22,92 @@ const resolvers = {
         .select("-__v -password")
         .populate("pets")
         .populate("posts")
+        .populate("replies")
         .populate("donations");
     },
-    user: async (parent, { username }) => {
-      return User.findOne({ username })
-        .select("-__v -password")
-        .populate("pets")
-        .populate("posts")
-        .populate("donations");
+    user: async (parent, { userId, username }) => {
+      if (username) {
+        return User.findOne({ username: username })
+          .select("-__v -password")
+          .populate("pets")
+          .populate("posts")
+          .populate("replies")
+          .populate("donations");
+      } else if (userId) {
+        return User.findById(userId)
+          .select("-__v -password")
+          .populate("pets")
+          .populate("posts")
+          .populate("replies")
+          .populate("donations");
+      }
     },
     pets: async () => {
       return Pet.find().populate("owner");
     },
-    pet: async (parent, { owner }) => {
-      const params = owner ? { owner } : {};
-      return Pet.find(params).populate("owner");
+    pet: async (parent, { petId }) => {
+      return Pet.findById(petId).populate("owner");
+    },
+    petsByOwner: async (parent, { ownerId, username }) => {
+      if (username) {
+        let selectedUser = await User.findOne({ username: username });
+        return Pet.find({ owner: selectedUser._id }).populate("owner");
+      } else if (ownerId) {
+        return Pet.find({ owner: ownerId }).populate("owner");
+      }
     },
     feeds: async () => {
       return Feed.find().populate("posts");
     },
-    feed: async (parent, { feedName }) => {
-      const params = feedName ? { feedName } : {};
-      return Feed.find(params).populate("posts");
+    feed: async (parent, { feedId, feedName }) => {
+      if (feedName) {
+        return Feed.findOne({ feedName: feedName }).populate("posts");
+      } else if (feedId) {
+        return Feed.findById(feedId).populate("posts");
+      } else {
+        return Feed.find({}).populate("posts");
+      }
     },
     posts: async () => {
       return Post.find().populate("feed").populate("user");
     },
-    postsByFeed: async (parent, { feed }) => {
-      const params = feed ? { feed } : {};
-      return Post.find(params).sort({ createdAt: -1 }).populate("feed").populate("user");
+    postsByFeed: async (parent, { feedId, feedName }) => {
+      if (feedName) {
+        let selectedFeed = await Feed.findOne({ feedName: feedName });
+        return Post.find({ feed: selectedFeed._id })
+          .sort({ createdAt: -1 })
+          .populate("feed")
+          .populate("user");
+      } else if (feedId) {
+        return Post.find({ feed: feedId })
+          .sort({ createdAt: -1 })
+          .populate("feed")
+          .populate("user");
+      } else {
+        return Post.find({})
+          .sort({ createdAt: -1 })
+          .populate("feed")
+          .populate("user");
+      }
     },
-    postsByUser: async (parent, { user }) => {
-      const params = user ? { user } : {};
-      return Post.find(params).sort({ createdAt: -1 }).populate("feed").populate("user");
+    postsByUser: async (parent, { userId, username }) => {
+      if (username) {
+        let selectedUser = await User.findOne({ username: username });
+        return Post.find({ user: selectedUser._id })
+          .sort({ createdAt: -1 })
+          .populate("feed")
+          .populate("user");
+      } else if (userId) {
+        return Post.find({ user: userId })
+          .sort({ createdAt: -1 })
+          .populate("feed")
+          .populate("user");
+      } else {
+        return Post.find({})
+          .sort({ createdAt: -1 })
+          .populate("feed")
+          .populate("user");
+      }
     },
     post: async (parent, { postId }) => {
       return Post.findById(postId).populate("feed").populate("user");
@@ -236,7 +290,7 @@ const resolvers = {
                 _id: replyId,
                 replyText: replyText,
                 user: context.user._id,
-                post: postId
+                post: postId,
               },
             },
           },
