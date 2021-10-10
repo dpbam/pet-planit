@@ -404,7 +404,7 @@ footer a:hover {
   width: 60%;
 }
 
-.profile-button-holder {
+.profile-button-holder, .profile-image-upload {
   padding: 10px 0px 10px 0px;
   width: 100%;
   display: flex;
@@ -487,13 +487,8 @@ input[type="radio"]:checked {
   font-size: 15px;
 }
 
-.profile-image-upload {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
 
-.button:active {
+.button:active, #profile-pic-button:active {
   filter: brightness(75%);
 }
 
@@ -529,8 +524,9 @@ input[type="radio"]:checked {
 }
 
 .profile-image-container {
-  width: 50%;
+  width: 80%;
   min-width: 100px;
+  max-width: 175px;
   position: relative;
 }
 

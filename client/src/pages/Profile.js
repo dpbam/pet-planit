@@ -23,9 +23,9 @@ const Profile = (props) => {
   };
 
   useEffect(() => {
-    let test = currentProfile;
-    test.pets = statePets;
-    setCurrentProfile(test);
+    let tempProf = currentProfile;
+    tempProf.pets = statePets;
+    setCurrentProfile(tempProf);
   }, [statePets]);
 
   const editProfile = () => {
