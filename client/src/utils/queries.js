@@ -162,12 +162,14 @@ export const QUERY_PET = gql`
 // `;
 
 export const QUERY_FEEDS = gql`
-  query feeds($feedName: String!) {
-    feed(feedName: $feedName) {
+  {
+    feeds {
       _id
       feedName
-      posts
       postCount
+      posts {
+        _id
+      }
     }
   }
 `;
@@ -187,6 +189,7 @@ export const QUERY_POST = gql`
   query post($id: ID!) {
     post(_id: $id) {
       _id
+      postTitle
       postText
       feedName
       createdAt
@@ -202,42 +205,54 @@ export const QUERY_POST = gql`
   }
 `;
 
-// export const QUERY_POSTS = gql`
-//   query posts($username: String) {
-//     posts(username: $username) {
+// export const QUERY_POST = gql`
+//   query post($id: ID!) {
+//     post(_id: $id) {
 //       _id
 //       postText
 //       feedName
-//       createdAt
-//       username
-//       replyCount
-//       replies {
-//         _id
-//         replyText
-//         createdAt
-//         username
-//       }
 //     }
 //   }
 // `;
 
+export const QUERY_POSTS = gql`
+  query posts {
+    posts {
+      _id
+      postTitle
+      postText
+      feedName
+      createdAt
+      username
+      replyCount
+      replies {
+        _id
+        replyText
+        createdAt
+        username
+      }
+    }
+  }
+`;
+
 // not sure how to do this one
 export const QUERY_POSTS_BY_FEED = gql`
-    query postsByFeed($feedName: String!) {
-        postsByFeed(feedName: $feedName) {
-          _id
-          postText
-          feedName
-          createdAt
-          username
-          replyCount
-          replies {
-          _id
-          replyText
-          createdAt
-          username
-        }
+  query postsByFeed($feedName: String!) {
+    postsByFeed(feedName: $feedName) {
+      _id
+      postText
+      feedName
+      createdAt
+      username
+      replyCount
+      replies {
+        _id
+        replyText
+        createdAt
+        username
+      }
     }
+  }
 `;
 
 export const QUERY_POSTS_BY_USER = gql`

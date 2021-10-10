@@ -38,6 +38,7 @@ const typeDefs = gql`
     }
     type Post {
         _id: ID
+        postTitle: String
         postText: String
         feedName: String
         createdAt: String
