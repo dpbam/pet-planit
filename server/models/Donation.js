@@ -17,10 +17,8 @@ const donationSchema = new Schema(
       default: Date.now,
       get: timestamp => dateFormat(timestamp)
     },
-    user: {
-      //type: String,
-      type: Schema.Types.ObjectId,
-      ref: "User",
+    username: {
+      type: String,
       required: true
     }
   },

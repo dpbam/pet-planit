@@ -1,6 +1,5 @@
 const { Schema, model } = require("mongoose");
 const bcrypt = require("bcrypt");
-const userSchema = require('./User');
 
 const petSchema = new Schema(
   {
@@ -33,9 +32,7 @@ const petSchema = new Schema(
       trim: true,
     },
     owner: {
-      // type: String,
-      type: Schema.Types.ObjectId,
-      ref: "User",
+      type: String,
       required: true,
     },
     image: {
