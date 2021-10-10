@@ -20,53 +20,140 @@ const Profile = (props) => {
   const [editingPet, setEditingPet] = useState(false);
   const [statePets, setPets] = useState(pets);
 
+  let newPetTemplate = {
+    name: "New Pet",
+    type: "?",
+    breed: "N/A",
+    age: 0,
+    about: "N/A",
+    owner: username,
+    playdate: false,
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Question_Mark.svg/1200px-Question_Mark.svg.png"
+  };
 
   const editProfile = () => {
     setEditingProfile(!editingProfile);
-    // TODO add logic for graphql mutation to update profile
+
+    if (editingProfile) {
+
+
+      let profileSection = $(document.querySelector("#profile-info"));
+      let textAreas = profileSection.find('textarea');
+      let tempProfile = {
+        username: username,
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        zipcode: zipcode,
+        image: image,
+        pets: statePets,
+        posts: posts
+      };
+
+      $.each(textAreas, (index, area) => {
+        $(area).attr('readonly', !$(area).is('[readonly]')); // flips the editability of the input fields
+        switch (index) {
+          case 0:
+            tempProfile.firstName = $(area).val();
+            break;
+          case 1:
+            tempProfile.lastName = $(area).val();
+            break;
+          case 2:
+            tempProfile.email = $(area).val();
+            break;
+          case 3:
+            tempProfile.zipcode = $(area).val();
+            break;
+          default:
+            console.log(index, $(area).val());
+        }
+      });
+
+      // TODO add logic for graphql mutation to update profile
+      console.log(tempProfile);
+    }
   }
 
   const editPet = (petnum) => {
     setEditingPet(!editingPet);
+
     let pets = $(document.getElementsByClassName("pet-box"));
     let petEditButtons = $(document.getElementsByClassName("pet-edit"));
+    let petPlayButtons = $(document.getElementsByClassName("pet-play-button"));
+    let petImages = $(document.getElementsByClassName("pet-image"));
     let currentPetButton = $(petEditButtons[petnum]);
 
-    let petPlayButtons = $(document.getElementsByClassName("pet-play-button"));
+    let pet = $(pets[petnum]);
+
+    let textAreas = pet.find('textarea');
+
+    let tempPet = newPetTemplate;
+    let updatedPetArr = statePets;
 
     $.each(petPlayButtons, (index, button) => {
       if (Number($(button).attr('pet')) === petnum) {
         $(button).attr('disabled', !$(button).is('[disabled]')); // flips the editability of the radial buttons
+
+        tempPet.playdate = !($(button).is(':checked')); // this runs twice (once for each button) so by setting the inverse we get the flipped value of the "no" button, which is the value of the "Yes" button
       }
     });
 
-    let pet = $(pets[petnum]);
-    let textAreas = pet.find('textarea');
+
+    $.each(petImages, (index, image) => {
+      if (Number($(image).attr('pet')) === petnum) {
+
+        tempPet.image = $(image)[0].currentSrc;
+      }
+    });
+
 
     $.each(textAreas, (index, area) => {
       $(area).attr('readonly', !$(area).is('[readonly]')); // flips the editability of the input fields
+      switch (index) {
+        case 0:
+          tempPet.name = $(area).val();
+          break;
+        case 1:
+          tempPet.type = $(area).val();
+          break;
+        case 2:
+          tempPet.breed = $(area).val();
+          break;
+        case 3:
+          tempPet.age = $(area).val();
+          break;
+        case 4:
+          tempPet.about = $(area).val();
+          break;
+        default:
+          console.log(index, $(area).val());
+      }
     });
 
-    if (currentPetButton.hasClass("pet-save")) {
+    if (currentPetButton.hasClass("pet-save")) { // when the user clicks save...
       currentPetButton.removeClass('pet-save');
       currentPetButton.text('Edit');
+      updatedPetArr.splice(petnum, 1, tempPet); // replace old pet with new pet
+      setPets(updatedPetArr);
     } else {
       currentPetButton.addClass('pet-save');
       currentPetButton.text('Save');
     }
 
+    // console.log(statePets);
     // TODO add logic for graphql mutation to update pets
   }
 
   const deletePet = (petnum) => {
     if (petnum > -1) {
       let tempArr = [];
-      for( var i = 0; i < statePets.length; i++){ 
-                                   
-        if (i !== petnum) { 
+      for (var i = 0; i < statePets.length; i++) {
+
+        if (i !== petnum) {
           tempArr.push(statePets[i]);
         }
-    }
+      }
       setPets(tempArr);
     }
 
@@ -75,16 +162,7 @@ const Profile = (props) => {
 
   const addPet = () => {
     let tempArr = [...statePets]; // Have to use the spread operator so it creates a new reference. aka without this it wont re-render on state change
-    tempArr.push({
-      name: "New Pet",
-      type: "?",
-      breed: "N/A",
-      age: 0,
-      about: "N/A",
-      owner: "Timbo",
-      playdate: false,
-      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Question_Mark.svg/1200px-Question_Mark.svg.png"
-    });
+    tempArr.push(newPetTemplate);
     setPets(tempArr);
 
     // TODO add logic for graphql mutation to update pets
@@ -235,7 +313,7 @@ const Profile = (props) => {
                 <button type="button" className="pet-delete button" onClick={() => deletePet(index)}>X</button>
               </div>
               <div className="pet-image-container">
-                <img src={pet.image} alt={username + "'s pet " + pet.type + " " + pet.name} />
+                <img className="pet-image" pet={index} src={pet.image} alt={username + "'s pet " + pet.type + " " + pet.name} />
               </div>
             </div>
           </div>

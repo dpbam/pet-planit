@@ -28,7 +28,7 @@ const exampleProfile = {
     type: "dog",
     breed: "Border Terrier",
     age: 11,
-    about: "Quis amet culpa incididunt elit sit exercitation reprehenderit sit nulla non ad laborum elit velit. Pariatur cupidatat reprehenderit esse id occaecat officia quis magna. Cupidatat duis labore dolor enim non pariatur. Do anim nostrud id enim. Do mollit incididunt eu reprehenderit ut incididunt.",
+    about: "Velit labore consectetur aute cupidatat est ex ad veniam. Quis velit dolor cupidatat laborum veniam non pariatur ut eiusmod laboris consectetur id. Cillum consequat pariatur sunt aute proident laboris dolor duis proident amet officia nulla consectetur. Sit laboris cillum sint pariatur labore Lorem nulla dolor commodo. Laboris enim do culpa pariatur.",
     owner: "Timbo",
     playdate: false,
     image: "http://cdn.akc.org/content/hero/smiley_border_terrier_hero.jpg"
@@ -38,7 +38,7 @@ const exampleProfile = {
     type: "dog",
     breed: "Boxer",
     age: 11,
-    about: "Quis amet culpa incididunt elit sit exercitation reprehenderit sit nulla non ad laborum elit velit. Pariatur cupidatat reprehenderit esse id occaecat officia quis magna. Cupidatat duis labore dolor enim non pariatur. Do anim nostrud id enim. Do mollit incididunt eu reprehenderit ut incididunt.",
+    about: "Consectetur pariatur id qui culpa ipsum sit consectetur eu non. Enim amet nulla magna esse mollit minim dolore eu esse ad sunt mollit. Est tempor culpa ullamco proident. Velit velit nulla incididunt in velit exercitation reprehenderit veniam do aliqua magna irure velit. Voluptate commodo ex minim amet ut laborum sint esse pariatur. Tempor qui dolor occaecat nostrud aute culpa sint nisi dolor mollit voluptate aliquip aliquip.",
     owner: "Timbo",
     playdate: true,
     image: "https://www.thesprucepets.com/thmb/h-1donXJH4OQv7XQjck1tsmD8Kk=/1885x1414/smart/filters:no_upscale()/Boxer-GettyImages-463043655-91a77226f5884b41915d50811e4e4e2b.jpg"
