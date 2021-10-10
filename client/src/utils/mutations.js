@@ -20,6 +20,7 @@ export const ADD_USER = gql`
     $firstName: String!
     $lastName: String!
     $zipcode: String
+    $image: String
   ) {
     addUser(
       username: $username
@@ -28,6 +29,7 @@ export const ADD_USER = gql`
       firstName: $firstName
       lastName: $lastName
       zipcode: $zipcode
+      image: $image
     ) {
       token
       user {
@@ -40,12 +42,13 @@ export const ADD_USER = gql`
 
 export const UPDATE_USER = gql`
   mutation updateUser(
-    $username: String!
-    $email: String!
-    $password: String!
-    $firstName: String!
-    $lastName: String!
+    $username: String
+    $email: String
+    $password: String
+    $firstName: String
+    $lastName: String
     $zipcode: String
+    $image: String
   ) {
     updateUser(
       username: $username
@@ -54,6 +57,7 @@ export const UPDATE_USER = gql`
       firstName: $firstName
       lastName: $lastName
       zipcode: $zipcode
+      image: $image
     ) {
       _id
       username
@@ -65,15 +69,17 @@ export const UPDATE_USER = gql`
       petCount
       postCount
       donationCount
+      image
       pets {
         _id
         petName
         petType
         petBreed
         petAge
+        playDate
         about
         owner
-        playDate
+        image
       }
       posts {
         _id
@@ -94,23 +100,26 @@ export const ADD_PET = gql`
     $petBreed: String
     $about: String
     $playDate: Boolean
+    $image: String
   ) {
     addPet(
       petName: $petName
       petType: $petType
       petAge: $petAge
+      playDate: $playDate
       petBreed: $petBreed
       about: $about
-      playDate: $playDate
+      image: $image
     ) {
       _id
       petName
       petType
       petBreed
       petAge
+      playDate
       about
       owner
-      playDate
+      image
     }
   }
 `;
@@ -118,30 +127,33 @@ export const ADD_PET = gql`
 export const UPDATE_PET = gql`
   mutation updatePet(
     $petId: ID!
-    $petName: String!
-    $petType: String!
-    $petAge: Int!
+    $petName: String
+    $petType: String
+    $petAge: Int
     $petBreed: String
     $about: String
     $playDate: Boolean
+    $image: String
   ) {
     updatePet(
       petId: $petId
       petName: $petName
       petType: $petType
       petAge: $petAge
+      playDate: $playDate
       petBreed: $petBreed
       about: $about
-      playDate: $playDate
+      image: $image
     ) {
       _id
       petName
       petType
       petBreed
       petAge
+      playDate
       about
       owner
-      playDate
+      image
     }
   }
 `;
@@ -154,9 +166,10 @@ export const DELETE_PET = gql`
       petType
       petBreed
       petAge
+      playDate
       about
       owner
-      playDate
+      image
     }
   }
 `;
