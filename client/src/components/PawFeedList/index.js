@@ -7,11 +7,9 @@ import { QUERY_POSTS } from '../../utils/queries';
 const PawFeedList = ({ currentFeed }) => {
     const { loading, data } = useQuery(QUERY_POSTS);
 
-    console.log('posts data', data);
     const posts = data?.posts || [];
 
     console.log('posts', posts);
-
     function filterFeeds() {
         if (!currentFeed) {
             return posts;

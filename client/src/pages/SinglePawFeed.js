@@ -13,9 +13,9 @@ const SinglePawFeed = props => {
         variables: { id: postId }
     });
 
-    console.log('postData', data);
+    console.log('postData', postId);
 
-    const post = data?.news || {};
+    const post = data?.post || {};
 
     if (loading) {
         return <div>Loading...</div>;

@@ -155,7 +155,7 @@ export const QUERY_PET = gql`
 // `;
 
 export const QUERY_FEEDS = gql`
-  query {
+  {
     feeds {
       _id
       feedName
@@ -191,7 +191,7 @@ export const QUERY_POSTS = gql`
     posts {
       _id
       postText
-      feedName
+      feedName 
       createdAt
       username
       replyCount

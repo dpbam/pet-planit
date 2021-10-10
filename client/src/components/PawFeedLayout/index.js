@@ -31,7 +31,7 @@ function PawFeedLayout(post) {
                     </p>
                 </Link>
             </div>
-        </div>
+        </div >
     );
 }
 
