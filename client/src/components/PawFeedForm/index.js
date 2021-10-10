@@ -35,6 +35,7 @@ const PostForm = () => {
 
     const handleChangeTitle = event => {
         setTitle(event.target.value);
+        console.log(event.target.value);
     }
 
     const handleChangeText = event => {
@@ -54,10 +55,8 @@ const PostForm = () => {
 
         try {
             await addPost({
-                variables: { postTitle, postText }
+                variables: { postTitle, postText, feedName }
             });
-
-            console.log('paw feed form', addPost)
 
             //clear form value
             setTitle('');

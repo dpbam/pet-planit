@@ -224,9 +224,13 @@ export const ADD_REPLY = gql`
   mutation addReply($postId: ID!, $replyText: String!) {
     addReply(postId: $postId, replyText: $replyText) {
       _id
-      replyText
-      createdAt
-      username
+      replyCount
+      replies {
+        _id
+        replyText
+        createdAt
+        username
+      }
     }
   }
 `;

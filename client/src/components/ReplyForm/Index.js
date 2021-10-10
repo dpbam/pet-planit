@@ -16,7 +16,7 @@ const ReplyForm = ({ postId }) => {
         if (event.target.value.length <= 280) {
             setText(event.target.value);
             setCharacterCount(event.target.value.length);
-            console.log('setText', setText(setText(event.target.value)));
+            console.log('setText', event.target.value);
         }
     };
 
