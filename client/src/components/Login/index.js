@@ -67,12 +67,13 @@ const Login = (props) => {
             onChange={handleChange}
             required={true}
           />
+          {error && <span className="login-error">Login failed</span>}
           <p className="required">&#42;Required field</p>
           <button className='btn d-block w-100' type='submit'>
             Submit
           </button>
         </form>
-        {error && <div>Login failed</div>}
+        
     </div>
       
   );

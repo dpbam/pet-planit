@@ -119,12 +119,13 @@ const Signup = () => {
             onChange={handleChange}
             required={true}
           />
+          {error && <span className="signup-error">Signup failed</span>}
           <p className="required">&#42;Required field</p>
           <button className='btn d-block w-100' type='submit'>
             Submit
           </button>
         </form>
-        {error && <div>Signup failed</div>}
+        
     </div>
   );
 };

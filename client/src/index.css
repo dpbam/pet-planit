@@ -209,11 +209,19 @@ label[for="first-name"], label[for="last-name"] {
 
 p.required {
   font-size: 12px;
-  flex: 100%;
+  flex: 1 50%;
   height: 16px;
   text-align: right;
   margin: 5px 15px 0 0;
   padding-top: 0;
+}
+
+.login-error, .signup-error {
+  font-size: 13px;
+  flex: 0 30%;
+  margin: 5px 5px 0 15px;
+  color: var(--tomato-red);
+  font-weight: 600;
 }
 
 .about {
