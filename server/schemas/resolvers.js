@@ -31,11 +31,11 @@ const resolvers = {
         .populate("donations");
     },
     pets: async () => {
-      return Pet.find();
+      return Pet.find().populate("owner");
     },
     pet: async (parent, { owner }) => {
       const params = owner ? { owner } : {};
-      return Pet.find(params);
+      return Pet.find(params).populate("owner");
     },
     feeds: async () => {
       return Feed.find().populate("posts");
@@ -45,18 +45,18 @@ const resolvers = {
       return Feed.find(params).populate("posts");
     },
     posts: async () => {
-      return Post.find();
+      return Post.find().populate("feed").populate("user");
     },
-    postsByFeed: async (parent, { feedName }) => {
-      const params = feedName ? { feedName } : {};
-      return Post.find(params).sort({ createdAt: -1 });
+    postsByFeed: async (parent, { feed }) => {
+      const params = feed ? { feed } : {};
+      return Post.find(params).sort({ createdAt: -1 }).populate("feed").populate("user");
     },
-    postsByUser: async (parent, { username }) => {
-      const params = username ? { username } : {};
-      return Post.find(params).sort({ createdAt: -1 });
+    postsByUser: async (parent, { user }) => {
+      const params = user ? { user } : {};
+      return Post.find(params).sort({ createdAt: -1 }).populate("feed").populate("user");
     },
-    post: async (parent, { _id }) => {
-      return Post.findOne({ _id });
+    post: async (parent, { postId }) => {
+      return Post.findOne({ postId }).populate("feed").populate("user");
     },
   },
   Mutation: {
@@ -95,7 +95,7 @@ const resolvers = {
       if (context.user) {
         const pet = await Pet.create({
           ...args,
-          owner: context.user.username,
+          owner: context.user._id,
         });
 
         await User.findByIdAndUpdate(
@@ -141,12 +141,17 @@ const resolvers = {
     addPost: async (parent, args, context) => {
       if (context.user) {
         const post = await Post.create({
+          user: context.user._id,
           ...args,
-          username: context.user.username,
         });
 
         await User.findByIdAndUpdate(
           { _id: context.user._id },
+          { $push: { posts: post._id } },
+          { new: true, runValidators: true }
+        );
+        await Feed.findByIdAndUpdate(
+          { _id: args.feed },
           { $push: { posts: post._id } },
           { new: true, runValidators: true }
         );
@@ -163,7 +168,12 @@ const resolvers = {
 
         await User.findByIdAndUpdate(
           { _id: context.user._id },
-          { $addToSet: { posts: postId } },
+          { $set: { posts: { _id: postId } } },
+          { new: true, runValidators: true }
+        );
+        await Feed.findByIdAndUpdate(
+          { _id: updatedPost.feed },
+          { $set: { posts: { _id: postId } } },
           { new: true, runValidators: true }
         );
 
@@ -180,6 +190,11 @@ const resolvers = {
           { $pull: { posts: postId } },
           { new: true }
         );
+        await Feed.findByIdAndUpdate(
+          { _id: deletedPost.feed },
+          { $pull: { posts: postId } },
+          { new: true }
+        );
         return deletedPost;
       }
       throw new AuthenticationError("You need to be logged in!");
@@ -190,7 +205,16 @@ const resolvers = {
           { _id: postId },
           {
             $push: {
-              replies: { replyText, username: context.user.username },
+              replies: { replyText, user: context.user._id },
+            },
+          },
+          { new: true, runValidators: true }
+        );
+        await User.findByIdAndUpdate(
+          { _id: context.user._id },
+          {
+            $push: {
+              replies: { replyText, post: postId },
             },
           },
           { new: true, runValidators: true }
@@ -202,9 +226,28 @@ const resolvers = {
     updateReply: async (parent, { replyId, postId, replyText }, context) => {
       if (context.user) {
         const updatedReplyPost = await Post.findByIdAndUpdate(
-          { _id: postId }, 
+          { _id: postId },
           {
-            $set: { replies: { _id: replyId, replyText: replyText, username: context.user.username } },
+            $set: {
+              replies: {
+                _id: replyId,
+                replyText: replyText,
+                user: context.user._id,
+              },
+            },
+          },
+          { new: true, runValidators: true }
+        );
+        await User.findByIdAndUpdate(
+          { _id: context.user._id },
+          {
+            $set: {
+              replies: {
+                _id: replyId,
+                replyText: replyText,
+                post: postId,
+              },
+            },
           },
           { new: true, runValidators: true }
         );
@@ -216,6 +259,11 @@ const resolvers = {
       if (context.user) {
         const deletedReplyPost = await Post.findByIdAndUpdate(
           { _id: postId },
+          { $pull: { replies: { _id: replyId } } },
+          { new: true }
+        );
+        await User.findByIdAndUpdate(
+          { _id: context.user._id },
           { $pull: { replies: { _id: replyId } } },
           { new: true }
         );

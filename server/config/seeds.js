@@ -18,9 +18,12 @@ db.once("open", async () => {
     const username = faker.internet.userName();
     const email = faker.internet.email(username);
     const password = faker.internet.password();
+    const firstName = faker.name.firstName();
+    const lastName = faker.name.lastName();
+    const image = 'http://cos.h-cdn.co/assets/15/25/1434726176-tom.jpg';
     const zipcode = faker.address.zipCode();
 
-    userData.push({ username, email, password, zipcode });
+    userData.push({ username, email, password, firstName, lastName, image, zipcode });
   }
 
   const createdUsers = await User.collection.insertMany(userData);
@@ -42,6 +45,7 @@ db.once("open", async () => {
       max: 15,
     });
     const about = faker.lorem.sentences();
+    const playDate = faker.random.boolean();
 
     const createdPet = await Pet.create({
       owner,
