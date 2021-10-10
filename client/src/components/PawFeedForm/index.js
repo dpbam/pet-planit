@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { useMutation } from '@apollo/client';
 import { ADD_POST } from '../../utils/mutations';
-import { QUERY_POSTS, QUERY_ME } from '../../utils/queries';
+import { QUERY_POSTS, QUERY_ME_FORM } from '../../utils/queries';
 
 const PostForm = () => {
 
@@ -16,18 +16,23 @@ const PostForm = () => {
             try {
                 const { posts } = cache.readQuery({ query: QUERY_POSTS });
 
+                console.log('form post data', posts);
+
                 cache.writeQuery({
                     query: QUERY_POSTS,
                     data: { posts: [addPost, ...posts] }
                 });
+
+                console.log('form post', posts);
             }
             catch (e) {
                 console.log(e);
             }
             //update me object's cache, appending new post to the end of the array
-            const { me } = cache.readQuery({ query: QUERY_ME });
+            const { me } = cache.readQuery({ query: QUERY_ME_FORM });
+            console.log('me', me);
             cache.writeQuery({
-                query: QUERY_ME,
+                query: QUERY_ME_FORM,
                 data: { me: { ...me, posts: [...me.posts, addPost] } }
             });
         }
@@ -97,6 +102,7 @@ const PostForm = () => {
 
                     onChange={handleChangeFeedName}
                 >
+                    <option value="" disabled>Feed Type</option>
                     <option value="General">General</option>
                     <option value="Pet Adoption">Pet Adoption</option>
                     <option value="Pet Sitting">Pet Sitting</option>

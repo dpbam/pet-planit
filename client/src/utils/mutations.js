@@ -186,6 +186,9 @@ export const ADD_POST = gql`
       replyCount
       replies {
         _id
+        replyText
+        createdAt
+        username
       }
     }
   }
