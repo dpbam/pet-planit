@@ -36,7 +36,7 @@ const Header = () => {
         ) : (
           <ul>
             <li><a href="#about" className={activeNav === "#about" ? "active" : ""} onClick={() => setActiveNav("#about")}>About</a></li>
-            <li><a href="/" className={activeNav === "" ? "active" : ""} onClick={() => setActiveNav("signup")}>Sign-up / Login</a></li>
+            <li><a href="/#" className={activeNav === "" ? "active" : ""} onClick={() => setActiveNav("signup")}>Sign-up / Login</a></li>
           </ul>
         )}
       </nav>
