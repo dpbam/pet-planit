@@ -30,7 +30,7 @@ const postSchema = new Schema(
     feed: {
         // type: String,
         type: Schema.Types.ObjectId,
-        ref: "Post",
+        ref: "Feed",
         required: true
     },
     replies: [replySchema]

@@ -42,7 +42,6 @@ const typeDefs = gql`
         _id: ID
         postTitle: String
         postText: String
-        feedName: String
         createdAt: String
         user: User
         feed: Feed

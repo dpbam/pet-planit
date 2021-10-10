@@ -56,7 +56,7 @@ const resolvers = {
       return Post.find(params).sort({ createdAt: -1 }).populate("feed").populate("user");
     },
     post: async (parent, { postId }) => {
-      return Post.findOne({ postId }).populate("feed").populate("user");
+      return Post.findById(postId).populate("feed").populate("user");
     },
   },
   Mutation: {
@@ -94,8 +94,8 @@ const resolvers = {
     addPet: async (parent, args, context) => {
       if (context.user) {
         const pet = await Pet.create({
-          ...args,
           owner: context.user._id,
+          ...args,
         });
 
         await User.findByIdAndUpdate(
@@ -103,7 +103,7 @@ const resolvers = {
           { $push: { pets: pet._id } },
           { new: true, runValidators: true }
         );
-        return pet;
+        return pet.populate("owner");
       }
       throw new AuthenticationError("You need to be logged in!");
     },
@@ -120,7 +120,7 @@ const resolvers = {
           { $addToSet: { pets: updatedPet._id } },
           { new: true, runValidators: true }
         );
-        return updatedPet;
+        return updatedPet.populate("owner");
       }
       throw new AuthenticationError("You need to be logged in!");
     },
@@ -134,7 +134,7 @@ const resolvers = {
           { new: true }
         );
 
-        return deletedPet;
+        return deletedPet.populate("owner");
       }
       throw new AuthenticationError("You need to be logged in!");
     },
@@ -142,6 +142,7 @@ const resolvers = {
       if (context.user) {
         const post = await Post.create({
           user: context.user._id,
+          feed: args.feed,
           ...args,
         });
 
@@ -155,7 +156,7 @@ const resolvers = {
           { $push: { posts: post._id } },
           { new: true, runValidators: true }
         );
-        return post;
+        return post.populate("feed").populate("user");
       }
       throw new AuthenticationError("You need to be logged in!");
     },
@@ -163,8 +164,10 @@ const resolvers = {
       if (context.user) {
         const updatedPost = await Post.findByIdAndUpdate(
           { _id: postId },
-          { postText: postText }
+          { postText: postText },
+          { new: true, runValidators: true }
         );
+        console.log("updated post: ", updatedPost);
 
         await User.findByIdAndUpdate(
           { _id: context.user._id },
@@ -205,7 +208,7 @@ const resolvers = {
           { _id: postId },
           {
             $push: {
-              replies: { replyText, user: context.user._id },
+              replies: { replyText, user: context.user._id, post: postId },
             },
           },
           { new: true, runValidators: true }
@@ -214,12 +217,12 @@ const resolvers = {
           { _id: context.user._id },
           {
             $push: {
-              replies: { replyText, post: postId },
+              replies: { replyText, post: postId, user: context.user._id },
             },
           },
           { new: true, runValidators: true }
         );
-        return createReplyPost;
+        return createReplyPost.populate("post").populate("user");
       }
       throw new AuthenticationError("You need to be logged in!");
     },
@@ -233,6 +236,7 @@ const resolvers = {
                 _id: replyId,
                 replyText: replyText,
                 user: context.user._id,
+                post: postId
               },
             },
           },
@@ -245,13 +249,14 @@ const resolvers = {
               replies: {
                 _id: replyId,
                 replyText: replyText,
+                user: context.user._id,
                 post: postId,
               },
             },
           },
           { new: true, runValidators: true }
         );
-        return updatedReplyPost;
+        return updatedReplyPost.populate("post").populate("user");
       }
       throw new AuthenticationError("You need to be logged in!");
     },
@@ -267,7 +272,7 @@ const resolvers = {
           { $pull: { replies: { _id: replyId } } },
           { new: true }
         );
-        return deletedReplyPost;
+        return deletedReplyPost.populate("post").populate("user");
       }
     },
     addDonation: async (parent, args, context) => {
