@@ -1,24 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import $ from 'jquery';
 
 // TODO add interests
 
 const Profile = (props) => {
 
-  const {
-    username,
-    firstName,
-    lastName,
-    email,
-    zipcode,
-    image,
-    pets,
-    posts
-  } = props.profile;
-
+  const [currentProfile, setCurrentProfile] = useState(props.profile);
   const [editingProfile, setEditingProfile] = useState(false);
   const [editingPet, setEditingPet] = useState(false);
-  const [statePets, setPets] = useState(pets);
+  const [statePets, setPets] = useState(currentProfile.pets);
+  const [tempImage, setTempImage] = useState(currentProfile.image);
 
   let newPetTemplate = {
     name: "New Pet",
@@ -26,13 +17,21 @@ const Profile = (props) => {
     breed: "N/A",
     age: 0,
     about: "N/A",
-    owner: username,
+    owner: currentProfile.username,
     playdate: false,
     image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Question_Mark.svg/1200px-Question_Mark.svg.png"
   };
 
+  useEffect(() => {
+    let test = currentProfile;
+    test.pets = statePets;
+    setCurrentProfile(test);
+  }, [statePets]);
+
   const editProfile = () => {
     setEditingProfile(!editingProfile);
+
+    console.log(currentProfile, tempImage);
 
     if (editingProfile) {
 
@@ -40,14 +39,14 @@ const Profile = (props) => {
       let profileSection = $(document.querySelector("#profile-info"));
       let textAreas = profileSection.find('textarea');
       let tempProfile = {
-        username: username,
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        zipcode: zipcode,
-        image: image,
+        username: currentProfile.username,
+        firstName: currentProfile.firstName,
+        lastName: currentProfile.lastName,
+        email: currentProfile.email,
+        zipcode: currentProfile.zipcode,
+        image: currentProfile.image,
         pets: statePets,
-        posts: posts
+        posts: currentProfile.posts
       };
 
       $.each(textAreas, (index, area) => {
@@ -70,8 +69,10 @@ const Profile = (props) => {
         }
       });
 
+      tempProfile.image = tempImage;
       // TODO add logic for graphql mutation to update profile
-      console.log(tempProfile);
+
+      setCurrentProfile(tempProfile);
     }
   }
 
@@ -168,10 +169,60 @@ const Profile = (props) => {
     // TODO add logic for graphql mutation to update pets
   }
 
+
+  const uploadImage = (event) => {
+    let profileImage = $(document.querySelector("#profile-image"));
+    var $files = $(event);
+
+    if ($files.length) {
+      // Reject big files
+      if ($files[0].size > $(this).data('max-size') * 1024) {
+        console.log('Please select a smaller file');
+        return false;
+      }
+
+      // Begin file upload
+      console.log('Uploading file to Imgur..');
+
+      var apiUrl = 'https://api.imgur.com/3/image';
+      var apiKey = 'dc0e01b32f67816';
+
+      var settings = {
+        async: true,
+        crossDomain: true,
+        processData: false,
+        contentType: false,
+        type: 'POST',
+        url: apiUrl,
+        headers: {
+          Authorization: 'Client-ID ' + apiKey,
+          Accept: 'application/json',
+        },
+        mimeType: 'multipart/form-data',
+        error: function (req, err) { console.log(req, err); }
+      };
+
+      var formData = new FormData();
+      formData.append('image', $files[0]);
+      settings.data = formData;
+
+      // Response contains stringified JSON
+      // Image URL available at response.data.link
+      $.ajax(settings).done(function (response) {
+        let newPhotoData = (JSON.parse(response).data);
+        setTempImage(newPhotoData.link);
+        profileImage.attr("src", newPhotoData.link);
+
+        // TODO add logic for graphql mutation to update profile
+      });
+    }
+  }
+
+
   return (
     <section id="profile-section">
 
-      <h2>{username}'s Farm</h2>
+      <h2>{currentProfile.username}'s Farm</h2>
       <div id="profile-details">
         <div id="profile-info">
 
@@ -181,19 +232,19 @@ const Profile = (props) => {
               <div className="profile-details-holder">
                 <div className="profile-detail-container">
                   <label>First name</label>
-                  <textarea type="text" name="owner-fname" defaultValue={firstName} />
+                  <textarea type="text" name="owner-fname" defaultValue={currentProfile.firstName} />
                 </div>
                 <div className="profile-detail-container">
                   <label>Last name</label>
-                  <textarea type="text" name="owner-lname" defaultValue={lastName} />
+                  <textarea type="text" name="owner-lname" defaultValue={currentProfile.lastName} />
                 </div>
                 <div className="profile-detail-container">
                   <label>Email</label>
-                  <textarea type="text" name="owner-email" defaultValue={email} />
+                  <textarea type="text" name="owner-email" defaultValue={currentProfile.email} />
                 </div>
                 <div className="profile-detail-container">
                   <label>Zipcode</label>
-                  <textarea type="text" name="owner-zipcode" defaultValue={zipcode} />
+                  <textarea type="text" name="owner-zipcode" defaultValue={currentProfile.zipcode} />
                 </div>
               </div>
 
@@ -203,7 +254,13 @@ const Profile = (props) => {
                   <button type="button" className="profile-edit profile-save button" onClick={editProfile}>Save</button>
                 </div>
                 <div className="profile-image-container">
-                  <img src={image} alt={"Picture of " + username} />
+                  <img src={currentProfile.image} alt={"Picture of " + currentProfile.username} id="profile-image" />
+                </div>
+                <div className="profile-image-upload">
+                  <input type="file" id="profile-upload" accept="image/*" style={{ display: 'none' }} onChange={e => uploadImage(e.target.files[0])} />
+                  <button type="button" id="profile-pic-button">
+                    <label htmlFor="profile-upload">Upload</label>
+                  </button>
                 </div>
               </div>
             </>
@@ -212,19 +269,19 @@ const Profile = (props) => {
               <div className="profile-details-holder">
                 <div className="profile-detail-container">
                   <label>First name</label>
-                  <textarea type="text" name="owner-fname" defaultValue={firstName} readOnly />
+                  <textarea type="text" name="owner-fname" defaultValue={currentProfile.firstName} readOnly />
                 </div>
                 <div className="profile-detail-container">
                   <label>Last name</label>
-                  <textarea type="text" name="owner-lname" defaultValue={lastName} readOnly />
+                  <textarea type="text" name="owner-lname" defaultValue={currentProfile.lastName} readOnly />
                 </div>
                 <div className="profile-detail-container">
                   <label>Email</label>
-                  <textarea type="text" name="owner-email" defaultValue={email} readOnly />
+                  <textarea type="text" name="owner-email" defaultValue={currentProfile.email} readOnly />
                 </div>
                 <div className="profile-detail-container">
                   <label>Zipcode</label>
-                  <textarea type="text" name="owner-zipcode" defaultValue={zipcode} readOnly />
+                  <textarea type="text" name="owner-zipcode" defaultValue={currentProfile.zipcode} readOnly />
                 </div>
               </div>
 
@@ -234,7 +291,7 @@ const Profile = (props) => {
                   <button type="button" className="profile-edit button" onClick={editProfile}>Edit</button>
                 </div>
                 <div className="profile-image-container">
-                  <img src={image} alt={"Picture of " + username} />
+                  <img src={currentProfile.image} alt={"Picture of " + currentProfile.username} />
                 </div>
               </div>
             </>}
@@ -245,7 +302,7 @@ const Profile = (props) => {
           <label>Posts</label>
           <div id="posts-container">
             <ul>
-              {posts.map((post, index) => (
+              {currentProfile.posts.map((post, index) => (
                 <li className="profile-post" key={index}>
                   <a href="./">{post.title}</a>
                 </li>
@@ -313,7 +370,7 @@ const Profile = (props) => {
                 <button type="button" className="pet-delete button" onClick={() => deletePet(index)}>X</button>
               </div>
               <div className="pet-image-container">
-                <img className="pet-image" pet={index} src={pet.image} alt={username + "'s pet " + pet.type + " " + pet.name} />
+                <img className="pet-image" pet={index} src={pet.image} alt={currentProfile.username + "'s pet " + pet.type + " " + pet.name} />
               </div>
             </div>
           </div>

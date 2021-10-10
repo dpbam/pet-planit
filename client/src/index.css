@@ -472,7 +472,7 @@ input[type="radio"]:checked {
   background-color: #6666FF;
 }
 
-.button {
+.button, #profile-pic-button {
   color: white;
   height: 35px;
   width: 65px;
@@ -480,11 +480,24 @@ input[type="radio"]:checked {
   border: none;
 }
 
+#profile-pic-button {
+  width: 75px;
+}
+#profile-pic-button label {
+  font-size: 15px;
+}
+
+.profile-image-upload {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 .button:active {
   filter: brightness(75%);
 }
 
-.pet-edit, .profile-edit, .pet-add {
+.pet-edit, .profile-edit, .pet-add, #profile-pic-button {
   background-color: #6666FF;
 }
 
@@ -519,6 +532,11 @@ input[type="radio"]:checked {
   width: 50%;
   min-width: 100px;
   position: relative;
+}
+
+.upload-img {
+  width: 25px;
+  height: 25px;
 }
 
 .pet-image-container:after, .profile-image-container:after {
