@@ -93,10 +93,10 @@ function App() {
           <div>
             <Switch>
               <Route exact path="/" component={Home} />
-              <Route exact path="/profile" component={() => (<Profile profile={exampleProfile} />)} />
-              <Route exact path="/donate" component={Donate} />
               <Route exact path="/pawfeed" component={PawFeed} />
               <Route exact path="/pawfeed/:id" component={SinglePawFeed} />
+              <Route exact path="/profile" component={() => (<Profile profile={exampleProfile} />)} />
+              <Route exact path="/donate" component={Donate} />
               {/* Possible solution to if a user hits a relative path that doesn't exist, can change later */}
               <Route render={() => <h2>404</h2>} />
             </Switch>
