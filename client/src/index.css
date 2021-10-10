@@ -13,18 +13,16 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
+/* Header/Nav Styles */
 header {
   display: flex;
   flex-wrap: wrap;
@@ -35,8 +33,9 @@ header {
   z-index: 9999;
 }
 
-h1 {
+.site-name {
   margin: 30px 40px;
+  font-size: 32px;
   color: #FFF;
   font-weight: normal;
 }
@@ -44,6 +43,7 @@ h1 {
 header a {
   text-decoration: none;
 }
+
 header nav {
   padding-right: 35px;
   display: flex;
@@ -78,6 +78,7 @@ header .active {
   min-height: calc(100vh - 215px);
 }
 
+/* Home/Signup/Login Styles */
 .hero {
   display: flex;
   justify-content: flex-end;
@@ -88,12 +89,11 @@ header .active {
   background-position: center;
 }
 
-.signup-form,
-.login-form {
+.signup-form, .login-form {
   background-color: #FFF;
   width: 400px;
   height: 550px;
-  margin: 40px 60px;
+  margin: 30px 60px;
   align-self: center;
 }
 
@@ -105,60 +105,53 @@ header .active {
   height: 470px;
 }
 
-.signup-form div,
-.login-form div {
+.signup-form div, .login-form div {
   padding: 15px 20px 10px;
 }
 
-.signup-form h3,
-.login-form h3 {
+.signup p, .login p {
   font-size: 24px;
-  padding-top: 35px;
+  padding-top: 30px;
   text-align: center;
   font-weight: normal;
 }
 
-.signup-form h3 {
+.signup p {
   padding-top: 25px;
 }
 
-.signup-form h4,
-.login-form h4 {
+.signup-form h1, .login-form h1 {
   font-size: 20px;
-  padding-top: 35px;
+  padding-top: 25px;
   text-align: center;
   font-weight: normal;
 }
 
-.signup-form h4 {
+.signup-form h1 {
   padding-top: 25px;
 }
 
-.signup-form h4:after,
-.login-form h4::after {
+.signup-form h1:after, .login-form h1::after {
   content: "";
   display: block;
-  margin: 0 auto;
+  margin: 0 auto 15px;
   width: 150px;
   padding-top: 15px;
   border-bottom: 2px solid var(--light-grey);
 }
 
-.signup-form form,
-.login-form form {
+.signup-form form, .login-form form {
   display: flex;
   flex-wrap: wrap;
   margin-top: 10px;
 }
 
-.signup-form label,
-.login-form label {
+.signup-form label, .login-form label {
   flex: 100%;
   margin: 15px 15px 6px;
 }
 
-.signup-form form input,
-.login-form form input {
+.signup-form form input, .login-form form input {
   flex: 100%;
   height: 35px;
   margin: 0 15px;
@@ -166,11 +159,10 @@ header .active {
   border-width: 1px;
 }
 
-.signup-form form button,
-.login-form form button {
+.signup-form form button, .login-form form button {
   flex: 0 1 50%;
   padding: 10px;
-  margin: 25px auto 15px;
+  margin: 10px auto 15px;
   background-color: var(--tomato-red);
   color: #fff;
   font-size: 1.125rem;
@@ -179,22 +171,51 @@ header .active {
   cursor: pointer;
 }
 
-.signup-form form button:hover,
-.login-form form button:hover {
+.signup-form form button:hover, .login-form form button:hover {
   background-color: var(--dark-red);
 }
 
-.signup-form p,
-.login-form p {
-  text-align: center;
+form .full-name {
+  display: inline-flex;
+  padding: 0;
+  align-items: baseline;
 }
 
-.signup-form p span:hover,
-.login-form p span:hover {
+form .full-name div {
+  padding: 0;
+}
+
+form .full-name div:first-child {
+  margin: 0 0 0 15px;
+}
+
+label[for="first-name"], label[for="last-name"] {
+  margin: 0;
+}
+
+#first-name, #last-name {
+  margin: 6px 0 0;
+  
+}
+
+.signup-form p, .login-form p {
+  text-align: center;
+  font-size: 14px;
+}
+
+.signup-form p span:hover, .login-form p span:hover {
   color: var(--dark-red);
   border-bottom: 1px solid var(--dark-red);
   padding-bottom: 2px;
   cursor: pointer;
+}
+
+p.required {
+  font-size: 12px;
+  flex: 100%;
+  height: 16px;
+  text-align: right;
+  margin: 5px 15px 0 0;
 }
 
 .about {
@@ -215,6 +236,7 @@ header .active {
   text-align: center;
 }
 
+/* Footer styles */
 footer {
   display: flex;
   flex-wrap: wrap;
@@ -242,4 +264,314 @@ footer a {
 
 footer a:hover {
   border-bottom: 2px solid #FFF;
+}
+
+/* Donate page styles */
+.hero-donate {
+  background-image: url("./images/dog-cat-snuggle.jpg");
+  background-size: cover;
+  background-position-y: center;
+  height: 425px;
+}
+
+.donate-h1 {
+  text-align: center;
+  padding: 40px 20px 30px;
+}
+
+.donate-paws p,
+.donate-site p {
+  margin: 0 auto;
+  font-size: 20px;
+  max-width: 50%;
+  text-align: center;
+}
+
+.donate-paws div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 70%;
+  margin: 40px auto;
+}
+
+.donate-paws button {
+  font-size: 16px;
+  background-color: var(--tomato-red);
+  color: #FFF;
+  width: 240px;
+  margin: 15px 20px;
+  padding: 12px;
+  border-radius: 6px;
+  border: none;
+}
+
+.donate-paws button:hover {
+  background-color: var(--dark-red);
+  cursor: pointer;
+}
+
+.donation-divider {
+  display: flex;
+  justify-content: center;
+}
+
+.donation-divider hr {
+  width: 40%;
+  border: none;
+  border-bottom: 1px solid var(--light-grey);
+  align-self: center;
+  margin: 0 20px;
+}
+
+.donate-site p {
+  padding: 50px 20px 30px;
+}
+
+.donate-site small {
+  display: block;
+  width: 35%;
+  margin: 0 auto;
+  padding: 0 20px 40px;
+  text-align: center;
+  color: #908A8A;
+}
+#profile-section {
+  padding: 0px 50px 20px 50px
+}
+
+#profile-section h2 {
+  margin: 20px 0px 5px 0px;
+}
+
+#profile-section label {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+#profile-section textarea {
+  font-size: 15px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  vertical-align: middle;
+}
+
+#profile-pets {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.pet-box {
+  margin-bottom: 10px;
+  display: flex;
+  width: 100%;
+}
+
+.pet-box, #profile-info, #profile-posts {
+  border-style: solid;
+  border-width: 1px;
+}
+
+.profile-detail-container {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0px 0px 10px 10px;
+  justify-content: space-between;
+}
+
+.profile-detail-container textarea {
+  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
+  height: 30px;
+  margin-top: 5px;
+  resize: none;
+}
+
+.profile-detail-container label {
+  width: 100%;
+}
+
+.profile-details-holder {
+  width: 60%;
+}
+
+.profile-button-holder {
+  padding: 10px 0px 10px 0px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pet-details-1 {
+  width: 30%;
+}
+
+.pet-details-2 {
+  width: 50%;
+}
+
+.pet-details-3 {
+  width: 20%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+}
+
+.pet-about-textarea {
+  height: 104px !important;
+}
+
+.pet-about-label {
+  height: 10%;
+}
+
+.pet-play-wrapper, .pet-age-wrapper {
+  width: 49%;
+}
+
+.pet-play-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.pet-play-wrapper label {
+  text-align: center;
+}
+
+input[type="radio"], input[type="radio"]:disabled  {
+  -webkit-appearance: none;
+  width: 15px;
+  height: 15px;
+  padding: 0px;
+  background-clip: content-box;
+  border: 2px solid #bbbbbb;
+  background-color: white;
+  border-radius: 50%;
+}
+
+
+input[type="radio"]:checked {
+  background-color: #6666FF;
+}
+
+.button {
+  color: white;
+  height: 35px;
+  width: 65px;
+  border-radius: 7px;
+  border: none;
+}
+
+.button:active {
+  filter: brightness(75%);
+}
+
+.pet-edit, .profile-edit, .pet-add {
+  background-color: #6666FF;
+}
+
+.profile-save, .pet-save {
+  background-color: #44ad52;
+}
+
+.pet-add {
+  width: 150px;
+}
+
+.pet-delete {
+  background-color: #FF666F;
+}
+
+.pet-button-holder {
+  padding: 10px 0px 10px 0px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.pet-image-container {
+  width: 50%;
+  max-width: 150px;
+  min-width: 100px;
+  position: relative;
+}
+
+.profile-image-container {
+  width: 50%;
+  min-width: 100px;
+  position: relative;
+}
+
+.pet-image-container:after, .profile-image-container:after {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+
+.pet-image-container img, .profile-image-container img {
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.profile-image-holder {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+}
+
+#profile-info {
+  padding: 10px 0px 10px 0px;
+  display: flex;
+  justify-content: center;
+}
+
+#profile-posts {
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+  align-items: flex-start;
+}
+
+#profile-posts label {
+  width: 100%;
+}
+
+#posts-container {
+  border-style: solid;
+  border-width: 1px;
+  width: 100%;
+  height: 90%;
+  padding: 10px;
+}
+
+#posts-container ul {
+  margin: 0px;
+  padding-left: 20px;
+}
+
+#profile-info, #profile-posts {
+  width: 50%;
+}
+
+#profile-posts {
+  margin-left: 10px;
+}
+
+#profile-details {
+  display: flex;
 }
