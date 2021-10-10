@@ -40,11 +40,11 @@ export const ADD_USER = gql`
 
 export const UPDATE_USER = gql`
   mutation updateUser(
-    $username: String!
-    $email: String!
-    $password: String!
-    $firstName: String!
-    $lastName: String!
+    $username: String
+    $email: String
+    $password: String
+    $firstName: String
+    $lastName: String
     $zipcode: String
   ) {
     updateUser(
@@ -118,9 +118,9 @@ export const ADD_PET = gql`
 export const UPDATE_PET = gql`
   mutation updatePet(
     $petId: ID!
-    $petName: String!
-    $petType: String!
-    $petAge: Int!
+    $petName: String
+    $petType: String
+    $petAge: Int
     $petBreed: String
     $about: String
     $playDate: Boolean
