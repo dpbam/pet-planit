@@ -37,6 +37,7 @@ const SinglePawFeed = props => {
             </div>
             {post.replyCount > 0 && <ReplyList replies={post.replies} />}
             {Auth.loggedIn() && <ReplyForm postId={post._id} />}
+            <ReplyForm postId={post._id} />
         </div>
     );
 };
