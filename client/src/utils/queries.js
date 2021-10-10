@@ -190,6 +190,7 @@ export const QUERY_POSTS = gql`
   query posts {
     posts {
       _id
+      postTitle
       postText
       feedName 
       createdAt

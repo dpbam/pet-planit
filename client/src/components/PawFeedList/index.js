@@ -7,9 +7,12 @@ import { QUERY_POSTS } from '../../utils/queries';
 const PawFeedList = ({ currentFeed }) => {
     const { loading, data } = useQuery(QUERY_POSTS);
 
+    console.log('pawList', data);
+
     const posts = data?.posts || [];
 
     console.log('posts', posts);
+
     function filterFeeds() {
         if (!currentFeed) {
             return posts;
@@ -28,10 +31,10 @@ const PawFeedList = ({ currentFeed }) => {
                         <PawFeedLayout
                             key={post._id}
                             _id={post._id}
-                            // title={post.title}
+                            postTitle={post.postTitle}
                             postText={post.postText}
                             createdAt={post.createdAt}
-                            username={post.username}
+                            user={post.user}
                             replyCount={post.replyCount}
                         />
                     ))}

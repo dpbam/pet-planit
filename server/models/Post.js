@@ -21,17 +21,13 @@ const postSchema = new Schema(
       default: Date.now,
       get: timestamp => dateFormat(timestamp)
     },
-    user: {
-      // type: String,
-      type: Schema.Types.ObjectId,
-      ref: "User",
+    username: {
+      type: String,
       required: true
     },
     feed: {
-        // type: String,
-        type: Schema.Types.ObjectId,
-        ref: "Feed",
-        required: true
+      type: String,
+      required: true
     },
     replies: [replySchema]
   },
@@ -42,7 +38,7 @@ const postSchema = new Schema(
   }
 );
 
-postSchema.virtual('replyCount').get(function() {
+postSchema.virtual('replyCount').get(function () {
   return this.replies.length;
 });
 
