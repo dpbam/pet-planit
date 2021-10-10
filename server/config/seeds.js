@@ -78,6 +78,7 @@ db.once("open", async () => {
   // create posts
   let createdPosts = [];
   for (let i = 0; i < 100; i += 1) {
+    const postTitle = faker.lorem.words(Math.round(Math.random() * 10) + 1);
     const postText = faker.lorem.words(Math.round(Math.random() * 20) + 1);
 
     const randomUserIndex = Math.floor(Math.random() * createdUsers.ops.length);
@@ -86,7 +87,7 @@ db.once("open", async () => {
     const randomFeedIndex = Math.floor(Math.random() * createdFeeds.ops.length);
     const { feedName, _id: feedId } = createdFeeds.ops[randomFeedIndex];
 
-    const createdPost = await Post.create({ postText, username, feedName });
+    const createdPost = await Post.create({ postTitle, postText, username, feedName });
 
     const updatedUser = await User.updateOne(
       { _id: userId },

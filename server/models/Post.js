@@ -4,6 +4,12 @@ const dateFormat = require('../utils/dateFormat');
 
 const postSchema = new Schema(
   {
+    postTitle: {
+      type: String,
+      minlength: 1,
+      maxlength: 100,
+      required: true,
+    },
     postText: {
       type: String,
       required: 'You need to leave a post!',
@@ -21,8 +27,8 @@ const postSchema = new Schema(
       required: true
     },
     feedName: {
-        type: String,
-        required: true
+      type: String,
+      required: true
     },
     replies: [replySchema]
   },
@@ -33,7 +39,7 @@ const postSchema = new Schema(
   }
 );
 
-postSchema.virtual('replyCount').get(function() {
+postSchema.virtual('replyCount').get(function () {
   return this.replies.length;
 });
 

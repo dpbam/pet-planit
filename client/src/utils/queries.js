@@ -171,6 +171,7 @@ export const QUERY_POST = gql`
   query post($id: ID!) {
     post(_id: $id) {
       _id
+      postTitle
       postText
       feedName
       createdAt
@@ -190,6 +191,7 @@ export const QUERY_POSTS = gql`
   query posts {
     posts {
       _id
+      postTitle
       postText
       feedName 
       createdAt

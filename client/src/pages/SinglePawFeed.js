@@ -12,8 +12,8 @@ const SinglePawFeed = props => {
     const { loading, data } = useQuery(QUERY_POST, {
         variables: { id: postId }
     });
-
-    console.log('postData', postId);
+    console.log('single feed data id', postId);
+    console.log('single feed data', data);
 
     const post = data?.post || {};
 
@@ -23,6 +23,7 @@ const SinglePawFeed = props => {
 
     return (
         <div>
+            <h3>{post.postTitle}</h3>
             <div className="card">
                 <p className="card-header">
                     <span style={{ fontWeight: 700 }} className="text-light">
