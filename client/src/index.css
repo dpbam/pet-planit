@@ -98,7 +98,7 @@ header .active {
 }
 
 .signup-form {
-  height: 580px;
+  height: 620px;
 }
 
 .login-form {
@@ -109,26 +109,11 @@ header .active {
   padding: 15px 20px 10px;
 }
 
-.signup p, .login p {
-  font-size: 24px;
-  padding-top: 30px;
-  text-align: center;
-  font-weight: normal;
-}
-
-.signup p {
-  padding-top: 25px;
-}
-
 .signup-form h1, .login-form h1 {
   font-size: 20px;
-  padding-top: 25px;
+  padding-top: 20px;
   text-align: center;
   font-weight: normal;
-}
-
-.signup-form h1 {
-  padding-top: 25px;
 }
 
 .signup-form h1:after, .login-form h1::after {
@@ -148,7 +133,7 @@ header .active {
 
 .signup-form label, .login-form label {
   flex: 100%;
-  margin: 15px 15px 6px;
+  margin: 12px 15px 6px;
 }
 
 .signup-form form input, .login-form form input {
@@ -203,6 +188,18 @@ label[for="first-name"], label[for="last-name"] {
   font-size: 14px;
 }
 
+.signup p, .login p {
+  font-size: 24px;
+  padding-top: 30px;
+  text-align: center;
+  font-weight: normal;
+}
+
+.signup p {
+  font-size: 22px;
+  padding-top: 15px;
+}
+
 .signup-form p span:hover, .login-form p span:hover {
   color: var(--dark-red);
   border-bottom: 1px solid var(--dark-red);
@@ -212,10 +209,19 @@ label[for="first-name"], label[for="last-name"] {
 
 p.required {
   font-size: 12px;
-  flex: 100%;
+  flex: 1 50%;
   height: 16px;
   text-align: right;
   margin: 5px 15px 0 0;
+  padding-top: 0;
+}
+
+.login-error, .signup-error {
+  font-size: 13px;
+  flex: 0 30%;
+  margin: 5px 5px 0 15px;
+  color: var(--tomato-red);
+  font-weight: 600;
 }
 
 .about {
