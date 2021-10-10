@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function PawFeedLayout(post) {
     const {
         _id,
-        // title,
+        postTitle,
         postText,
         createdAt,
         username,
@@ -13,7 +13,14 @@ function PawFeedLayout(post) {
 
     return (
         <div key={_id} className="card">
-            <h3>placeholder</h3>
+
+            <h3><Link
+                to={`/pawfeeds/${_id}`}
+                style={{ fontWeight: 700 }}
+                className="text-light"
+            >
+                {postTitle}
+            </Link></h3>
             <p className="card-header">
                 <Link
                     to={`/profile/${username}`}
