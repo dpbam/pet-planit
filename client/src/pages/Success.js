@@ -5,16 +5,16 @@ import { ADD_DONATION } from '../utils/mutations';
 import { idbPromise } from '../utils/helpers';
 
 function Success() {
-  const [addOrder] = useMutation(ADD_DONATION);
+  const [addDonation] = useMutation(ADD_DONATION);
 
   useEffect(() => {
-    async function saveOrder() {
+    async function saveDonation() {
       const cart = await idbPromise('cart', 'get');
       const products = cart.map((item) => item._id);
 
       if (products.length) {
-        const { data } = await addOrder({ variables: { products } });
-        const productData = data.addOrder.products;
+        const { data } = await addDonation({ variables: { products } });
+        const productData = data.addDonation.products;
 
         productData.forEach((item) => {
           idbPromise('cart', 'delete', item);
@@ -26,13 +26,13 @@ function Success() {
       }, 3000);
     }
 
-    saveOrder();
-  }, [addOrder]);
+    saveDonation();
+  }, [addDonation]);
   return (
     <div>
       <Jumbotron>
         <h1>Success!</h1>
-        <h2>Thank you for your purchase!</h2>
+        <h2>Thank you for your donation!</h2>
         <h2>You will now be redirected to the homepage</h2>
       </Jumbotron>
     </div>

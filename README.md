@@ -7,6 +7,7 @@
 - [Usage](#usage)
 - [Contributing](#contributing)
 - [License](#license)
+- [Languages and Technologies](#languagesandtech)
 - [Challenges](#challenges)
 - [Questions](#questions)
 
@@ -37,11 +38,16 @@ When I go to the Newsfeed page, I can make posts about my pet and see other user
 
 ## License
 
+## Languages and Technologies
+
+HTML, CSS, JavaScript, React, MongoDB, Mongoose, Express, Stripe, bcrypt, Flexbox
+
 ## Challenges
 
 1. queries and mutations were tough, but graphql helped sort out issues
 2. we had some problems with git conflicts
-3.
+3. scaling down to mvp was a challenge, but it forced us to code leaner
+4.
 
 ## Questions
 
