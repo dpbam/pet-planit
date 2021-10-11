@@ -617,6 +617,14 @@ a {
 }
 
 @media screen and (max-width: 768px) {
+  html {
+    scroll-padding-top: 14rem;
+  }
+
+  header {
+    height: auto;
+  }
+
   header nav {
     flex: 1 100%;
     justify-content: center;
