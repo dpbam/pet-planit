@@ -6,6 +6,7 @@
 - [User Story](#userstory)
 - [Usage](#usage)
 - [Contributing](#contributing)
+- [License](#license)
 - [Challenges](#challenges)
 - [Questions](#questions)
 
@@ -22,7 +23,8 @@ When I go to the Newsfeed page, I can make posts about my pet and see other user
 
 ## Usage
 
-- Insert screen shots here
+- Insert screen shots here: ![Pet Social Network Screen Shot 2021-10-10 at 8 18 10 PM](https://user-images.githubusercontent.com/82355287/136724214-7ba48251-2aaa-42d7-b006-adb37c7abbcd.png)
+
 - deployed website link
 
 ## Contributing
@@ -33,10 +35,13 @@ When I go to the Newsfeed page, I can make posts about my pet and see other user
 - Meghan Bock: https://github.com/meghankbock
 - Jiaming Zhou "Clark": https://github.com/freezenleo
 
+## License
+
 ## Challenges
 
 1. queries and mutations were tough, but graphql helped sort out issues
-2. we had some problems with git
+2. we had some problems with git conflicts
+3.
 
 ## Questions
 
