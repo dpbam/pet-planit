@@ -2,68 +2,83 @@ import React, { useState, useEffect } from 'react';
 import $ from 'jquery';
 import Auth from '../utils/auth';
 import { useQuery, useMutation } from '@apollo/client';
-import { QUERY_ME, QUERY_USER } from '../utils/queries';
+import { QUERY_ME_PROFILE } from '../utils/queries';
+import { UPDATE_USER, ADD_PET, DELETE_PET, UPDATE_PET } from '../utils/mutations';
 
 // TODO add interests
 
 const Profile = (props) => {
 
-  const [currentProfile, setCurrentProfile] = useState(props.profile);
+  const exampleProfile = {
+    _id: "",
+    username: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+    zipcode: "",
+    image: "",
+    pets: [],
+    posts: []
+  }
+
+  const [currentProfile, setCurrentProfile] = useState(exampleProfile);
   const [editingProfile, setEditingProfile] = useState(false);
   const [editingPet, setEditingPet] = useState(false);
-  const [statePets, setPets] = useState(currentProfile.pets);
-  const [tempImage, setTempImage] = useState(currentProfile.image);
 
   const loggedIn = Auth.loggedIn();
-  const userParam = currentProfile.username;
-  // const { loading, data } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
-  //   variables: { username: userParam }
-  // });
+  const userParam = Auth.getProfile().data.username;
 
-  const { loading, data } = useQuery(QUERY_USER, {
-    variables: { username: userParam }
+  const { loading, error, data, refetch } = useQuery(QUERY_ME_PROFILE, {
+    onCompleted: data => setCurrentProfile(data.me),
+    fetchPolicy: "network-only"
   });
 
-  let newPetTemplate = {
-    name: "New Pet",
-    type: "?",
-    breed: "N/A",
-    age: 0,
+
+  const [updateUserMutation] = useMutation(UPDATE_USER);
+  const [addPetMutation] = useMutation(ADD_PET);
+  const [deletePetMutation] = useMutation(DELETE_PET);
+  const [updatePetMutation] = useMutation(UPDATE_PET, { refetchQueries: [{ query: QUERY_ME_PROFILE }] });
+
+  const updateProfileDb = async (profile) => {
+    const mutationResponse = await updateUserMutation({
+      variables: {
+        email: profile.email,
+        firstName: profile.firstName,
+        lastName: profile.lastName,
+        zipcode: profile.zipcode,
+        image: profile.image
+      },
+    });
+  }
+
+  if (loading == true || currentProfile == undefined || currentProfile.username == "") {
+    return <div></div>;
+  }
+
+  const newPetTemplate = {
+    _id: "",
+    petName: "New Pet",
+    petType: "?",
+    petBreed: "N/A",
+    petAge: 1,
     about: "N/A",
     owner: currentProfile.username,
-    playdate: false,
+    playDate: false,
     image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Question_Mark.svg/1200px-Question_Mark.svg.png"
   };
 
-  useEffect(() => {
-    let tempProf = currentProfile;
-    tempProf.pets = statePets;
-    setCurrentProfile(tempProf);
-  }, [statePets, currentProfile]);
+
 
   const editProfile = () => {
     setEditingProfile(!editingProfile);
-
-    console.log(currentProfile, tempImage);
-
-    console.log(loading, data, loggedIn);
-
-    console.log(Auth.getProfile());
+    console.log(currentProfile.pets);
     if (editingProfile) {
 
 
       let profileSection = $(document.querySelector("#profile-info"));
+      let profileImage = $(document.querySelector("#profile-image"));
       let textAreas = profileSection.find('textarea');
-      let tempProfile = {
-        username: currentProfile.username,
-        firstName: currentProfile.firstName,
-        lastName: currentProfile.lastName,
-        email: currentProfile.email,
-        zipcode: currentProfile.zipcode,
-        image: currentProfile.image,
-        pets: statePets,
-        posts: currentProfile.posts
-      };
+      let tempProfile = { ...currentProfile };
 
       $.each(textAreas, (index, area) => {
         $(area).attr('readonly', !$(area).is('[readonly]')); // flips the editability of the input fields
@@ -85,14 +100,15 @@ const Profile = (props) => {
         }
       });
 
-      tempProfile.image = tempImage;
-      // TODO add logic for graphql mutation to update profile
+      tempProfile.image = profileImage.attr("src");
 
       setCurrentProfile(tempProfile);
+      updateProfileDb(tempProfile);
+
     }
   }
 
-  const editPet = (petnum) => {
+  const editPet = async (petnum, petId) => {
     setEditingPet(!editingPet);
 
     let pets = $(document.getElementsByClassName("pet-box"));
@@ -105,20 +121,21 @@ const Profile = (props) => {
 
     let textAreas = pet.find('textarea');
 
-    let tempPet = newPetTemplate;
-    let updatedPetArr = statePets;
+    let tempPet = { ...newPetTemplate };
+    console.log(tempPet);
+    let updatedPetArr = [...currentProfile.pets];
 
     $.each(petPlayButtons, (index, button) => {
-      if (Number($(button).attr('pet')) === petnum) {
+      if (Number($(button).attr('pet')) == petnum) {
         $(button).attr('disabled', !$(button).is('[disabled]')); // flips the editability of the radial buttons
 
-        tempPet.playdate = !($(button).is(':checked')); // this runs twice (once for each button) so by setting the inverse we get the flipped value of the "no" button, which is the value of the "Yes" button
+        tempPet.playDate = !($(button).is(':checked')); // this runs twice (once for each button) so by setting the inverse we get the flipped value of the "no" button, which is the value of the "Yes" button
       }
     });
 
 
     $.each(petImages, (index, image) => {
-      if (Number($(image).attr('pet')) === petnum) {
+      if (Number($(image).attr('pet')) == petnum) {
 
         tempPet.image = $(image)[0].currentSrc;
       }
@@ -129,16 +146,16 @@ const Profile = (props) => {
       $(area).attr('readonly', !$(area).is('[readonly]')); // flips the editability of the input fields
       switch (index) {
         case 0:
-          tempPet.name = $(area).val();
+          tempPet.petName = $(area).val();
           break;
         case 1:
-          tempPet.type = $(area).val();
+          tempPet.petType = $(area).val();
           break;
         case 2:
-          tempPet.breed = $(area).val();
+          tempPet.petBreed = $(area).val();
           break;
         case 3:
-          tempPet.age = $(area).val();
+          tempPet.petAge = $(area).val();
           break;
         case 4:
           tempPet.about = $(area).val();
@@ -148,41 +165,86 @@ const Profile = (props) => {
       }
     });
 
+
+    tempPet._id = petId;
+
     if (currentPetButton.hasClass("pet-save")) { // when the user clicks save...
       currentPetButton.removeClass('pet-save');
       currentPetButton.text('Edit');
       updatedPetArr.splice(petnum, 1, tempPet); // replace old pet with new pet
-      setPets(updatedPetArr);
+      let tempProf = { ...currentProfile };
+      tempProf.pets = [...updatedPetArr];
+      setCurrentProfile(tempProf);
+      console.log(petId);
+      const mutationResponse = await updatePetMutation({
+        variables: {
+          petId: petId,
+          petName: tempPet.petName,
+          petType: tempPet.petType,
+          petAge: Number(tempPet.petAge),
+          petBreed: tempPet.petBreed,
+          about: tempPet.about,
+          playDate: tempPet.playDate,
+          image: tempPet.image
+        }
+      });
     } else {
       currentPetButton.addClass('pet-save');
       currentPetButton.text('Save');
     }
 
-    // console.log(statePets);
+    // console.log(currentProfile.pets);
     // TODO add logic for graphql mutation to update pets
   }
 
-  const deletePet = (petnum) => {
+  const deletePet = async (petnum) => {
     if (petnum > -1) {
       let tempArr = [];
-      for (var i = 0; i < statePets.length; i++) {
+      for (var i = 0; i < currentProfile.pets.length; i++) {
 
         if (i !== petnum) {
-          tempArr.push(statePets[i]);
+          tempArr.push(currentProfile.pets[i]);
         }
       }
-      setPets(tempArr);
+
+      let tempProf = { ...currentProfile };
+      tempProf.pets = tempArr;
+      setCurrentProfile(tempProf);
+
+      const mutationResponse = await deletePetMutation({
+        variables: {
+          petId: currentProfile.pets[petnum]._id
+        },
+      });
     }
 
     // TODO add logic for graphql mutation to update pets
   }
 
-  const addPet = () => {
-    let tempArr = [...statePets]; // Have to use the spread operator so it creates a new reference. aka without this it wont re-render on state change
-    tempArr.push(newPetTemplate);
-    setPets(tempArr);
+  const addPet = async () => {
+    let tempArr = [...currentProfile.pets]; // Have to use the spread operator so it creates a new reference. aka without this it wont re-render on state change
 
-    // TODO add logic for graphql mutation to update pets
+    const mutationResponse = await addPetMutation({
+      variables: {
+        petName: newPetTemplate.petName,
+        petType: newPetTemplate.petType,
+        petAge: newPetTemplate.petAge,
+        petBreed: newPetTemplate.petBreed,
+        about: newPetTemplate.about,
+        playDate: newPetTemplate.playDate,
+        image: newPetTemplate.image
+      },
+    });
+    if (mutationResponse) {
+      let tempPet = {...newPetTemplate};
+      console.log(mutationResponse.data.addPet._id);
+      tempPet._id = mutationResponse.data.addPet._id;
+      tempPet._typename = 'Pet';
+      tempArr.push(tempPet);
+      let tempProf = { ...currentProfile };
+      tempProf.pets = [...tempArr];
+      setCurrentProfile(tempProf);
+    }
   }
 
 
@@ -226,7 +288,6 @@ const Profile = (props) => {
       // Image URL available at response.data.link
       $.ajax(settings).done(function (response) {
         let newPhotoData = (JSON.parse(response).data);
-        setTempImage(newPhotoData.link);
         profileImage.attr("src", newPhotoData.link);
 
         // TODO add logic for graphql mutation to update profile
@@ -237,14 +298,6 @@ const Profile = (props) => {
 
   return (
     <section id="profile-section">
-
-      {loading ? <p>loading</p> : null}
-      {loggedIn && data ? (
-        <div>
-          <h2>Logged in!</h2>
-          <p>{data}</p>
-        </div>
-      ) : null}
 
       <h2>{currentProfile.username}'s Farm</h2>
       <div id="profile-details">
@@ -340,23 +393,23 @@ const Profile = (props) => {
       <h2>Pets</h2>
       <form id="profile-pets">
 
-        {statePets && statePets.map((pet, index) => (
-          <div key={index + pet.name} className="pet-box" pet={index}>
+        {currentProfile.pets.map((pet, index) => (
+          <div key={index + pet.petName} className="pet-box" pet={index}>
             <div className="pet-details-1">
 
-              <div className="profile-detail-container" key={pet.name}>
+              <div className="profile-detail-container" key={pet.petName}>
                 <label>Name</label>
-                <textarea type="text" name="pet-name" defaultValue={pet.name} readOnly />
+                <textarea type="text" name="pet-name" defaultValue={pet.petName} readOnly />
               </div>
 
-              <div className="profile-detail-container" key={pet.type}>
+              <div className="profile-detail-container" key={pet.petType}>
                 <label>Kind of Pet</label>
-                <textarea type="text" name="pet-type" defaultValue={pet.type} readOnly />
+                <textarea type="text" name="pet-type" defaultValue={pet.petType} readOnly />
               </div>
 
-              <div className="profile-detail-container" key={pet.breed}>
+              <div className="profile-detail-container" key={pet.petBreed}>
                 <label>Breed</label>
-                <textarea type="text" name="pet-breed" defaultValue={pet.breed} readOnly />
+                <textarea type="text" name="pet-breed" defaultValue={pet.petBreed} readOnly />
               </div>
 
             </div>
@@ -364,25 +417,25 @@ const Profile = (props) => {
             <div className="pet-details-2">
 
               <div className="profile-detail-container">
-                <div className="pet-age-wrapper" key={pet.age}>
+                <div className="pet-age-wrapper" key={pet.petAge}>
                   <label className="pet-age-label">Age</label>
-                  <textarea className="pet-age-textarea" type="text" name="pet-age" defaultValue={pet.age} readOnly />
+                  <textarea className="pet-age-textarea" type="text" name="pet-age" defaultValue={pet.petAge} readOnly />
                 </div>
-                <div className="pet-play-wrapper" key={pet.playdate}>
+                <div className="pet-play-wrapper" key={pet.playDate}>
                   <label className="pet-playdate-label">Playdates?</label>
 
                   <div className="playdate-buttons">
-                    <input type="radio" className="pet-play-button" pet={index} name={pet.name + "-playdate" + index} defaultChecked={pet.playdate} disabled={true} />Yes
+                    <input type="radio" className="pet-play-button" pet={index} name={pet.petName + "-playdate" + index} defaultChecked={pet.playDate} disabled={true} />Yes
                   </div>
                   <div className="playdate-buttons">
-                    <input type="radio" className="pet-play-button" pet={index} name={pet.name + "-playdate" + index} defaultChecked={!pet.playdate} disabled={true} />No
+                    <input type="radio" className="pet-play-button" pet={index} name={pet.petName + "-playdate" + index} defaultChecked={!pet.playDate} disabled={true} />No
                   </div>
 
                 </div>
               </div>
 
               <div className="profile-detail-container about-container" key={pet.about}>
-                <label className="pet-about-label">About me</label>
+                <label className="pet-about-label">About me {pet._id} </label>
                 <textarea className="pet-about-textarea" type="text" name="pet-about" defaultValue={pet.about} readOnly />
               </div>
 
@@ -390,11 +443,11 @@ const Profile = (props) => {
 
             <div className="pet-details-3">
               <div className="pet-button-holder">
-                <button type="button" className="pet-edit button" petnum={index} onClick={() => editPet(index)}>Edit</button>
+                <button type="button" className="pet-edit button" petnum={index} onClick={() => editPet(index, pet._id)}>Edit</button>
                 <button type="button" className="pet-delete button" onClick={() => deletePet(index)}>X</button>
               </div>
               <div className="pet-image-container">
-                <img className="pet-image" pet={index} src={pet.image} alt={currentProfile.username + "'s pet " + pet.type + " " + pet.name} />
+                <img className="pet-image" pet={index} src={pet.image} alt={currentProfile.username + "'s pet " + pet.petType + " " + pet.petName} />
               </div>
             </div>
           </div>

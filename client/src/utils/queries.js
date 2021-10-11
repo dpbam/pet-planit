@@ -1,5 +1,46 @@
 import { gql } from '@apollo/client';
 
+export const QUERY_ME_PROFILE = gql`
+  {
+    me 
+    { 
+      _id
+      username
+      email
+      firstName
+      lastName
+      zipcode
+      interests
+      image
+      petCount
+      postCount
+      donationCount
+      pets {
+        _id
+        petName
+        petType
+        petBreed
+        petAge
+        playDate
+        about
+        owner
+        image
+      }
+      posts {
+        _id
+        postTitle
+      }
+      donations {
+        _id
+        donationAmount
+        donationRecipient
+        createdAt
+        username
+      }
+    }
+  }
+`;
+
 export const QUERY_ME = gql`
   {
     _id

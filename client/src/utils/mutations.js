@@ -86,7 +86,6 @@ export const UPDATE_USER = gql`
         postText
         feedName
         username
-        replies
       }
     }
   }
