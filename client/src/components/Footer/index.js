@@ -6,9 +6,9 @@ export const Footer = () => {
     <footer>
       <p>
         <a
-          href="https://github.com/dpbam'
+          href="https://github.com/dpbam"
           target='_blank'
-          rel='noreferrer noopener"
+          rel='noreferrer noopener'
         >
           <FaGithub />
           Derek Phelps
@@ -16,8 +16,8 @@ export const Footer = () => {
       </p>
       <p>
         <a
-          href="https://github.com/emholmes target='_blank'
-          rel='noreferrer noopener"
+          href="https://github.com/emholmes" target='_blank'
+          rel='noreferrer noopener'
         >
           <FaGithub />
           Erin Holmes
@@ -25,8 +25,8 @@ export const Footer = () => {
       </p>
       <p>
         <a
-          href="https://github.com/freezenleo target='_blank'
-          rel='noreferrer noopener"
+          href="https://github.com/freezenleo" target='_blank'
+          rel='noreferrer noopener'
         >
           <FaGithub />
           Jiaming (Clark) Zhou
@@ -34,8 +34,8 @@ export const Footer = () => {
       </p>
       <p>
         <a
-          href="https://github.com/meghankbock target='_blank'
-          rel='noreferrer noopener"
+          href="https://github.com/meghankbock" target='_blank'
+          rel='noreferrer noopener'
         >
           <FaGithub />
           Meghan Bock
@@ -43,8 +43,8 @@ export const Footer = () => {
       </p>
       <p>
         <a
-          href="https://github.com/TimPrimmer target='_blank'
-          rel='noreferrer noopener"
+          href="https://github.com/TimPrimmer" target='_blank'
+          rel='noreferrer noopener'
         >
           <FaGithub />
           Tim Primmer
