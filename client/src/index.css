@@ -618,7 +618,7 @@ a {
 
 @media screen and (max-width: 768px) {
   html {
-    scroll-padding-top: 14rem;
+    scroll-padding-top: 200px;
   }
 
   header {
