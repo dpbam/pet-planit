@@ -1,34 +1,34 @@
 import React from 'react';
 import foundations from '../non-profits.json';
 
-const stripe = require('stripe')('');
+// const stripe = require('stripe')('pk_test_TYooMQauvdEDq54NiTphI7jx');
 
-const button = document.querySelector('button');
-button.addEventListener('click', () => {
-  fetch('/create-checkout-session', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      items: [
-        { id: 1, quantity: 3 },
-        { id: 2, quantity: 1 },
-        { id: 3, quantity: 2 },
-      ],
-    }),
-  })
-    .then((res) => {
-      if (res.ok) return res.json();
-      return res.json().then((json) => Promise.reject(json));
-    })
-    .then(({ url }) => {
-      window.location = url;
-    })
-    .catch((e) => {
-      console.error(e.error);
-    });
-});
+// const button = document.querySelector('button');
+// button.addEventListener('click', () => {
+//   fetch('/create-checkout-session', {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify({
+//       items: [
+//         { id: 1, quantity: 3 },
+//         { id: 2, quantity: 1 },
+//         { id: 3, quantity: 2 },
+//       ],
+//     }),
+//   })
+//     .then((res) => {
+//       if (res.ok) return res.json();
+//       return res.json().then((json) => Promise.reject(json));
+//     })
+//     .then(({ url }) => {
+//       window.location = url;
+//     })
+//     .catch((e) => {
+//       console.error(e.error);
+//     });
+// });
 
 const Donate = () => {
   return (

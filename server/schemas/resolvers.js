@@ -1,34 +1,35 @@
-const { User, Pet, Post, Donation, Feed } = require("../models");
-const { AuthenticationError } = require("apollo-server-express");
-const { signToken } = require("../utils/auth");
+const { User, Pet, Post, Donation, Feed } = require('../models');
+const { AuthenticationError } = require('apollo-server-express');
+const { signToken } = require('../utils/auth');
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const resolvers = {
   Query: {
     me: async (parent, args, context) => {
       if (context.user) {
         const userData = await User.findOne({ _id: context.user._id })
-          .select("-__v -password")
-          .populate("pets")
-          .populate("posts")
-          .populate("donations");
+          .select('-__v -password')
+          .populate('pets')
+          .populate('posts')
+          .populate('donations');
 
         return userData;
       }
-      throw new AuthenticationError("Not logged in");
+      throw new AuthenticationError('Not logged in');
     },
     users: async () => {
       return User.find()
-        .select("-__v -password")
-        .populate("pets")
-        .populate("posts")
-        .populate("donations");
+        .select('-__v -password')
+        .populate('pets')
+        .populate('posts')
+        .populate('donations');
     },
     user: async (parent, { username }) => {
       return User.findOne({ username })
-        .select("-__v -password")
-        .populate("pets")
-        .populate("posts")
-        .populate("donations");
+        .select('-__v -password')
+        .populate('pets')
+        .populate('posts')
+        .populate('donations');
     },
     pets: async () => {
       return Pet.find();
@@ -38,11 +39,11 @@ const resolvers = {
       return Pet.find(params);
     },
     feeds: async () => {
-      return Feed.find().populate("posts");
+      return Feed.find().populate('posts');
     },
     feed: async (parent, { feedName }) => {
       const params = feedName ? { feedName } : {};
-      return Feed.find(params).populate("posts");
+      return Feed.find(params).populate('posts');
     },
     posts: async () => {
       return Post.find();
@@ -58,18 +59,55 @@ const resolvers = {
     post: async (parent, { _id }) => {
       return Post.findOne({ _id });
     },
+    checkout: async (parent, args, context) => {
+      const url = new URL(context.headers.referer).origin;
+      const order = new Order({ products: args.products });
+      const { products } = await order.populate('products').execPopulate();
+
+      const line_items = [];
+
+      for (let i = 0; i < products.length; i++) {
+        //  generate product id
+        const product = await stripe.products.create({
+          name: products[i].name,
+          description: products[i].description,
+        });
+
+        // generate price id using the product id
+        const price = await stripe.prices.create({
+          product: product.id,
+          unit_amount: products[i].price * 100,
+          currency: 'usd',
+        });
+
+        // add price id to the line items array
+        line_items.push({
+          price: price.id,
+          quantity: 1,
+        });
+      }
+      const session = await stripe.checkout.sessions.create({
+        payment_method_types: ['card'],
+        line_items,
+        mode: 'payment',
+        success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${url}/`,
+      });
+
+      return { session: session.id };
+    },
   },
   Mutation: {
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
 
       if (!user) {
-        throw new AuthenticationError("Incorrect credentials");
+        throw new AuthenticationError('Incorrect credentials');
       }
       const correctPw = await user.isCorrectPassword(password);
 
       if (!correctPw) {
-        throw new AuthenticationError("Incorrect credentials");
+        throw new AuthenticationError('Incorrect credentials');
       }
 
       const token = signToken(user);
@@ -89,7 +127,7 @@ const resolvers = {
         );
         return updatedUserData;
       }
-      throw new AuthenticationError("You need to be logged in!");
+      throw new AuthenticationError('You need to be logged in!');
     },
     addPet: async (parent, args, context) => {
       if (context.user) {
@@ -105,7 +143,7 @@ const resolvers = {
         );
         return pet;
       }
-      throw new AuthenticationError("You need to be logged in!");
+      throw new AuthenticationError('You need to be logged in!');
     },
     updatePet: async (parent, { petId, ...args }, context) => {
       if (context.user) {
@@ -122,7 +160,7 @@ const resolvers = {
         );
         return updatedPet;
       }
-      throw new AuthenticationError("You need to be logged in!");
+      throw new AuthenticationError('You need to be logged in!');
     },
     deletePet: async (parent, { petId }, context) => {
       if (context.user) {
@@ -136,7 +174,7 @@ const resolvers = {
 
         return deletedPet;
       }
-      throw new AuthenticationError("You need to be logged in!");
+      throw new AuthenticationError('You need to be logged in!');
     },
     addPost: async (parent, args, context) => {
       if (context.user) {
@@ -152,7 +190,7 @@ const resolvers = {
         );
         return post;
       }
-      throw new AuthenticationError("You need to be logged in!");
+      throw new AuthenticationError('You need to be logged in!');
     },
     updatePost: async (parent, { postId, postText }, context) => {
       if (context.user) {
@@ -169,7 +207,7 @@ const resolvers = {
 
         return updatedPost;
       }
-      throw new AuthenticationError("You need to be logged in!");
+      throw new AuthenticationError('You need to be logged in!');
     },
     deletePost: async (parent, { postId }, context) => {
       if (context.user) {
@@ -182,7 +220,7 @@ const resolvers = {
         );
         return deletedPost;
       }
-      throw new AuthenticationError("You need to be logged in!");
+      throw new AuthenticationError('You need to be logged in!');
     },
     addReply: async (parent, { postId, replyText }, context) => {
       if (context.user) {
@@ -197,20 +235,26 @@ const resolvers = {
         );
         return createReplyPost;
       }
-      throw new AuthenticationError("You need to be logged in!");
+      throw new AuthenticationError('You need to be logged in!');
     },
     updateReply: async (parent, { replyId, postId, replyText }, context) => {
       if (context.user) {
         const updatedReplyPost = await Post.findByIdAndUpdate(
-          { _id: postId }, 
+          { _id: postId },
           {
-            $set: { replies: { _id: replyId, replyText: replyText, username: context.user.username } },
+            $set: {
+              replies: {
+                _id: replyId,
+                replyText: replyText,
+                username: context.user.username,
+              },
+            },
           },
           { new: true, runValidators: true }
         );
         return updatedReplyPost;
       }
-      throw new AuthenticationError("You need to be logged in!");
+      throw new AuthenticationError('You need to be logged in!');
     },
     deleteReply: async (parent, { replyId, postId }, context) => {
       if (context.user) {
@@ -235,7 +279,7 @@ const resolvers = {
         );
         return post;
       }
-      throw new AuthenticationError("You need to be logged in!");
+      throw new AuthenticationError('You need to be logged in!');
     },
   },
 };
