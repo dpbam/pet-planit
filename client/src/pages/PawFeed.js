@@ -10,7 +10,7 @@ const PawFeeds = () => {
     const loggedIn = Auth.loggedIn();
 
     return (
-        <main>
+        <main className="pawfeed-container">
             <div>
                 <FeedMenu setFeed={setFeed} />
                 {loggedIn && (

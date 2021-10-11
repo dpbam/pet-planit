@@ -24,7 +24,7 @@ const PawFeedList = ({ currentFeed }) => {
     }
 
     return (
-        <div>
+        <div className="pawfeed-list">
             {posts.length ? (
                 <div className="flex-row">
                     {filterFeeds().map((post) => (
