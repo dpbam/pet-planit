@@ -29,12 +29,12 @@ const PostForm = () => {
                 console.log(e);
             }
             //update me object's cache, appending new post to the end of the array
-            // const { me } = cache.readQuery({ query: QUERY_ME_FORM });
-            // console.log('me', me);
-            // cache.writeQuery({
-            //     query: QUERY_ME_FORM,
-            //     data: { me: { ...me, posts: [...me.posts, addPost] } }
-            // });
+            const { me } = cache.readQuery({ query: QUERY_ME_FORM });
+            console.log('me', me);
+            cache.writeQuery({
+                query: QUERY_ME_FORM,
+                data: { me: { ...me, posts: [...me.posts, addPost] } }
+            });
         }
     });
 
@@ -67,7 +67,6 @@ const PostForm = () => {
             setTitle('');
             setText('');
             setCharacterCount(0);
-            setFeedName('');
         }
         catch (e) {
             console.error(e);
