@@ -23,6 +23,7 @@ code {
 }
 
 /* Header/Nav Styles */
+
 header {
   display: flex;
   flex-wrap: wrap;
@@ -79,6 +80,7 @@ header .active {
 }
 
 /* Home/Signup/Login Styles */
+
 .hero {
   display: flex;
   justify-content: flex-end;
@@ -180,7 +182,6 @@ label[for="first-name"], label[for="last-name"] {
 
 #first-name, #last-name {
   margin: 6px 0 0;
-  
 }
 
 .signup-form p, .login-form p {
@@ -243,6 +244,7 @@ p.required {
 }
 
 /* Footer styles */
+
 footer {
   display: flex;
   flex-wrap: wrap;
@@ -273,6 +275,7 @@ footer a:hover {
 }
 
 /* Donate page styles */
+
 .hero-donate {
   background-image: url("./images/dog-cat-snuggle.jpg");
   background-size: cover;
@@ -285,8 +288,7 @@ footer a:hover {
   padding: 40px 20px 30px;
 }
 
-.donate-paws p,
-.donate-site p {
+.donate-paws p, .donate-site p {
   margin: 0 auto;
   font-size: 20px;
   max-width: 50%;
@@ -342,6 +344,7 @@ footer a:hover {
   text-align: center;
   color: #908A8A;
 }
+
 #profile-section {
   padding: 0px 50px 20px 50px
 }
@@ -418,6 +421,14 @@ footer a:hover {
   align-items: center;
 }
 
+.pet-image-upload {
+  padding: 10px 5px 10px 5px;
+  width: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .pet-details-1 {
   width: 30%;
 }
@@ -457,7 +468,7 @@ footer a:hover {
   text-align: center;
 }
 
-input[type="radio"], input[type="radio"]:disabled  {
+input[type="radio"], input[type="radio"]:disabled {
   -webkit-appearance: none;
   width: 15px;
   height: 15px;
@@ -468,17 +479,15 @@ input[type="radio"], input[type="radio"]:disabled  {
   border-radius: 50%;
 }
 
-input[type="radio"]:enabled  {
-
+input[type="radio"]:enabled {
   border: 1px solid #000000;
 }
-
 
 input[type="radio"]:checked {
   background-color: #6666FF;
 }
 
-.button, #profile-pic-button {
+.button, #profile-pic-button, .pet-pic-button {
   color: white;
   height: 35px;
   width: 65px;
@@ -486,19 +495,23 @@ input[type="radio"]:checked {
   border: none;
 }
 
-#profile-pic-button {
+#profile-pic-button, .pet-pic-button {
   width: 75px;
 }
+
 #profile-pic-button label {
   font-size: 15px;
 }
 
+.pet-pic-button label {
+  font-size: 15px !important;
+}
 
-.button:active, #profile-pic-button:active {
+.button:active, #profile-pic-button:active, .pet-pic-button:active {
   filter: brightness(75%);
 }
 
-.pet-edit, .profile-edit, .pet-add, #profile-pic-button {
+.pet-edit, .profile-edit, .pet-add, #profile-pic-button, .pet-pic-button {
   background-color: #6666FF;
 }
 
@@ -631,7 +644,7 @@ a {
 }
 
 .card-body {
-  background-color: lightgray ;
+  background-color: lightgray;
   font-style: italic;
   font-size: 90%;
 }

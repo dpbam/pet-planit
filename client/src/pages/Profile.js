@@ -25,10 +25,10 @@ const Profile = (props) => {
   const [editingProfile, setEditingProfile] = useState(false);
   const [editingPet, setEditingPet] = useState(false);
 
-  const loggedIn = Auth.loggedIn();
-  const userParam = Auth.getProfile().data.username;
 
-  const { loading, error, data, refetch } = useQuery(QUERY_ME_PROFILE, {
+  const loggedIn = Auth.loggedIn();
+
+  const { loading } = useQuery(QUERY_ME_PROFILE, {
     onCompleted: data => setCurrentProfile(data.me),
     fetchPolicy: "network-only"
   });
@@ -51,8 +51,8 @@ const Profile = (props) => {
     });
   }
 
-  if (loading == true || currentProfile == undefined || currentProfile.username == "") {
-    return <div></div>;
+  if (loading === true || currentProfile === undefined || currentProfile.username === "") {
+    //return <div><h2>Loading</h2></div>;
   }
 
   const newPetTemplate = {
@@ -71,7 +71,6 @@ const Profile = (props) => {
 
   const editProfile = () => {
     setEditingProfile(!editingProfile);
-    console.log(currentProfile.pets);
     if (editingProfile) {
 
 
@@ -99,9 +98,7 @@ const Profile = (props) => {
             console.log(index, $(area).val());
         }
       });
-
       tempProfile.image = profileImage.attr("src");
-
       setCurrentProfile(tempProfile);
       updateProfileDb(tempProfile);
 
@@ -114,6 +111,7 @@ const Profile = (props) => {
     let pets = $(document.getElementsByClassName("pet-box"));
     let petEditButtons = $(document.getElementsByClassName("pet-edit"));
     let petPlayButtons = $(document.getElementsByClassName("pet-play-button"));
+    let petImgButtons = $(document.getElementsByClassName("pet-image-upload"));
     let petImages = $(document.getElementsByClassName("pet-image"));
     let currentPetButton = $(petEditButtons[petnum]);
 
@@ -122,25 +120,33 @@ const Profile = (props) => {
     let textAreas = pet.find('textarea');
 
     let tempPet = { ...newPetTemplate };
-    console.log(tempPet);
+
     let updatedPetArr = [...currentProfile.pets];
 
     $.each(petPlayButtons, (index, button) => {
-      if (Number($(button).attr('pet')) == petnum) {
+      if (Number($(button).attr('pet')) === petnum) {
         $(button).attr('disabled', !$(button).is('[disabled]')); // flips the editability of the radial buttons
 
         tempPet.playDate = !($(button).is(':checked')); // this runs twice (once for each button) so by setting the inverse we get the flipped value of the "no" button, which is the value of the "Yes" button
       }
     });
 
+    $.each(petImgButtons, (index, button) => {
+
+
+      if (Number($(button).attr('pet')) === petnum && $(button).css('display') === 'none') {
+        $(button).show();
+      } else if (Number($(button).attr('pet')) === petnum) {
+        $(button).hide();
+      }
+    });
 
     $.each(petImages, (index, image) => {
-      if (Number($(image).attr('pet')) == petnum) {
+      if (Number($(image).attr('pet')) === petnum) {
 
         tempPet.image = $(image)[0].currentSrc;
       }
     });
-
 
     $.each(textAreas, (index, area) => {
       $(area).attr('readonly', !$(area).is('[readonly]')); // flips the editability of the input fields
@@ -175,7 +181,7 @@ const Profile = (props) => {
       let tempProf = { ...currentProfile };
       tempProf.pets = [...updatedPetArr];
       setCurrentProfile(tempProf);
-      console.log(petId);
+
       const mutationResponse = await updatePetMutation({
         variables: {
           petId: petId,
@@ -236,8 +242,7 @@ const Profile = (props) => {
       },
     });
     if (mutationResponse) {
-      let tempPet = {...newPetTemplate};
-      console.log(mutationResponse.data.addPet._id);
+      let tempPet = { ...newPetTemplate };
       tempPet._id = mutationResponse.data.addPet._id;
       tempPet._typename = 'Pet';
       tempArr.push(tempPet);
@@ -248,9 +253,15 @@ const Profile = (props) => {
   }
 
 
-  const uploadImage = (event) => {
+  const uploadImage = async (event, profile, petNum) => {
     let profileImage = $(document.querySelector("#profile-image"));
-    var $files = $(event);
+    let petImages = $(document.getElementsByClassName("pet-image"));
+
+
+    console.log('Uploading images to Imgur..');
+
+
+    let $files = $(event);
 
     if ($files.length) {
       // Reject big files
@@ -259,13 +270,10 @@ const Profile = (props) => {
         return false;
       }
 
-      // Begin file upload
-      console.log('Uploading file to Imgur..');
+      let apiUrl = 'https://api.imgur.com/3/image';
+      let apiKey = 'dc0e01b32f67816'; // client id via the imgur application registration 
 
-      var apiUrl = 'https://api.imgur.com/3/image';
-      var apiKey = 'dc0e01b32f67816';
-
-      var settings = {
+      let settings = {
         async: true,
         crossDomain: true,
         processData: false,
@@ -280,7 +288,7 @@ const Profile = (props) => {
         error: function (req, err) { console.log(req, err); }
       };
 
-      var formData = new FormData();
+      let formData = new FormData();
       formData.append('image', $files[0]);
       settings.data = formData;
 
@@ -288,11 +296,22 @@ const Profile = (props) => {
       // Image URL available at response.data.link
       $.ajax(settings).done(function (response) {
         let newPhotoData = (JSON.parse(response).data);
-        profileImage.attr("src", newPhotoData.link);
+        console.log('Uploaded image: ', newPhotoData.link);
 
-        // TODO add logic for graphql mutation to update profile
+        if (profile) { // if we're uploading a profile picture...
+          profileImage.attr("src", newPhotoData.link);
+        } else { // if we're uploading a pet picture...
+          $.each(petImages, (index, image) => {
+            if (Number($(image).attr('pet')) === petNum) {
+
+              image.src = newPhotoData.link;
+            }
+          });
+        }
       });
+
     }
+
   }
 
 
@@ -325,7 +344,6 @@ const Profile = (props) => {
                 </div>
               </div>
 
-
               <div className="profile-image-holder">
                 <div className="profile-button-holder">
                   <button type="button" className="profile-edit profile-save button" onClick={editProfile}>Save</button>
@@ -334,7 +352,7 @@ const Profile = (props) => {
                   <img src={currentProfile.image} alt={"Picture of " + currentProfile.username} id="profile-image" />
                 </div>
                 <div className="profile-image-upload">
-                  <input type="file" id="profile-upload" accept="image/*" style={{ display: 'none' }} onChange={e => uploadImage(e.target.files[0])} />
+                  <input type="file" id="profile-upload" accept="image/*" style={{ display: 'none' }} onChange={e => uploadImage(e.target.files[0], true)} />
                   <button type="button" id="profile-pic-button">
                     <label htmlFor="profile-upload">Upload</label>
                   </button>
@@ -361,7 +379,6 @@ const Profile = (props) => {
                   <textarea type="text" name="owner-zipcode" defaultValue={currentProfile.zipcode} readOnly />
                 </div>
               </div>
-
 
               <div className="profile-image-holder">
                 <div className="profile-button-holder">
@@ -395,27 +412,23 @@ const Profile = (props) => {
 
         {currentProfile.pets.map((pet, index) => (
           <div key={index + pet.petName} className="pet-box" pet={index}>
-            <div className="pet-details-1">
 
+            <div className="pet-details-1">
               <div className="profile-detail-container" key={pet.petName}>
                 <label>Name</label>
                 <textarea type="text" name="pet-name" defaultValue={pet.petName} readOnly />
               </div>
-
               <div className="profile-detail-container" key={pet.petType}>
                 <label>Kind of Pet</label>
                 <textarea type="text" name="pet-type" defaultValue={pet.petType} readOnly />
               </div>
-
               <div className="profile-detail-container" key={pet.petBreed}>
                 <label>Breed</label>
                 <textarea type="text" name="pet-breed" defaultValue={pet.petBreed} readOnly />
               </div>
-
             </div>
 
             <div className="pet-details-2">
-
               <div className="profile-detail-container">
                 <div className="pet-age-wrapper" key={pet.petAge}>
                   <label className="pet-age-label">Age</label>
@@ -423,22 +436,18 @@ const Profile = (props) => {
                 </div>
                 <div className="pet-play-wrapper" key={pet.playDate}>
                   <label className="pet-playdate-label">Playdates?</label>
-
                   <div className="playdate-buttons">
                     <input type="radio" className="pet-play-button" pet={index} name={pet.petName + "-playdate" + index} defaultChecked={pet.playDate} disabled={true} />Yes
                   </div>
                   <div className="playdate-buttons">
                     <input type="radio" className="pet-play-button" pet={index} name={pet.petName + "-playdate" + index} defaultChecked={!pet.playDate} disabled={true} />No
                   </div>
-
                 </div>
               </div>
-
               <div className="profile-detail-container about-container" key={pet.about}>
-                <label className="pet-about-label">About me {pet._id} </label>
+                <label className="pet-about-label">About me</label>
                 <textarea className="pet-about-textarea" type="text" name="pet-about" defaultValue={pet.about} readOnly />
               </div>
-
             </div>
 
             <div className="pet-details-3">
@@ -446,10 +455,17 @@ const Profile = (props) => {
                 <button type="button" className="pet-edit button" petnum={index} onClick={() => editPet(index, pet._id)}>Edit</button>
                 <button type="button" className="pet-delete button" onClick={() => deletePet(index)}>X</button>
               </div>
+              <div className="pet-image-upload" style={{ display: 'none' }} pet={index}>
+                <input type="file" id={"pet-upload-" + index} accept="image/*" style={{ display: 'none' }} onChange={e => uploadImage(e.target.files[0], false, index)} />
+                <button type="button" className="pet-pic-button">
+                  <label htmlFor={"pet-upload-" + index}>Upload</label>
+                </button>
+              </div>
               <div className="pet-image-container">
                 <img className="pet-image" pet={index} src={pet.image} alt={currentProfile.username + "'s pet " + pet.petType + " " + pet.petName} />
               </div>
             </div>
+
           </div>
         ))}
 
