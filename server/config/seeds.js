@@ -1,15 +1,27 @@
-const faker = require("faker");
+const faker = require('faker');
 
-const db = require("./connection");
-const { User, Pet, Feed, Post, Donation } = require("../models");
+const db = require('./connection');
+const {
+  User,
+  Pet,
+  Feed,
+  Post,
+  Donation,
+  Order,
+  Category,
+  Product,
+} = require('../models');
 
-db.once("open", async () => {
-  console.log("seed start");
+db.once('open', async () => {
+  console.log('seed start');
   await User.deleteMany({});
   await Pet.deleteMany({});
   await Feed.deleteMany({});
   await Post.deleteMany({});
   await Donation.deleteMany({});
+  await Order.deleteMany({});
+  await Category.deleteMany({});
+  await Product.deleteMany({});
 
   // create user data
   const userData = [];
@@ -27,7 +39,7 @@ db.once("open", async () => {
 
   // create pet data
   let createdPets = [];
-  const petTypeArr = ["dog", "cat"];
+  const petTypeArr = ['dog', 'cat'];
 
   for (let i = 0; i < 50; i += 1) {
     const { username, _id: userId } = createdUsers.ops[i];
@@ -36,7 +48,7 @@ db.once("open", async () => {
     const owner = username;
     const petName = faker.name.firstName();
     const petType = petTypeArr[randomPetTypeIndex];
-    const petBreed = "N/A";
+    const petBreed = 'N/A';
     const petAge = faker.datatype.number({
       min: 1,
       max: 15,
@@ -61,12 +73,12 @@ db.once("open", async () => {
   // create feeds
   const feedData = [];
   const feedArr = [
-    "General",
-    "Pet Adoption",
-    "Pet Sitting",
-    "Pet Advice",
-    "Dog Dates",
-    "Lost Pets",
+    'General',
+    'Pet Adoption',
+    'Pet Sitting',
+    'Pet Advice',
+    'Dog Dates',
+    'Lost Pets',
   ];
   for (let i = 0; i < feedArr.length; i++) {
     const feedName = feedArr[i];
@@ -87,7 +99,12 @@ db.once("open", async () => {
     const randomFeedIndex = Math.floor(Math.random() * createdFeeds.ops.length);
     const { feedName, _id: feedId } = createdFeeds.ops[randomFeedIndex];
 
-    const createdPost = await Post.create({ postTitle, postText, username, feedName });
+    const createdPost = await Post.create({
+      postTitle,
+      postText,
+      username,
+      feedName,
+    });
 
     const updatedUser = await User.updateOne(
       { _id: userId },
@@ -122,10 +139,10 @@ db.once("open", async () => {
   // create donations
   let createdDonations = [];
   const donationRecipientArr = [
-    "Austin Pets Alive!",
-    "Austin Animal Center",
-    "Friends of Austin Animal Center",
-    "ASPCA",
+    'Austin Pets Alive!',
+    'Austin Animal Center',
+    'Friends of Austin Animal Center',
+    'ASPCA',
   ];
   for (let i = 0; i < 20; i += 1) {
     const donationAmount =
@@ -157,6 +174,42 @@ db.once("open", async () => {
     createdDonations.push(createdDonation);
   }
 
-  console.log("all done!");
+  // create categories
+  let createdCategories = [];
+  const name = 'donation';
+
+  const createdCategory = await Category.create({
+    name,
+  });
+
+  // create products
+  let createdProducts = [];
+  const category = createdCategories[0]._id;
+  const productOne = {
+    category: category,
+    price: 20,
+    quantity: 1,
+    name: '$20 Donation',
+  };
+  const productTwo = {
+    category: category,
+    price: 50,
+    quantity: 1,
+    name: '$50 Donation',
+  };
+  const productThree = {
+    category: category,
+    price: 100,
+    quantity: 1,
+    name: '$100 Donation',
+  };
+
+  createdProducts.push(productOne, productTwo, productThree);
+
+  const createdProducts = await Product.create({
+    name,
+  });
+
+  console.log('all done!');
   process.exit(0);
 });

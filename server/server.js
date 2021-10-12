@@ -16,9 +16,9 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 
 const storeItems = new Map([
-  [1, { priceInCents: 5000, name: 'Donate $5 to this website' }],
-  [2, { priceInCents: 10000, name: 'Donate $10 to this website' }],
-  [3, { priceInCents: 20000, name: 'Donate $20 to this website' }],
+  [1, { priceInCents: 20000, name: 'Donate $5 to this website' }],
+  [2, { priceInCents: 50000, name: 'Donate $10 to this website' }],
+  [3, { priceInCents: 100000, name: 'Donate $20 to this website' }],
 ]);
 
 const startServer = async () => {
