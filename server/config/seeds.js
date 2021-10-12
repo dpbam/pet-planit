@@ -190,18 +190,21 @@ db.once('open', async () => {
     price: 20,
     quantity: 1,
     name: '$20 Donation',
+    id: 20,
   };
   const productTwo = {
     category: category,
     price: 50,
     quantity: 1,
     name: '$50 Donation',
+    id: 50,
   };
   const productThree = {
     category: category,
     price: 100,
     quantity: 1,
     name: '$100 Donation',
+    id: 100,
   };
 
   createdProducts.push(productOne, productTwo, productThree);

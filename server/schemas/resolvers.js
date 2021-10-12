@@ -62,6 +62,12 @@ const resolvers = {
       return Post.findOne({ _id });
     },
     checkout: async (parent, args, context) => {
+      const storeItems = new Map([
+        [1, { priceInCents: 20000, name: 'Donate $5 to this website' }],
+        [2, { priceInCents: 50000, name: 'Donate $10 to this website' }],
+        [3, { priceInCents: 100000, name: 'Donate $20 to this website' }],
+      ]);
+
       const url = new URL(context.headers.referer).origin;
       const order = new Order({ products: args.products });
       const { products } = await order.populate('products').execPopulate();
@@ -74,10 +80,12 @@ const resolvers = {
           name: products[i].name,
         });
 
+        const storeItem = storeItems.get(products[i].id);
+
         // generate price id using the product id
         const price = await stripe.prices.create({
           product: product.id,
-          unit_amount: products[i].price * 100,
+          unit_amount: storeItem.priceInCents * 100,
           currency: 'usd',
         });
 
