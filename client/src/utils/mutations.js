@@ -178,12 +178,16 @@ export const ADD_POST = gql`
   mutation addPost($postText: String!, $feedName: String!) {
     addPost(postText: $postText, feedName: $feedName) {
       _id
+      postTitle
       postText
       feedName
       createdAt
       username
       replyCount
-      replies
+      replies {
+        replyText
+        username
+      }
     }
   }
 `;
@@ -197,7 +201,10 @@ export const UPDATE_POST = gql`
       createdAt
       username
       replyCount
-      replies
+      replies {
+        replyText
+        username
+      }
     }
   }
 `;
@@ -211,7 +218,10 @@ export const DELETE_POST = gql`
       createdAt
       username
       replyCount
-      replies
+      replies {
+        replyText
+        username
+      }
     }
   }
 `;
