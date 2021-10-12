@@ -235,7 +235,6 @@ export const QUERY_POSTS = gql`
   }
 `;
 
-// not sure how to do this one
 export const QUERY_POSTS_BY_FEED = gql`
   query postsByFeed($feedName: String!) {
     postsByFeed(feedName: $feedName) {
@@ -270,6 +269,15 @@ export const QUERY_POSTS_BY_USER = gql`
         createdAt
         username
       }
+    }
+  }
+`;
+
+export const QUERY_PRODUCTS = gql`
+  query getProducts() {
+    products {
+      _id
+      price
     }
   }
 `;

@@ -79,6 +79,7 @@ const typeDefs = gql`
     postsByFeed(feedName: String!): [Post]
     postsByUser(username: String!): [Post]
     post(_id: ID!): Post
+    products(category: ID, name: String): [Product]
     checkout(products: [ID]!): Checkout
   }
   type Mutation {
