@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/client';
 import { QUERY_FEEDS } from '../../utils/queries';
 
 function FeedMenu({ setFeed }) {
-    const [activeFeed, setActiveFeed] = useState("General");
+    const [activeFeed, setActiveFeed] = useState("");
 
     const { data: feedData } = useQuery(QUERY_FEEDS);
     const feeds = feedData?.feeds || [];
