@@ -174,15 +174,21 @@ export const DELETE_PET = gql`
 `;
 
 export const ADD_POST = gql`
-  mutation addPost($postText: String!, $feedName: String!) {
-    addPost(postText: $postText, feedName: $feedName) {
+  mutation addPost($postTitle: String!, $postText: String!, $feedName: String!) {
+    addPost(postTitle: $postTitle, postText: $postText, feedName: $feedName) {
       _id
+      postTitle
       postText
       feedName
       createdAt
       username
       replyCount
-      replies
+      replies {
+        _id
+        replyText
+        createdAt
+        username
+      }
     }
   }
 `;
@@ -191,6 +197,7 @@ export const UPDATE_POST = gql`
   mutation updatePost($postId: ID!, $postText: String!) {
     updatePost(postId: $postId, postText: $postText) {
       _id
+      postTitle
       postText
       feedName
       createdAt
@@ -219,9 +226,13 @@ export const ADD_REPLY = gql`
   mutation addReply($postId: ID!, $replyText: String!) {
     addReply(postId: $postId, replyText: $replyText) {
       _id
-      replyText
-      createdAt
-      username
+      replyCount
+      replies {
+        _id
+        replyText
+        createdAt
+        username
+      }
     }
   }
 `;

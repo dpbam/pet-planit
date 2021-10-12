@@ -10,10 +10,13 @@ const ReplyForm = ({ postId }) => {
 
     const [addReply, { error }] = useMutation(ADD_REPLY);
 
+
+
     const handleChange = event => {
         if (event.target.value.length <= 280) {
             setText(event.target.value);
             setCharacterCount(event.target.value.length);
+            console.log('setText', event.target.value);
         }
     };
 
