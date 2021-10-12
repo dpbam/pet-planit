@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Auth from "../../utils/auth";
 
 const Header = () => {
-  const [activeNav, setActiveNav] = useState("signup");
+  const [activeNav, setActiveNav] = useState("");
 
   useEffect(() => {
     let relativeUrl = window.location.pathname.substring(1);
@@ -21,10 +21,16 @@ const Header = () => {
 
   return (
     <header>
-      <Link to="/" className="site-name">
-        Pet Social Network
-      </Link>
-
+      {Auth.loggedIn() ? (
+        <Link to="/pawfeed" className="site-name" onClick={() => setActiveNav("pawfeed")}>
+          Pet Social Network
+        </Link>
+      ) : (
+        <Link to="/" className="site-name">
+          Pet Social Network
+        </Link>
+      )}
+      
       <nav>
         {Auth.loggedIn() ? (
           <ul>

@@ -31,7 +31,9 @@ export const QUERY_ME = gql`
       createdAt
       username
       replyCount
-      replies
+      replies {
+        _id
+      }
     }
     donations {
       _id
@@ -74,7 +76,9 @@ export const QUERY_USERS = gql`
       createdAt
       username
       replyCount
-      replies
+      replies {
+        _id
+      }
     }
     donations {
       _id
@@ -118,7 +122,9 @@ export const QUERY_USER = gql`
         createdAt
         username
         replyCount
-        replies
+        replies {
+          _id
+        }
       }
       donations {
         _id
@@ -278,6 +284,26 @@ export const QUERY_PRODUCTS = gql`
     products {
       _id
       price
+    }
+  }
+`;
+export const QUERY_ME_FORM = gql`
+  {
+    me {
+      _id
+      username
+      email
+      postCount
+      posts {
+        _id
+        postTitle
+        postText
+        feedName
+        replyCount
+        replies {
+          _id
+        }
+      }
     }
   }
 `;
