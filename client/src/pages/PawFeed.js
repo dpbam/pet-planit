@@ -15,7 +15,7 @@ const PawFeeds = () => {
                 <FeedMenu setFeed={setFeed} />
                 {loggedIn && (
                     <div className='col-12 mb-3'>
-                        <PawFeedForm currentFeed={currentFeed} />
+                        <PawFeedForm />
                     </div>
                 )}
                 <PawFeedList currentFeed={currentFeed} />
