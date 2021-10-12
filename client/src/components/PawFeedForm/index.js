@@ -1,82 +1,67 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import { useMutation } from '@apollo/client';
-import { ADD_POST } from '../../utils/mutations';
-import { QUERY_POSTS, QUERY_ME_FORM } from '../../utils/queries';
+import { useMutation } from "@apollo/client";
+import { ADD_POST } from "../../utils/mutations";
+import { QUERY_POSTS, QUERY_POSTS_BY_FEED, QUERY_ME } from "../../utils/queries";
 
-const PostForm = () => {
-
-    const [postTitle, setTitle] = useState('');
-    const [postText, setText] = useState('');
-    const [feedName, setFeedName] = useState('');
+const PostForm = ({ currentFeed }) => {
+    const [postText, setText] = useState("");
     const [characterCount, setCharacterCount] = useState(0);
 
     const [addPost, { error }] = useMutation(ADD_POST, {
         update(cache, { data: { addPost } }) {
             try {
-                const { posts } = cache.readQuery({ query: QUERY_POSTS });
+                const { postsByFeed } = cache.readQuery({ query: QUERY_POSTS_BY_FEED, variables: { feedName: currentFeed } });
 
-                console.log('form post data', posts);
-
+                //prepend the newest post to the front of the array
                 cache.writeQuery({
-                    query: QUERY_POSTS,
-                    data: { posts: [addPost, ...posts] }
+                    query: QUERY_POSTS_BY_FEED,
+                    variables: { feedName: currentFeed },
+                    data: { postsByFeed: [addPost, ...postsByFeed] }
                 });
-
-                console.log('form post', posts);
             }
             catch (e) {
                 console.log(e);
             }
             //update me object's cache, appending new post to the end of the array
-            const { me } = cache.readQuery({ query: QUERY_ME_FORM });
-            console.log('me', me);
+            const { me } = cache.readQuery({ query: QUERY_ME });
             cache.writeQuery({
-                query: QUERY_ME_FORM,
+                query: QUERY_ME,
                 data: { me: { ...me, posts: [...me.posts, addPost] } }
             });
         }
     });
 
-    const handleChangeTitle = event => {
-        setTitle(event.target.value);
-        console.log(event.target.value);
-    }
-
-    const handleChangeText = event => {
+    const handleChange = (event) => {
         if (event.target.value.length <= 280) {
             setText(event.target.value);
             setCharacterCount(event.target.value.length);
         }
-    }
+    };
 
-    const handleChangeFeedName = event => {
-        setFeedName(event.target.value);
-        console.log(event.target.value);
-    }
-
-    const handleFormSubmit = async event => {
+    const handleFormSubmit = async (event) => {
         event.preventDefault();
 
         try {
             await addPost({
-                variables: { postTitle, postText, feedName }
+                variables: { postText: postText, feedName: currentFeed },
             });
 
             //clear form value
             setTitle('');
-            setText('');
+            setText("");
             setCharacterCount(0);
             setFeedName('');
-        }
-        catch (e) {
+        } catch (e) {
             console.error(e);
         }
     };
 
     return (
         <div>
-            <p className={`m-0 ${characterCount === 280 || error ? 'text-error' : ''}`}>
+            <p
+                className={`m-0 ${characterCount === 280 || error ? "text-error" : ""}`}
+            >
                 Character Count: {characterCount}/280
                 {error && <span className="ml-2">Something went wrong...</span>}
             </p>
@@ -85,38 +70,17 @@ const PostForm = () => {
                 onSubmit={handleFormSubmit}
             >
                 <textarea
-                    placeholder="Paw Feed Title"
-                    value={postTitle}
-
-                    className="form-input col-12 col-md-9"
-                    onChange={handleChangeTitle}
-                ></textarea>
-                <textarea
-                    placeholder="Paw Feed Content"
+                    placeholder="Create a Fun Paw Feed"
                     value={postText}
-
                     className="form-input col-12 col-md-9"
-                    onChange={handleChangeText}
+                    onChange={handleChange}
                 ></textarea>
-                <select
-                    value={feedName}
-
-                    onChange={handleChangeFeedName}
-                >
-                    <option value="" disabled>Feed Type</option>
-                    <option value="General">General</option>
-                    <option value="Pet Adoption">Pet Adoption</option>
-                    <option value="Pet Sitting">Pet Sitting</option>
-                    <option value="Pet Advice">Pet Advice</option>
-                    <option value="Dog Dates">Dog Dates</option>
-                    <option value="Lost Pets">Lost Pets</option>
-                </select>
                 <button className="btn col-12 col-md-3" type="submit">
                     Submit
                 </button>
             </form>
         </div>
-    )
-}
+    );
+};
 
 export default PostForm;

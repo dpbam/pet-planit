@@ -1,48 +1,48 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const QUERY_ME = gql`
-  { 
-    _id
-    username
-    email
-    firstName
-    lastName
-    zipcode
-    interests
-    image
-    petCount
-    postCount
-    donationCount
-    pets {
-      _id
-      petName
-      petType
-      petBreed
-      petAge
-      playDate
-      about
-      owner
-      image
-    }
-    posts {
-      _id
-      postText
-      feedName
-      createdAt
-      username
-      replyCount
-      replies {
+  {
+    me {
         _id
+        username
+        email
+        firstName
+        lastName
+        zipcode
+        interests
+        image
+        petCount
+        postCount
+        donationCount
+        pets {
+          _id
+          petName
+          petType
+          petBreed
+          petAge
+          playDate
+          about
+          owner
+          image
+        }
+        posts {
+          _id
+          postText
+          feedName
+          createdAt
+          username
+          replyCount
+          replies
+        }
+        donations {
+          _id
+          donationAmount
+          donationRecipient
+          createdAt
+          username
+        }
       }
-    }
-    donations {
-      _id
-      donationAmount
-      donationRecipient
-      createdAt
-      username
-    }
-  }
+}
 `;
 
 export const QUERY_USERS = gql`

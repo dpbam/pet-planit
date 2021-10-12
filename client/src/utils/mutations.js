@@ -185,9 +185,7 @@ export const ADD_POST = gql`
       username
       replyCount
       replies {
-        _id
         replyText
-        createdAt
         username
       }
     }
@@ -204,7 +202,10 @@ export const UPDATE_POST = gql`
       createdAt
       username
       replyCount
-      replies
+      replies {
+        replyText
+        username
+      }
     }
   }
 `;
@@ -218,7 +219,10 @@ export const DELETE_POST = gql`
       createdAt
       username
       replyCount
-      replies
+      replies {
+        replyText
+        username
+      }
     }
   }
 `;
