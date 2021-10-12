@@ -36,6 +36,7 @@ const PawFeedList = ({ currentFeed }) => {
                             createdAt={post.createdAt}
                             username={post.username}
                             replyCount={post.replyCount}
+                            feedName={post.feedName}
                         />
                     ))}
                 </div>

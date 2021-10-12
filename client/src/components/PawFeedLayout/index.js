@@ -8,7 +8,8 @@ function PawFeedLayout(post) {
         postText,
         createdAt,
         username,
-        replyCount
+        replyCount,
+        feedName
     } = post;
 
     return (
@@ -26,7 +27,10 @@ function PawFeedLayout(post) {
 
             <div className="card-body">
                 <span>{postText}</span>
+                
             </div>
+            <span>{feedName}</span>
+            <hr className="post-card-hr" />
             <Link to={`/pawfeed/${_id}`}>
                 <span className="view-replies">View replies({replyCount}) {">"}</span>
             </Link>
