@@ -63,9 +63,9 @@ const resolvers = {
     },
     checkout: async (parent, args, context) => {
       const storeItems = new Map([
-        [1, { priceInCents: 20000, name: 'Donate $5 to this website' }],
-        [2, { priceInCents: 50000, name: 'Donate $10 to this website' }],
-        [3, { priceInCents: 100000, name: 'Donate $20 to this website' }],
+        [20, { priceInCents: 20000, name: 'Donate $5 to this website' }],
+        [50, { priceInCents: 50000, name: 'Donate $10 to this website' }],
+        [100, { priceInCents: 100000, name: 'Donate $20 to this website' }],
       ]);
 
       const url = new URL(context.headers.referer).origin;
