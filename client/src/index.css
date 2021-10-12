@@ -578,31 +578,6 @@ input[type="radio"]:checked {
   display: flex;
 }
 
-.card {
-  margin-bottom: 2%;
-  line-height: 150%;
-  border: 3px solid black;
-}
-
-.card-header {
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-  background-color: var(--dark-blue);
-  color: white;
-  text-decoration: none;
-}
-
-a {
-  text-decoration: none;
-}
-
-.card-body {
-  background-color: lightgray ;
-  font-style: italic;
-  font-size: 90%;
-}
-
 /* Pawfeed styles */
 .pawfeed-container {
   display: flex;
@@ -628,10 +603,6 @@ a {
   font-size: 18px;
   font-weight: 600;
   cursor: pointer;
-}
-
-.pawfeed-list .card {
-  display: block;
 }
 
 .pawfeed-container ul.feed-menu .active {
@@ -686,6 +657,65 @@ a {
   text-align: right;
   width: 83%;
   font-size: 14px;
+}
+
+.pawfeed-list .card {
+  display: block;
+}
+
+.card {
+  padding: 20px;
+  margin: 10px 0 20px;
+  border: 1px solid #000;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  
+}
+
+.card-header span {
+  font-size: 14px;
+}
+
+.card-body {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px 0;
+}
+
+.card-body div {
+  padding: 10px 0;
+}
+
+.card-body div a {
+  font-weight: 500;
+}
+
+.view-replies, .username-link {
+  color: var(--tomato-red);
+  padding-bottom: 3px;
+  border-bottom: 2px solid transparent;
+}
+
+.view-replies:hover, .username-link:hover {
+  color: var(--dark-red);
+  border-bottom: 2px solid var(--dark-red);
+}
+
+.post-card-hr {
+  display: inline-flex;
+  height: 18px;
+  border: none;
+  border-left: 1px solid #4e4c4c;
+  margin: 0 5px;
+  vertical-align: bottom;
+}
+
+a {
+  text-decoration: none;
 }
 
 @media screen and (max-width: 800px) {
