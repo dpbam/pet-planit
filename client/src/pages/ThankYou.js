@@ -4,7 +4,7 @@ import { useMutation } from '@apollo/client';
 import { ADD_DONATION } from '../utils/mutations';
 import { idbPromise } from '../utils/helpers';
 
-function Success() {
+function ThankYou() {
   const [addDonation] = useMutation(ADD_DONATION);
 
   useEffect(() => {
@@ -31,7 +31,7 @@ function Success() {
   return (
     <div>
       <Jumbotron>
-        <h1>Success!</h1>
+        <h1>Thank You!</h1>
         <h2>Thank you for your donation!</h2>
         <h2>You will now be redirected to the homepage</h2>
       </Jumbotron>
@@ -39,4 +39,4 @@ function Success() {
   );
 }
 
-export default Success;
+export default ThankYou;
