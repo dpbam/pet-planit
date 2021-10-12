@@ -29,12 +29,12 @@ const PostForm = () => {
                 console.log(e);
             }
             //update me object's cache, appending new post to the end of the array
-            const { me } = cache.readQuery({ query: QUERY_ME_FORM });
-            console.log('me', me);
-            cache.writeQuery({
-                query: QUERY_ME_FORM,
-                data: { me: { ...me, posts: [...me.posts, addPost] } }
-            });
+            // const { me } = cache.readQuery({ query: QUERY_ME_FORM });
+            // console.log('me', me);
+            // cache.writeQuery({
+            //     query: QUERY_ME_FORM,
+            //     data: { me: { ...me, posts: [...me.posts, addPost] } }
+            // });
         }
     });
 
@@ -81,16 +81,17 @@ const PostForm = () => {
 
     return (
       <div className="new-post-form">
-        <button onClick={refreshPage} className="refresh-pawfeed">Refresh Pawfeed</button>
+        {/* <button onClick={refreshPage} className="refresh-pawfeed">Refresh Pawfeed</button> */}
         <form onSubmit={handleFormSubmit}>
+            <label>Join the conversation:</label>
             <input
               type="text"
-              placeholder="Post title"
+              placeholder="Title"
               value={postTitle}
               onChange={handleChangeTitle}
             ></input>
             <select value={feedName} onChange={handleChangeFeedName}>
-                <option value="" disabled>Feed Type</option>
+                <option value="" disabled>Topic</option>
                 <option value="General">General</option>
                 <option value="Pet Adoption">Pet Adoption</option>
                 <option value="Pet Sitting">Pet Sitting</option>

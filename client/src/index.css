@@ -612,21 +612,37 @@ input[type="radio"]:checked {
 }
 
 .feed-section {
-  flex: 0 70%;
-  margin: 0 auto;
+  flex: 0 1 65%;
+  margin: 0 40px;
 }
 
 .feed-section div form {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
   margin: 15px 0 0;
+}
+
+.feed-section div form label {
+  flex: 0 100%;
+  font-size: 18px;
+  margin-bottom: 10px;
 }
 
 .feed-section div form textarea {
   width: 85%;
   height: 110px;
-  border-radius: 10px;
+  /* border-radius: 10px; */
+  margin-right: 30px;
+  padding: 10px;
+  font-family: sans-serif;
+  font-size: 16px;
+}
+
+.feed-section div form input {
+  width: 55%;
+  border-width: 1px;
+  /* border-radius: 10px; */
+  margin-bottom: 10px;
   padding: 10px;
   font-family: sans-serif;
   font-size: 16px;
@@ -655,8 +671,16 @@ input[type="radio"]:checked {
 
 .new-post-form p {
   text-align: right;
-  width: 83%;
+  width: 84%;
   font-size: 14px;
+}
+
+.new-post-form form select {
+  margin-left: 30px;
+  margin-bottom: 10px;
+  /* border-radius: 5px; */
+  padding: 6px;
+  font-size: 16px;
 }
 
 .pawfeed-list .card {
@@ -710,7 +734,7 @@ input[type="radio"]:checked {
   height: 18px;
   border: none;
   border-left: 1px solid #4e4c4c;
-  margin: 0 5px;
+  margin: 0 8px;
   vertical-align: bottom;
 }
 
