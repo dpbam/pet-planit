@@ -19,7 +19,7 @@ function PawFeedLayout(post) {
                         {username}
                     </Link>
                     <hr className="post-card-hr" />
-                    {postTitle}Temp Title
+                    {postTitle}
                 </div>
                 <span className="created-at">{createdAt}</span>
             </div>
