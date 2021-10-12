@@ -1,48 +1,48 @@
-import { gql } from "@apollo/client";
+import { gql } from '@apollo/client';
 
 export const QUERY_ME = gql`
-  {
-    me {
+  { 
+    _id
+    username
+    email
+    firstName
+    lastName
+    zipcode
+    interests
+    image
+    petCount
+    postCount
+    donationCount
+    pets {
+      _id
+      petName
+      petType
+      petBreed
+      petAge
+      playDate
+      about
+      owner
+      image
+    }
+    posts {
+      _id
+      postText
+      feedName
+      createdAt
+      username
+      replyCount
+      replies {
         _id
-        username
-        email
-        firstName
-        lastName
-        zipcode
-        interests
-        image
-        petCount
-        postCount
-        donationCount
-        pets {
-          _id
-          petName
-          petType
-          petBreed
-          petAge
-          playDate
-          about
-          owner
-          image
-        }
-        posts {
-          _id
-          postText
-          feedName
-          createdAt
-          username
-          replyCount
-          replies
-        }
-        donations {
-          _id
-          donationAmount
-          donationRecipient
-          createdAt
-          username
-        }
       }
-}
+    }
+    donations {
+      _id
+      donationAmount
+      donationRecipient
+      createdAt
+      username
+    }
+  }
 `;
 
 export const QUERY_USERS = gql`
@@ -76,7 +76,9 @@ export const QUERY_USERS = gql`
       createdAt
       username
       replyCount
-      replies
+      replies {
+        _id
+      }
     }
     donations {
       _id
@@ -120,7 +122,9 @@ export const QUERY_USER = gql`
         createdAt
         username
         replyCount
-        replies
+        replies {
+        _id
+      }
       }
       donations {
         _id
@@ -274,4 +278,25 @@ export const QUERY_POSTS_BY_USER = gql`
       }
     }
   }
+`;
+
+export const QUERY_ME_FORM = gql`
+    {
+        me {
+            _id
+            username
+            email
+            postCount
+            posts {
+                _id
+                postTitle
+                postText
+                feedName
+                replyCount
+                replies {
+                  _id
+                }
+            }
+        }
+    }
 `;

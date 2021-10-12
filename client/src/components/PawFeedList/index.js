@@ -2,35 +2,32 @@ import React from 'react';
 import { useQuery } from '@apollo/client';
 
 import PawFeedLayout from '../PawFeedLayout';
-import { /*QUERY_POSTS,*/ QUERY_POSTS_BY_FEED } from '../../utils/queries';
+import { QUERY_POSTS } from '../../utils/queries';
 
 const PawFeedList = ({ currentFeed }) => {
-    console.log("currentFeed: ", currentFeed);
-    const { loading, data } = useQuery(QUERY_POSTS_BY_FEED, {
-        variables: { feedName: currentFeed }
-    });
+    const { loading, data } = useQuery(QUERY_POSTS);
 
     console.log('pawList', data);
 
-    const posts = data?.postsByFeed || [];
+    const posts = data?.posts || [];
 
     console.log('posts', posts);
 
-    // function filterFeeds() {
-    //     if (!currentFeed) {
-    //         return posts;
-    //     }
+    function filterFeeds() {
+        if (!currentFeed) {
+            return posts;
+        }
 
-    //     return posts.filter(
-    //         (post) => post.feedName === currentFeed
-    //     );
-    // }
+        return posts.filter(
+            (post) => post.feedName === currentFeed
+        );
+    }
 
     return (
         <div className="pawfeed-list">
             {posts.length ? (
                 <div className="flex-row">
-                    {posts.map((post) => (
+                    {filterFeeds().map((post) => (
                         <PawFeedLayout
                             key={post._id}
                             _id={post._id}

@@ -23,10 +23,8 @@ function PawFeedLayout(post) {
                 </div>
                 <span className="created-at">{createdAt}</span>
             </div>
+
             <div className="card-body">
-                {/* <Link to={`/pawfeeds/${_id}`}>
-                    {postTitle} Temp Title:
-                </Link> */}
                 <span>{postText}</span>
             </div>
             <Link to={`/pawfeed/${_id}`}>
