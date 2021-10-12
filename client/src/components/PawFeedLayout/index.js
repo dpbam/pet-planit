@@ -15,7 +15,7 @@ function PawFeedLayout(post) {
         <div key={_id} className="card">
 
             <h3><Link
-                to={`/pawfeeds/${_id}`}
+                to={`/pawfeed/${_id}`}
                 style={{ fontWeight: 700 }}
                 className="text-light"
             >
