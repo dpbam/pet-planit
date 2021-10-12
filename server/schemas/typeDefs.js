@@ -17,7 +17,7 @@ const typeDefs = gql`
     donationCount: Int
     pets: [Pet]
     posts: [Post]
-    donations: [Donation]
+    orders: [Order]
   }
   type Pet {
     _id: ID
@@ -52,11 +52,9 @@ const typeDefs = gql`
     createdAt: String
     username: String
   }
-  type Donation {
+  type Order {
     _id: ID
-    donationAmount: Int
-    donationRecipient: String
-    createdAt: String
+    purchaseDate: String
     username: String
   }
   type Checkout {
@@ -80,6 +78,9 @@ const typeDefs = gql`
     postsByUser(username: String!): [Post]
     post(_id: ID!): Post
     products(category: ID, name: String): [Product]
+    checkout(products: [ID]!): Checkout
+    product(_id: ID!): Product
+    order(_id: ID!): Order
     checkout(products: [ID]!): Checkout
   }
   type Mutation {
@@ -128,7 +129,8 @@ const typeDefs = gql`
     addReply(postId: ID!, replyText: String!): Post
     updateReply(postId: ID!, replyId: ID!, replyText: String!): Post
     deleteReply(postId: ID!, replyId: ID!): Post
-    addDonation(donationAmount: Int!, donationRecipient: String!): Donation
+    addOrder(products: [ID]!): Order
+    updateProduct(_id: ID!, quantity: Int!): Product
   }
 `;
 

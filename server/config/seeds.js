@@ -206,9 +206,31 @@ db.once('open', async () => {
 
   createdProducts.push(productOne, productTwo, productThree);
 
-  const createdProducts = await Product.create({
-    name,
-  });
+  const createdProducts = await Product.create(
+    productOne,
+    productTwo,
+    productThree
+  );
+
+  // create orders
+  let createdOrders = [];
+
+  for (let i = 0; i < 20; i += 1) {
+    const randomProductIndex = Math.floor(
+      Math.random() * createdProducts.ops.length
+    );
+    const { product } = createdProducts.ops[randomProductIndex];
+
+    const randomUserIndex = Math.floor(Math.random() * createdUsers.ops.length);
+    const { username, _id: userId } = createdUsers.ops[randomUserIndex];
+
+    const createdOrder = await Order.create(
+      { $push: { products: product } },
+      username
+    );
+
+    createdOrders.push(createdOrder);
+  }
 
   console.log('all done!');
   process.exit(0);
