@@ -67,6 +67,7 @@ const PostForm = () => {
             setTitle('');
             setText('');
             setCharacterCount(0);
+            setFeedName('');
         }
         catch (e) {
             console.error(e);
