@@ -10,20 +10,22 @@ function FeedMenu({ setFeed }) {
 
     console.log('feed menu', feedData);
     return (
-        <ul className="feed-menu">
-            {feeds.map((feed) => (
-                <li 
-                    className={activeFeed === feed.feedName ? `active ${feed.feedName}` : feed.feedName}
-                    key={feed._id}
-                    onClick={() => {
-                        setFeed(feed.feedName);
-                        setActiveFeed(feed.feedName);
-                    }}
-                >
-                    {feed.feedName}
-                </li>
-            ))}
-        </ul>
+        <div className="drawer">
+            <ul className="feed-menu">
+                {feeds.map((feed) => (
+                    <li 
+                        className={activeFeed === feed.feedName ? `active ${feed.feedName}` : feed.feedName}
+                        key={feed._id}
+                        onClick={() => {
+                            setFeed(feed.feedName);
+                            setActiveFeed(feed.feedName);
+                        }}
+                    >
+                        {feed.feedName}
+                    </li>
+                ))}
+            </ul>
+        </div>
     )   
 }
 

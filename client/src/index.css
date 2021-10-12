@@ -18,6 +18,16 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+button {
+  background-color: var(--tomato-red);
+  color: #FFF;
+}
+
+button:hover {
+  background-color: var(--dark-red);
+  cursor: pointer;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
@@ -148,16 +158,9 @@ header .active {
   flex: 0 1 50%;
   padding: 10px;
   margin: 10px auto 15px;
-  background-color: var(--tomato-red);
-  color: #fff;
   font-size: 1.125rem;
   border-radius: 5px;
   border: none;
-  cursor: pointer;
-}
-
-.signup-form form button:hover, .login-form form button:hover {
-  background-color: var(--dark-red);
 }
 
 form .full-name {
@@ -303,18 +306,11 @@ footer a:hover {
 
 .donate-paws button {
   font-size: 16px;
-  background-color: var(--tomato-red);
-  color: #FFF;
   width: 240px;
   margin: 15px 20px;
   padding: 12px;
   border-radius: 6px;
   border: none;
-}
-
-.donate-paws button:hover {
-  background-color: var(--dark-red);
-  cursor: pointer;
 }
 
 .donation-divider {
@@ -612,7 +608,7 @@ a {
   display: flex;
 }
 
-.pawfeed-container div:first-of-type {
+.drawer {
   display: contents;
 }
 
@@ -620,6 +616,7 @@ a {
   flex: 0 220px;
   background-color: var(--light-grey);
   list-style-type: none;
+  padding-top: 25px;
 }
 
 .pawfeed-container ul.feed-menu li {
@@ -628,8 +625,13 @@ a {
   margin: 10px 0 0 20px;
   color: var(--dark-blue);
   border-radius: 5px 0 0 5px;
+  font-size: 18px;
   font-weight: 600;
   cursor: pointer;
+}
+
+.pawfeed-list .card {
+  display: block;
 }
 
 .pawfeed-container ul.feed-menu .active {
@@ -638,10 +640,53 @@ a {
   filter: drop-shadow(0px 1px 1px var(--dark-blue));
 }
 
-.pawfeed-container div:nth-of-type(3) {
-  flex: 0 40%;
+.feed-section {
+  flex: 0 70%;
+  margin: 0 auto;
 }
 
+.feed-section div form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 15px 0 0;
+}
+
+.feed-section div form textarea {
+  width: 85%;
+  height: 110px;
+  border-radius: 10px;
+  padding: 10px;
+  font-family: sans-serif;
+  font-size: 16px;
+}
+
+.feed-section div form button {
+  padding: 10px 25px;
+  border-radius: 5px;
+  border: none;
+  font-size: 16px;
+  height: 40px;
+  align-self: center;
+}
+
+.refresh-pawfeed {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  margin-top: 15px;
+  font-size: 16px;
+}
+
+.new-post-form {
+  margin-bottom: 15px;
+}
+
+.new-post-form p {
+  text-align: right;
+  width: 83%;
+  font-size: 14px;
+}
 
 @media screen and (max-width: 800px) {
   .site-name {

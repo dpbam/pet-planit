@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { useMutation } from "@apollo/client";
 import { ADD_POST } from "../../utils/mutations";
-import { QUERY_POSTS, QUERY_POSTS_BY_FEED, QUERY_ME } from "../../utils/queries";
+import { /*QUERY_POSTS,*/ QUERY_POSTS_BY_FEED, QUERY_ME } from "../../utils/queries";
 
 const PostForm = ({ currentFeed }) => {
   const [postText, setText] = useState("");
@@ -57,28 +57,30 @@ const PostForm = ({ currentFeed }) => {
     }
   };
 
+  const refreshPage = () => {
+    // update to only refresh feed
+    window.location.reload();
+  }
+
   return (
-    <div>
-      <p
-        className={`m-0 ${characterCount === 280 || error ? "text-error" : ""}`}
-      >
-        Character Count: {characterCount}/280
-        {error && <span className="ml-2">Something went wrong...</span>}
-      </p>
+    <div className="new-post-form">
+      <button onClick={refreshPage} className="refresh-pawfeed">Refresh Pawfeed</button>
       <form
-        className="flex-row justify-center justify-space-between-md align-stretch"
         onSubmit={handleFormSubmit}
       >
         <textarea
-          placeholder="Create a Fun Paw Feed"
+          placeholder="Create post..."
           value={postText}
-          className="form-input col-12 col-md-9"
           onChange={handleChange}
         ></textarea>
-        <button className="btn col-12 col-md-3" type="submit">
-          Submit
+
+        <button type="submit">
+          + Post&nbsp;
         </button>
       </form>
+      <p className={`m-0 ${characterCount === 280 || error ? "text-error" : ""}`}>Character Count: {characterCount}/280
+      </p>
+      {error && <span className="ml-2">Something went wrong...</span>}
     </div>
   );
 };

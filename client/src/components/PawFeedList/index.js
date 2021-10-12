@@ -2,7 +2,7 @@ import React from 'react';
 import { useQuery } from '@apollo/client';
 
 import PawFeedLayout from '../PawFeedLayout';
-import { QUERY_POSTS, QUERY_POSTS_BY_FEED } from '../../utils/queries';
+import { /*QUERY_POSTS,*/ QUERY_POSTS_BY_FEED } from '../../utils/queries';
 
 const PawFeedList = ({ currentFeed }) => {
     console.log("currentFeed: ", currentFeed);
