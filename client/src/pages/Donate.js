@@ -30,6 +30,19 @@ import foundations from '../non-profits.json';
 //     });
 // });
 
+// split it at the dash to grab the number in the id below
+const handleFormSubmit = async (event) => {
+  event.preventDefault();
+  const donationIdOrSomething = event.target.id.split('-')[0];
+};
+
+// all these three as part of function when you hit Submit
+updateProduct;
+
+addOrder;
+
+checkout;
+
 const Donate = () => {
   return (
     <main className='content'>
@@ -58,8 +71,12 @@ const Donate = () => {
           <p>Consider donating to keep this website up and running&#42;:</p>
           <small>&#42;50% of proceeds will be donated to an animal rescue non-profit each month.</small>
       </section> */}
+      {/* maybe radio button for each price point of their donation with submit button OR buttons for each price point*/}
       <form action='/create-checkout-session' method='POST'>
         <button type='submit'>Checkout</button>
+        <button id='donation-20'>$20</button>
+        <button id='donation-50'>$50</button>
+        <button id='donation-100'>$100</button>
       </form>
     </main>
   );
