@@ -33,7 +33,7 @@ import foundations from '../non-profits.json';
 // split it at the dash to grab the number in the id below
 const handleFormSubmit = async (event) => {
   event.preventDefault();
-  const donationIdOrSomething = event.target.id.split('-')[0];
+  const donationIdOrSomething = event.target.id.split('-')[1];
 };
 
 // all these three as part of function when you hit Submit
