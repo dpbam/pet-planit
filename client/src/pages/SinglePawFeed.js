@@ -5,6 +5,7 @@ import { QUERY_POST } from '../utils/queries';
 import ReplyList from '../components/ReplyList';
 import ReplyForm from '../components/ReplyForm';
 import Auth from '../utils/auth';
+import { Link } from "react-router-dom";
 
 const SinglePawFeed = props => {
     const { id: postId } = useParams();
@@ -22,14 +23,19 @@ const SinglePawFeed = props => {
     }
 
     return (
-        <div>
-            <h3>{post.postTitle}</h3>
-            <div className="card">
+        <div className="content single-post-container">
+            <h3>Viewing post from {post.username}</h3>
+            <div className="card single-post-card">
                 <p className="card-header">
-                    <span style={{ fontWeight: 700 }} className="text-light">
-                        {post.username}
-                    </span>{' '}
-                    post on {post.createdAt}
+                    <div>
+                        <Link to={{pathname: "/profile",state: {username:post.username}}} className="username-link">
+                            {post.username}
+                        </Link>
+                        <hr className="post-card-hr"/>
+                        {post.postTitle}
+                        <span>&nbsp;&nbsp;({post.feedName})</span>
+                    </div>
+                    <span>{post.createdAt}</span>
                 </p>
                 <div className="card-body">
                     <p>{post.postText}</p>
