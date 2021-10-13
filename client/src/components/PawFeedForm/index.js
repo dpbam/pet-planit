@@ -28,13 +28,13 @@ const PostForm = () => {
             catch (e) {
                 console.log(e);
             }
-            //update me object's cache, appending new post to the end of the array
-            const { me } = cache.readQuery({ query: QUERY_ME_FORM });
-            console.log('me', me);
-            cache.writeQuery({
-                query: QUERY_ME_FORM,
-                data: { me: { ...me, posts: [...me.posts, addPost] } }
-            });
+            // //update me object's cache, appending new post to the end of the array
+            // const { me } = cache.readQuery({ query: QUERY_ME_FORM });
+            // console.log('me', me);
+            // cache.writeQuery({
+            //     query: QUERY_ME_FORM,
+            //     data: { me: { ...me, posts: [...me.posts, addPost] } }
+            // });
         }
     });
 

@@ -40,14 +40,30 @@ When I go to the Newsfeed page, I can make posts about my pet and see other user
 
 ## Languages and Technologies
 
-HTML, CSS, JavaScript, React, MongoDB, Mongoose, Express, Stripe, bcrypt, Flexbox
+- HTML
+- CSS
+- JavaScript
+- React
+- JQuery
+- MongoDB
+- Mongoose
+- Express
+- Stripe
+- bcrypt
+- Flexbox
+- Imgur
+- Context API
+- faker
+- graphql
+- jsonwebtoken
+- Apollo Server Express
 
 ## Challenges
 
 1. queries and mutations were tough, but graphql helped sort out issues
-2. we had some problems with git conflicts
+2. we had some problems with git merge conflicts
 3. scaling down to mvp was a challenge, but it forced us to code leaner
-4.
+4. Tim Primmer figured out how to upload images. He decided to use imgur to store the photos.
 
 ## Questions
 

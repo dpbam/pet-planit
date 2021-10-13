@@ -23,7 +23,7 @@ function PawFeedLayout(post) {
             </Link></h3>
             <p className="card-header">
                 <Link
-                    to={`/profile/${username}`}
+                    to={{pathname: "/profile",state: {username: username}}}
                     style={{ fontWeight: 700 }}
                     className="text-light"
                 >
