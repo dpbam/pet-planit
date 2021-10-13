@@ -38,11 +38,11 @@ const resolvers = {
       return Pet.find(params);
     },
     feeds: async () => {
-      return Feed.find().populate("posts");
+      return Feed.find().populate("posts").sort({ createdAt: -1 });
     },
     feed: async (parent, { feedName }) => {
       const params = feedName ? { feedName } : {};
-      return Feed.find(params).populate("posts");
+      return Feed.find(params).populate("posts").sort({ createdAt: -1 });
     },
     posts: async () => {
       return Post.find();
