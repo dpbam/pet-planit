@@ -174,11 +174,7 @@ export const DELETE_PET = gql`
 `;
 
 export const ADD_POST = gql`
-  mutation addPost(
-    $postTitle: String!
-    $postText: String!
-    $feedName: String!
-  ) {
+  mutation addPost($postTitle: String!, $postText: String!, $feedName: String!) {
     addPost(postTitle: $postTitle, postText: $postText, feedName: $feedName) {
       _id
       postTitle
@@ -274,24 +270,6 @@ export const ADD_DONATION = gql`
       donationRecipient
       createdAt
       username
-    }
-  }
-`;
-
-export const ADD_ORDER = gql`
-  mutation addOrder($products: [ID]!) {
-    addOrder(products: $products) {
-      purchaseDate
-      products {
-        _id
-        name
-        description
-        price
-        quantity
-        category {
-          name
-        }
-      }
     }
   }
 `;
