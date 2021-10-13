@@ -1,6 +1,8 @@
 import React from 'react';
 import foundations from '../non-profits.json';
 
+// import { updateProduct, addOrder, checkout } from '../utils/';
+
 // const stripe = require('stripe')('pk_test_TYooMQauvdEDq54NiTphI7jx');
 
 // const button = document.querySelector('button');
@@ -33,15 +35,17 @@ import foundations from '../non-profits.json';
 // split it at the dash to grab the number in the id below
 const handleFormSubmit = async (event) => {
   event.preventDefault();
-  const donationIdOrSomething = event.target.id.split('-')[1];
+  const donationId = event.target.id.split('-')[1];
+
+  // all these three as part of function when you hit Submit
+  // updateProduct;
+
+  // addOrder;
+
+  // checkout;
 };
 
-// all these three as part of function when you hit Submit
-updateProduct;
-
-addOrder;
-
-checkout;
+handleFormSubmit();
 
 const Donate = () => {
   return (
