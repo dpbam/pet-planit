@@ -10,8 +10,8 @@ const PawFeeds = () => {
     const loggedIn = Auth.loggedIn();
 
     return (
-        <main className="pawfeed-container">
-            <FeedMenu setFeed={setFeed} />
+        <main className="pawfeed-container content">
+                <FeedMenu setFeed={setFeed} />
             <div className="feed-section">
             <h2>Welcome to the Pawfeed!</h2>
                 {loggedIn && (
