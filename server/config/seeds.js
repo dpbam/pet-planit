@@ -1,7 +1,65 @@
 const faker = require("faker");
+const fetch = require("node-fetch");
 
 const db = require("./connection");
 const { User, Pet, Feed, Post, Donation } = require("../models");
+
+
+function randomNumber(num) {
+  return Math.floor(Math.random() * num);
+}
+
+const fetchImages = async (query) => {
+  const showViral = "true";
+  const showMature = "false";
+  const albumPreviews = true;
+  const section = "hot";
+  const sort = "viral";
+  const page = 0;
+  const window = "day";
+
+  //let apiUrl = `https://api.imgur.com/3/gallery/${section}/${sort}/${window}/${page}?showViral=${showViral}&mature=${showMature}&album_previews=${albumPreviews}`;
+  let apiUrl = `https://api.imgur.com/3/gallery/search/${sort}/${window}/${page}?q=${query}`;
+  let apiKey = 'dc0e01b32f67816'; // client id via the imgur application registration 
+
+  let settings = {
+    async: true,
+    crossDomain: true,
+    processData: false,
+    contentType: false,
+    type: 'GET',
+    url: apiUrl,
+    headers: {
+      Authorization: 'Client-ID ' + apiKey,
+      Accept: 'application/json',
+    },
+    error: function (req, err) { console.log(req, err); }
+  };
+
+  const response = await fetch(apiUrl, settings);
+  const images = await response.json();
+  return images.data;
+}
+
+const getRandomImage = (imageUrls) => {
+  let gotImage = false;
+  let randomGalleryNum;
+  let randomImageNum;
+  let randomImage;
+
+  while (gotImage == false) {
+    randomGalleryNum = randomNumber(imageUrls.length);
+
+    if (imageUrls[randomGalleryNum].images != undefined) {
+      randomImageNum = randomNumber(imageUrls[randomGalleryNum].images.length);
+      randomImage = imageUrls[randomGalleryNum].images[randomImageNum];
+      if (randomImage.type == 'image/jpeg') {
+        gotImage = true;
+      }
+    }
+  }
+  return randomImage.link;
+}
 
 db.once("open", async () => {
   console.log("seed start");
@@ -11,16 +69,22 @@ db.once("open", async () => {
   await Post.deleteMany({});
   await Donation.deleteMany({});
 
+  const profileImageUrls = await fetchImages("animals");
+  const dogImageUrls = await fetchImages("dogs");
+  const catImageUrls = await fetchImages("cats");
+
   // create user data
   const userData = [];
 
   for (let i = 0; i < 50; i += 1) {
-    const username = faker.internet.userName();
-    const email = faker.internet.email(username);
+    const firstName = faker.name.firstName();
+    const lastName = faker.name.lastName();
+    const username = faker.internet.userName(firstName, lastName);
+    const email = faker.internet.email(firstName, lastName);
     const password = faker.internet.password();
     const zipcode = faker.address.zipCode();
-
-    userData.push({ username, email, password, zipcode });
+    const image = getRandomImage(profileImageUrls);
+    userData.push({ username, firstName, lastName, email, password, zipcode, image });
   }
 
   const createdUsers = await User.collection.insertMany(userData);
@@ -43,6 +107,14 @@ db.once("open", async () => {
     });
     const about = faker.lorem.sentences();
 
+    let image = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Question_Mark.svg/1200px-Question_Mark.svg.png"; // default image
+    if (petType == "dog") {
+      image = getRandomImage(dogImageUrls);
+    }
+    else if (petType == "cat") {
+      image = getRandomImage(catImageUrls);
+    }
+
     const createdPet = await Pet.create({
       owner,
       petName,
@@ -50,6 +122,7 @@ db.once("open", async () => {
       petBreed,
       petAge,
       about,
+      image
     });
     const updatedUser = await User.updateOne(
       { _id: userId },
@@ -78,7 +151,7 @@ db.once("open", async () => {
   // create posts
   let createdPosts = [];
   for (let i = 0; i < 100; i += 1) {
-    const postTitle = faker.lorem.words(Math.round(Math.random() * 10) + 1);
+    const postTitle = faker.lorem.words(Math.round(Math.random() * 9) + 1);
     const postText = faker.lorem.words(Math.round(Math.random() * 20) + 1);
 
     const randomUserIndex = Math.floor(Math.random() * createdUsers.ops.length);

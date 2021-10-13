@@ -12,6 +12,7 @@ const Signup = () => {
     username: '',
     email: '',
     password: '',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Question_Mark.svg/1200px-Question_Mark.svg.png'
   });
   const [addUser, { error }] = useMutation(ADD_USER);
 
