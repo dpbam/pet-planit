@@ -798,9 +798,8 @@ input[type="radio"]:checked {
 }
 
 .reply-form textarea {
-  flex: 0 85%;
+  flex: 0 100%;
   border-radius: 5px;
-  margin-right: 20px;
   height: 100px;
   padding: 10px;
   font-family: sans-serif;
@@ -823,6 +822,10 @@ input[type="radio"]:checked {
   border-bottom: 1px solid #000;
 }
 
+.user-reply p {
+  padding-bottom: 10px;
+}
+
 .reply-card {
   border: none;
   padding: 0;
@@ -838,10 +841,14 @@ input[type="radio"]:checked {
 }
 
 .reply-form p {
-  flex: 0 84%;
+  flex: 0 99%;
   font-size: 14px;
   text-align: right;
   padding-top: 5px;
+}
+
+.reply-form button {
+  margin-top: 10px;
 }
 
 .view-replies, .username-link, .user-reply a {
@@ -884,6 +891,12 @@ a {
   }
   header nav {
     padding-right: 0;
+  }
+}
+
+@media screen and (max-width: 1440px) {
+  .single-post-container {
+    padding: 0 20px;
   }
 }
 

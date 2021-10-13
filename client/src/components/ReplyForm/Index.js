@@ -47,12 +47,12 @@ const ReplyForm = ({ postId }) => {
                     className="form-input col-12 col-md-9"
                     onChange={handleChange}
                 ></textarea>
-                <button className="btn col-12 col-md-3" type="submit">
-                    Submit
-                </button>
                 <p className="m-0">
                     Character Count: {CharacterCount}/280
                 </p>
+                <button type="submit">
+                    Submit
+                </button>
             </form>
             {error && <span className="ml-2">Something went wrong ...</span>}
         </div>

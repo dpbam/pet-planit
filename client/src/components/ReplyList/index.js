@@ -11,9 +11,10 @@ const ReplyList = ({ replies }) => {
                 {replies &&
                     replies.map(reply => (
                         <div className="user-reply" key={reply._id}>
-                            {reply.replyText} {'// From: '}
+                            <p> {reply.replyText}</p>
+                            &ndash; 
                             <Link to={{pathname: "/profile",state: {username:reply.username}}}>
-                                {reply.username} 
+                                &nbsp;{reply.username} 
                             </Link>
                             &nbsp;on {reply.createdAt}
                         </div>
