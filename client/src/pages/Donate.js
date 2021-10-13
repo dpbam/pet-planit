@@ -1,53 +1,39 @@
-import React from 'react';
+import { React, useEffect } from 'react';
 import foundations from '../non-profits.json';
+import { useMutation } from '@apollo/client';
+import { ADD_ORDER } from '../utils/mutations';
+import { idbPromise } from '../utils/helpers';
+import { loadStripe } from '@stripe/stripe-js';
+import { QUERY_CHECKOUT } from '../utils/queries';
+import { useLazyQuery } from '@apollo/client';
 
-// import { updateProduct, addOrder, checkout } from '../utils/';
-
-// const stripe = require('stripe')('pk_test_TYooMQauvdEDq54NiTphI7jx');
-
-// const button = document.querySelector('button');
-// button.addEventListener('click', () => {
-//   fetch('/create-checkout-session', {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//     body: JSON.stringify({
-//       items: [
-//         { id: 1, quantity: 3 },
-//         { id: 2, quantity: 1 },
-//         { id: 3, quantity: 2 },
-//       ],
-//     }),
-//   })
-//     .then((res) => {
-//       if (res.ok) return res.json();
-//       return res.json().then((json) => Promise.reject(json));
-//     })
-//     .then(({ url }) => {
-//       window.location = url;
-//     })
-//     .catch((e) => {
-//       console.error(e.error);
-//     });
-// });
-
-// split it at the dash to grab the number in the id below
-const handleFormSubmit = async (event) => {
-  event.preventDefault();
-  const donationId = event.target.id.split('-')[1];
-
-  // all these three as part of function when you hit Submit
-  // updateProduct;
-
-  // addOrder;
-
-  // checkout;
-};
-
-handleFormSubmit();
+const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
 
 const Donate = () => {
+  // const [addOrder] = useMutation(ADD_ORDER);
+  const [getCheckout, { data }] = useLazyQuery(QUERY_CHECKOUT);
+
+  useEffect(() => {
+    if (data) {
+      stripePromise.then((res) => {
+        res.redirectToCheckout({ sessionId: data.checkout.session });
+      });
+    }
+  }, [data]);
+
+  function submitCheckout(event) {
+    event.preventDefault();
+    // split it at the dash to grab the number in the id below
+    const donationId = event.target.id.split('-')[1];
+
+    const productIds = [];
+    productIds.push({ id: donationId });
+
+    getCheckout({
+      variables: { products: productIds },
+    });
+  }
+
   return (
     <main className='content'>
       <div className='hero-donate'></div>
@@ -83,9 +69,15 @@ const Donate = () => {
       {/* maybe radio button for each price point of their donation with submit button OR buttons for each price point*/}
       <form action='/create-checkout-session' method='POST'>
         <button type='submit'>Checkout</button>
-        <button id='donation-20'>$20</button>
-        <button id='donation-50'>$50</button>
-        <button id='donation-100'>$100</button>
+        <button onClick={submitCheckout} id='donation-20'>
+          $20
+        </button>
+        <button onClick={submitCheckout} id='donation-50'>
+          $50
+        </button>
+        <button onClick={submitCheckout} id='donation-100'>
+          $100
+        </button>
       </form>
     </main>
   );

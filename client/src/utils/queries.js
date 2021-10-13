@@ -2,8 +2,7 @@ import { gql } from '@apollo/client';
 
 export const QUERY_ME_PROFILE = gql`
   {
-    me 
-    { 
+    me {
       _id
       username
       email
@@ -332,6 +331,15 @@ export const QUERY_PRODUCTS = gql`
     }
   }
 `;
+
+export const QUERY_CHECKOUT = gql`
+  query getCheckout($products: [ID]!) {
+    checkout(products: $products) {
+      session
+    }
+  }
+`;
+
 export const QUERY_ME_FORM = gql`
   {
     me {
