@@ -74,48 +74,47 @@ const PostForm = () => {
         }
     };
 
+    const refreshPage = () => {
+      // update to only refresh feed
+      // run query again
+      window.location.reload();
+    }
+
     return (
-        <div>
+      <div className="new-post-form">
+        {/* <button onClick={refreshPage} className="refresh-pawfeed">Refresh Pawfeed</button> */}
+        <form onSubmit={handleFormSubmit}>
+            <label>Join the conversation:</label>
+            <select value={feedName} onChange={handleChangeFeedName}>
+                <option value="" disabled>Choose a topic</option>
+                <option value="General">General</option>
+                <option value="Pet Adoption">Pet Adoption</option>
+                <option value="Pet Sitting">Pet Sitting</option>
+                <option value="Pet Advice">Pet Advice</option>
+                <option value="Dog Dates">Dog Dates</option>
+                <option value="Lost Pets">Lost Pets</option>
+            </select>
+            <input
+              type="text"
+              placeholder="Title"
+              value={postTitle}
+              onChange={handleChangeTitle}
+            ></input>
+            <textarea
+                placeholder="Create post..."
+                value={postText}
+                onChange={handleChangeText}
+            ></textarea>
             <p className={`m-0 ${characterCount === 280 || error ? 'text-error' : ''}`}>
-                Character Count: {characterCount}/280
-                {error && <span className="ml-2">Something went wrong...</span>}
+              Character Count: {characterCount}/280   
             </p>
-            <form
-                className="flex-row justify-center justify-space-between-md align-stretch"
-                onSubmit={handleFormSubmit}
-            >
-                <textarea
-                    placeholder="Paw Feed Title"
-                    value={postTitle}
-
-                    className="form-input col-12 col-md-9"
-                    onChange={handleChangeTitle}
-                ></textarea>
-                <textarea
-                    placeholder="Paw Feed Content"
-                    value={postText}
-
-                    className="form-input col-12 col-md-9"
-                    onChange={handleChangeText}
-                ></textarea>
-                <select
-                    value={feedName}
-
-                    onChange={handleChangeFeedName}
-                >
-                    <option value="" disabled>Feed Type</option>
-                    <option value="General">General</option>
-                    <option value="Pet Adoption">Pet Adoption</option>
-                    <option value="Pet Sitting">Pet Sitting</option>
-                    <option value="Pet Advice">Pet Advice</option>
-                    <option value="Dog Dates">Dog Dates</option>
-                    <option value="Lost Pets">Lost Pets</option>
-                </select>
-                <button className="btn col-12 col-md-3" type="submit">
-                    Submit
-                </button>
-            </form>
-        </div>
+            <button type="submit">
+                Submit
+            </button>
+        </form>
+        
+        {error && <span className="ml-2">Something went wrong...</span>}
+      </div>
     )
 }
 

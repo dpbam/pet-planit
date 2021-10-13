@@ -10,13 +10,12 @@ const PawFeeds = () => {
     const loggedIn = Auth.loggedIn();
 
     return (
-        <main>
-            <div>
+        <main className="pawfeed-container content">
                 <FeedMenu setFeed={setFeed} />
+            <div className="feed-section">
+            <h2>Welcome to the Pawfeed!</h2>
                 {loggedIn && (
-                    <div className='col-12 mb-3'>
-                        <PawFeedForm />
-                    </div>
+                    <PawFeedForm currentFeed={currentFeed} />
                 )}
                 <PawFeedList currentFeed={currentFeed} />
             </div>
