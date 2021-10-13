@@ -16,7 +16,7 @@ function PawFeedLayout(post) {
         <div key={_id} className="card">
             <div className="card-header">
                 <div>
-                    <Link to={`/profile/${username}`} className="username-link">
+                    <Link to={{pathname: "/profile",state: {username:username}}} className="username-link">
                         {username}
                     </Link>
                     <hr className="post-card-hr" />

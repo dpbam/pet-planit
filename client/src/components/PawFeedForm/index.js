@@ -76,6 +76,7 @@ const PostForm = () => {
 
     const refreshPage = () => {
       // update to only refresh feed
+      // run query again
       window.location.reload();
     }
 
@@ -84,14 +85,8 @@ const PostForm = () => {
         {/* <button onClick={refreshPage} className="refresh-pawfeed">Refresh Pawfeed</button> */}
         <form onSubmit={handleFormSubmit}>
             <label>Join the conversation:</label>
-            <input
-              type="text"
-              placeholder="Title"
-              value={postTitle}
-              onChange={handleChangeTitle}
-            ></input>
             <select value={feedName} onChange={handleChangeFeedName}>
-                <option value="" disabled>Topic</option>
+                <option value="" disabled>Choose a topic</option>
                 <option value="General">General</option>
                 <option value="Pet Adoption">Pet Adoption</option>
                 <option value="Pet Sitting">Pet Sitting</option>
@@ -99,18 +94,25 @@ const PostForm = () => {
                 <option value="Dog Dates">Dog Dates</option>
                 <option value="Lost Pets">Lost Pets</option>
             </select>
+            <input
+              type="text"
+              placeholder="Title"
+              value={postTitle}
+              onChange={handleChangeTitle}
+            ></input>
             <textarea
                 placeholder="Create post..."
                 value={postText}
                 onChange={handleChangeText}
             ></textarea>
+            <p className={`m-0 ${characterCount === 280 || error ? 'text-error' : ''}`}>
+              Character Count: {characterCount}/280   
+            </p>
             <button type="submit">
                 Submit
             </button>
         </form>
-        <p className={`m-0 ${characterCount === 280 || error ? 'text-error' : ''}`}>
-            Character Count: {characterCount}/280   
-        </p>
+        
         {error && <span className="ml-2">Something went wrong...</span>}
       </div>
     )

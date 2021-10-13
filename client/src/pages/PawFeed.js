@@ -13,6 +13,7 @@ const PawFeeds = () => {
         <main className="pawfeed-container">
             <FeedMenu setFeed={setFeed} />
             <div className="feed-section">
+            <h2>Welcome to the Pawfeed!</h2>
                 {loggedIn && (
                     <PawFeedForm currentFeed={currentFeed} />
                 )}
