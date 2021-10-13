@@ -1,5 +1,46 @@
 import { gql } from '@apollo/client';
 
+export const QUERY_ME_PROFILE = gql`
+  {
+    me 
+    { 
+      _id
+      username
+      email
+      firstName
+      lastName
+      zipcode
+      interests
+      image
+      petCount
+      postCount
+      donationCount
+      pets {
+        _id
+        petName
+        petType
+        petBreed
+        petAge
+        playDate
+        about
+        owner
+        image
+      }
+      posts {
+        _id
+        postTitle
+      }
+      donations {
+        _id
+        donationAmount
+        donationRecipient
+        createdAt
+        username
+      }
+    }
+  }
+`;
+
 export const QUERY_ME = gql`
   { 
     _id
@@ -26,6 +67,7 @@ export const QUERY_ME = gql`
     }
     posts {
       _id
+      postTitle
       postText
       feedName
       createdAt
@@ -47,45 +89,48 @@ export const QUERY_ME = gql`
 
 export const QUERY_USERS = gql`
   query users($username: String!) {
-    _id
-    username
-    email
-    firstName
-    lastName
-    zipcode
-    interests
-    image
-    petCount
-    postCount
-    donationCount
-    pets {
+    user(username: $username) {
       _id
-      petName
-      petType
-      petBreed
-      petAge
-      playDate
-      about
-      owner
+      username
+      email
+      firstName
+      lastName
+      zipcode
+      interests
       image
-    }
-    posts {
-      _id
-      postText
-      feedName
-      createdAt
-      username
-      replyCount
-      replies {
+      petCount
+      postCount
+      donationCount
+      pets {
         _id
+        petName
+        petType
+        petBreed
+        petAge
+        playDate
+        about
+        owner
+        image
       }
-    }
-    donations {
-      _id
-      donationAmount
-      donationRecipient
-      createdAt
-      username
+      posts {
+        _id
+        postTitle
+        postText
+        feedName
+        createdAt
+        username
+        replyCount
+        replies {
+          _id
+        }
+      }
+      donations {
+        _id
+        donationAmount
+        donationRecipient
+        createdAt
+        username
+      }
     }
   }
 `;
