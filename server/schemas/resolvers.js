@@ -3,7 +3,8 @@ const { AuthenticationError } = require('apollo-server-express');
 const { signToken } = require('../utils/auth');
 const Product = require('../models/Product');
 const Order = require('../models/Order');
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+require('dotenv').config();
+const stripe = require('stripe')(`${process.env.STRIPE_SECRET_KEY}`);
 
 const resolvers = {
   Query: {
@@ -13,7 +14,7 @@ const resolvers = {
           .select('-__v -password')
           .populate('pets')
           .populate('posts')
-          .populate('donations');
+          .populate('orders');
 
         return userData;
       }

@@ -19,7 +19,8 @@
     "faker": "^5.5.3",
     "graphql": "^15.6.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.9.10"
+    "mongoose": "^5.9.10",
+    "stripe": "^8.181.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.13"

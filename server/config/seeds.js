@@ -2,7 +2,16 @@ const faker = require('faker');
 const fetch = require('node-fetch');
 
 const db = require('./connection');
-const { User, Pet, Feed, Post, Donation } = require('../models');
+const {
+  User,
+  Pet,
+  Feed,
+  Post,
+  Donation,
+  Order,
+  Category,
+  Product,
+} = require('../models');
 
 function randomNumber(num) {
   return Math.floor(Math.random() * num);
@@ -251,13 +260,13 @@ db.once('open', async () => {
   let createdCategories = [];
   const name = 'donation';
 
-  const createdCategory = await Category.create({
+  const createdCategoryData = await Category.create({
     name,
   });
 
   // create products
   let createdProducts = [];
-  const category = createdCategories[0]._id;
+  const { _id: category } = createdCategoryData._id;
   const productOne = {
     category: category,
     price: 20,
@@ -282,28 +291,22 @@ db.once('open', async () => {
 
   createdProducts.push(productOne, productTwo, productThree);
 
-  const createdProducts = await Product.create(
-    productOne,
-    productTwo,
-    productThree
-  );
+  const productData = await Product.collection.insertMany(createdProducts);
 
   // create orders
   let createdOrders = [];
 
   for (let i = 0; i < 20; i += 1) {
     const randomProductIndex = Math.floor(
-      Math.random() * createdProducts.ops.length
+      Math.random() * productData.ops.length
     );
-    const { product } = createdProducts.ops[randomProductIndex];
+    const { product } = productData.ops[randomProductIndex];
 
     const randomUserIndex = Math.floor(Math.random() * createdUsers.ops.length);
     const { username, _id: userId } = createdUsers.ops[randomUserIndex];
+    const order = { username: username, $push: { products: product } };
 
-    const createdOrder = await Order.create(
-      { $push: { products: product } },
-      username
-    );
+    const createdOrder = await Order.create(order);
 
     createdOrders.push(createdOrder);
   }

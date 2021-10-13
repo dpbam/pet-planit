@@ -323,14 +323,14 @@ export const QUERY_POSTS_BY_USER = gql`
   }
 `;
 
-export const QUERY_PRODUCTS = gql`
-  query getProducts() {
-    products {
-      _id
-      price
-    }
-  }
-`;
+// export const QUERY_PRODUCTS = gql`
+//   query getProducts() {
+//     products {
+//       _id
+//       price
+//     }
+//   }
+// `;
 
 export const QUERY_CHECKOUT = gql`
   query getCheckout($products: [ID]!) {

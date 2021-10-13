@@ -52,6 +52,12 @@ const userSchema = new Schema(
         ref: 'Post',
       },
     ],
+    donations: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Donation',
+      },
+    ],
     orders: [
       {
         type: Schema.Types.ObjectId,
@@ -83,6 +89,10 @@ userSchema.methods.isCorrectPassword = async function (password) {
 
 userSchema.virtual('petCount').get(function () {
   return this.pets.length;
+});
+
+userSchema.virtual('donationCount').get(function () {
+  return this.donations.length;
 });
 
 userSchema.virtual('postCount').get(function () {

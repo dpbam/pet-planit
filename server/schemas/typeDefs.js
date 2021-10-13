@@ -14,7 +14,6 @@ const typeDefs = gql`
     image: String
     petCount: Int
     postCount: Int
-    donationCount: Int
     pets: [Pet]
     posts: [Post]
     orders: [Order]
