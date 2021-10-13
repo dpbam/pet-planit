@@ -1,8 +1,5 @@
 import { React, useEffect } from 'react';
 import foundations from '../non-profits.json';
-import { useMutation } from '@apollo/client';
-import { ADD_ORDER } from '../utils/mutations';
-import { idbPromise } from '../utils/helpers';
 import { loadStripe } from '@stripe/stripe-js';
 import { QUERY_CHECKOUT } from '../utils/queries';
 import { useLazyQuery } from '@apollo/client';
@@ -10,7 +7,6 @@ import { useLazyQuery } from '@apollo/client';
 const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
 
 const Donate = () => {
-  // const [addOrder] = useMutation(ADD_ORDER);
   const [getCheckout, { data }] = useLazyQuery(QUERY_CHECKOUT);
 
   useEffect(() => {
