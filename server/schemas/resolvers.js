@@ -45,7 +45,8 @@ const resolvers = {
       return Feed.find(params).populate("posts");
     },
     posts: async () => {
-      return Post.find();
+      return Post.find()
+        .sort({ createdAt: -1 });
     },
     postsByFeed: async (parent, { feedName }) => {
       const params = feedName ? { feedName } : {};
@@ -202,7 +203,7 @@ const resolvers = {
     updateReply: async (parent, { replyId, postId, replyText }, context) => {
       if (context.user) {
         const updatedReplyPost = await Post.findByIdAndUpdate(
-          { _id: postId }, 
+          { _id: postId },
           {
             $set: { replies: { _id: replyId, replyText: replyText, username: context.user.username } },
           },
