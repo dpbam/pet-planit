@@ -246,6 +246,7 @@ export const QUERY_POSTS_BY_FEED = gql`
   query postsByFeed($feedName: String!) {
     postsByFeed(feedName: $feedName) {
       _id
+      postTitle
       postText
       feedName
       createdAt
