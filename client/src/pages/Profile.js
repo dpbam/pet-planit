@@ -294,8 +294,8 @@ const Profile = (props) => {
   }
 
   return (
-    <section id="profile-section">
-      <h2>{currentProfile.username}'s Farm</h2>
+    <section className="content" id="profile-section">
+      <h2>{currentProfile.username}'s Profile</h2>
       <div id="profile-details">
         <ProfileBox props={{
           currentProfile: currentProfile,
