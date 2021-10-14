@@ -44,11 +44,12 @@ const Profile = (props) => {
   const [currentProfile, setCurrentProfile] = useState(exampleProfile);
   const [editingProfile, setEditingProfile] = useState(false);
   const [editingPet, setEditingPet] = useState(false);
+  const [numberPets, setNumberPets] = useState("");
   // const [validFields, setValidFields] = useState(false);
 
   const { loading } = useQuery(otherUser ? QUERY_USERS : QUERY_ME_PROFILE, {
     variables: { username: otherUsername },
-    onCompleted: data => { setCurrentProfile(otherUser ? data.user : data.me) },
+    onCompleted: data => { setCurrentProfile(otherUser ? data.user : data.me); setNumberPets(otherUser ? data.user.petCount : data.me.petCount) },
     fetchPolicy: "network-only"
   });
 
@@ -275,6 +276,7 @@ const Profile = (props) => {
           petId: currentProfile.pets[petnum]._id
         },
       });
+        setNumberPets(numberPets-1);
     }
   }
 
@@ -299,6 +301,7 @@ const Profile = (props) => {
       let tempProf = { ...currentProfile };
       tempProf.pets = [...tempArr];
       setCurrentProfile(tempProf);
+      setNumberPets(numberPets+1);
     }
   }
 
@@ -383,7 +386,7 @@ const Profile = (props) => {
         </div>
       </div>
 
-      <h2><span>My Pets ({currentProfile.petCount})</span></h2>
+      <h2><span>My Pets ({numberPets})</span></h2>
       <form id="profile-pets">
         {currentProfile.pets.map((pet, index) => (
           <PetBox props={{
