@@ -333,8 +333,8 @@ export const QUERY_POSTS_BY_USER = gql`
 // `;
 
 export const QUERY_CHECKOUT = gql`
-  query getCheckout($products: [ID]!) {
-    checkout(products: $products) {
+  query getCheckout($donations: [ID]!) {
+    checkout(donations: $donations) {
       session
     }
   }

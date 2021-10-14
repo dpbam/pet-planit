@@ -3,14 +3,14 @@ const dateFormat = require('../utils/dateFormat');
 
 const donationSchema = new Schema(
   {
-    donationAmount: {
+    donationMoney: {
       type: Number,
       required: true,
       min: 5
     },
-    donationRecipient: {
-        type: String,
-        required: true
+    recipient: {
+      type: String,
+      required: true,
     },
     createdAt: {
       type: Date,

@@ -80,7 +80,7 @@ const typeDefs = gql`
     checkout(products: [ID]!): Checkout
     product(_id: ID!): Product
     order(_id: ID!): Order
-    checkout(products: [ID]!): Checkout
+    checkout(donations: [ID]!): Checkout
   }
   type Mutation {
     login(email: String!, password: String!): Auth

@@ -70,29 +70,29 @@ const resolvers = {
       ]);
 
       const url = new URL(context.headers.referer).origin;
-      const order = new Order({ products: args.products });
-      const { products } = await order.populate('products').execPopulate();
+      const order = new Order({ donations: args.donations });
+      const { donations } = await order.populate('donations').execPopulate();
 
       const line_items = [];
 
-      for (let i = 0; i < products.length; i++) {
+      for (let i = 0; i < donations.length; i++) {
         //  generate product id
-        const product = await stripe.products.create({
-          name: products[i].name,
+        const donation = await stripe.donations.create({
+          name: donations[i].name,
         });
 
-        const storeItem = storeItems.get(products[i].id);
+        const storeItem = storeItems.get(donations[i].id);
 
         // generate price id using the product id
-        const price = await stripe.prices.create({
-          product: product.id,
+        const donationMoney = await stripe.donationMoneys.create({
+          donation: donation.id,
           unit_amount: storeItem.priceInCents * 100,
           currency: 'usd',
         });
 
         // add price id to the line items array
         line_items.push({
-          price: price.id,
+          donationMoney: donationMoney.id,
           quantity: 1,
         });
       }

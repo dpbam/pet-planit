@@ -22,11 +22,11 @@ const Donate = () => {
     // split it at the dash to grab the number in the id below
     const donationId = event.target.id.split('-')[1];
 
-    const productIds = [];
-    productIds.push({ id: donationId });
+    const donationIds = [];
+    donationIds.push({ id: donationId });
 
     getCheckout({
-      variables: { products: productIds },
+      variables: { donations: donationIds },
     });
   }
 
@@ -63,7 +63,7 @@ const Donate = () => {
         </small>
       </section>
       {/* maybe radio button for each price point of their donation with submit button OR buttons for each price point*/}
-      <form action='/create-checkout-session' method='POST'>
+      <form >
         <button type='submit'>Checkout</button>
         <button onClick={submitCheckout} id='donation-20'>
           $20
