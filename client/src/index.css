@@ -344,6 +344,11 @@ footer a:hover {
   margin: 20px 0px 5px 0px;
 }
 
+#profile-section h2 span {
+  border-bottom: 2px solid var(--light-grey);
+  padding-bottom: 5px;
+}
+
 #profile-section label {
   font-size: 18px;
   font-weight: 500;
@@ -360,8 +365,9 @@ footer a:hover {
 }
 
 #profile-section textarea:read-only {
-  border: 1px solid #c4c4c4;
-  border-width: 1px;
+  /* border: 1px solid #c4c4c4;
+  border-width: 1px; */
+  border: none;
 }
 
 #profile-pets {
@@ -383,7 +389,7 @@ footer a:hover {
 
 .pet-box {
   border-bottom: 2px solid var(--light-grey);
-  margin: 10px 0 20px;
+  margin: 20px 0 20px;
   padding: 0 0 20px;
 }
 
@@ -488,6 +494,8 @@ input[type="radio"], input[type="radio"]:disabled {
   border: 1px solid #bbbbbb;
   background-color: white;
   border-radius: 50%;
+  margin-right: 5px;
+  vertical-align: bottom;
 }
 
 input[type="radio"]:enabled {
@@ -655,6 +663,7 @@ input[type="radio"]:checked {
 
 #profile-details {
   display: flex;
+  padding-top: 10px;
 }
 
 /* Pawfeed styles */
