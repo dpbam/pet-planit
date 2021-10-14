@@ -6,7 +6,6 @@
 - [User Story](#userstory)
 - [Usage](#usage)
 - [Contributing](#contributing)
-- [License](#license)
 - [Languages and Technologies](#languagesandtech)
 - [Challenges](#challenges)
 - [Questions](#questions)
@@ -24,9 +23,12 @@ When I go to the Newsfeed page, I can make posts about my pet and see other user
 
 ## Usage
 
-screen shots go here:
+![Screen Shot 2021-10-14 at 1 16 04 PM](https://user-images.githubusercontent.com/82355287/137382439-a8d4d454-f773-4aa0-8e90-2aa0ae6c6206.png)
+![Screen Shot 2021-10-14 at 1 18 13 PM](https://user-images.githubusercontent.com/82355287/137382497-ef341459-ab63-4302-a540-c9136d607680.png)
+![Screen Shot 2021-10-14 at 1 18 25 PM](https://user-images.githubusercontent.com/82355287/137382538-d46c6c81-ccda-485d-8fbb-8718ba897f9c.png)
+![Screen Shot 2021-10-14 at 1 18 37 PM](https://user-images.githubusercontent.com/82355287/137382578-c48ef822-18cd-44f5-b654-d37adbc7d246.png)
 
-- deployed website link
+https://enigmatic-temple-75821.herokuapp.com/
 
 ## Contributing
 
@@ -35,8 +37,6 @@ screen shots go here:
 - Derek Phelps: https://github.com/dpbam
 - Meghan Bock: https://github.com/meghankbock
 - Jiaming Zhou "Clark": https://github.com/freezenleo
-
-## License
 
 ## Languages and Technologies
 
