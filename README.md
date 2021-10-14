@@ -48,14 +48,13 @@ When I go to the Newsfeed page, I can make posts about my pet and see other user
 - MongoDB
 - Mongoose
 - Express
-- Stripe
 - bcrypt
 - Flexbox
 - Imgur
-- Context API
 - faker
 - graphql
 - jsonwebtoken
+- JSX
 - Apollo Server Express
 
 ## Challenges
@@ -64,6 +63,7 @@ When I go to the Newsfeed page, I can make posts about my pet and see other user
 2. we had some problems with git merge conflicts
 3. scaling down to mvp was a challenge, but it forced us to code leaner
 4. Tim Primmer figured out how to upload images. He decided to use imgur to store the photos.
+5. Stripe implementation proved to be too complicated for MVP.
 
 ## Questions
 
