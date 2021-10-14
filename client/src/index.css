@@ -110,7 +110,7 @@ header .active {
 }
 
 .signup-form {
-  height: 620px;
+  height: 665px;
 }
 
 .login-form {
@@ -177,14 +177,6 @@ form .full-name div {
 
 form .full-name div:first-child {
   margin: 0 0 0 15px;
-}
-
-label[for="first-name"], label[for="last-name"] {
-  margin: 0;
-}
-
-#first-name, #last-name {
-  margin: 6px 0 0;
 }
 
 .signup-form p, .login-form p {
