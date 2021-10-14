@@ -360,8 +360,9 @@ footer a:hover {
 }
 
 #profile-section textarea:read-only {
-  border: 1px solid #c4c4c4;
-  border-width: 1px;
+  /* border: 1px solid #c4c4c4;
+  border-width: 1px; */
+  border: none;
 }
 
 #profile-pets {
