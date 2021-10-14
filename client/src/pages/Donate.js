@@ -1,16 +1,24 @@
-import React from "react";
-import foundations from "../non-profits.json";
+import React from 'react';
+import foundations from '../non-profits.json';
 
 const Donate = () => {
   return (
-    <main className="content">
-      <div className="hero-donate"></div>
-      <h1 className="donate-h1">Donate</h1>
-      <section className="donate-paws">
-        <p>Lend a helping paw, consider donating to one of these wonderful organizations.</p>
+    <main className='content'>
+      <div className='hero-donate'></div>
+      <h1 className='donate-h1'>Donate</h1>
+      <section className='donate-paws'>
+        <p>
+          Lend a helping paw, consider donating to one of these wonderful
+          organizations.
+        </p>
         <div>
           {foundations.map((foundation) => (
-            <button key={foundation.id} onClick={() => window.open(foundation.url, "_blank")}>{foundation.name}</button>
+            <button
+              key={foundation.id}
+              onClick={() => window.open(foundation.url, '_blank')}
+            >
+              {foundation.name}
+            </button>
           ))}
         </div>
       </section>
@@ -23,7 +31,6 @@ const Donate = () => {
       </section> */}
     </main>
   );
-  
-}
+};
 
 export default Donate;
