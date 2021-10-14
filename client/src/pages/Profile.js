@@ -134,8 +134,8 @@ const Profile = (props) => {
     let errors = $(document.getElementsByClassName("fail-input"));
     let profileSection = $(document.querySelector("#profile-info"));
     let profileImage = $(document.querySelector("#profile-image"));
-    $(profileImage).attr('readonly', !$(profileImage).is('[readonly]'));
     if (errors.length < 1) {
+      $(profileImage).attr('readonly', !$(profileImage).is('[readonly]'));
       setEditingProfile(!editingProfile);
       if (editingProfile) {
         let textAreas = profileSection.find('textarea');

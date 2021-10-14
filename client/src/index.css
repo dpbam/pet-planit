@@ -448,11 +448,12 @@ footer a:hover {
 
 .image-upload-button-container {
   display: flex;
-  justify-content: space-between;
+  width: 100%;
+  justify-content: space-around;
 }
 
 .image-upload-button-container div {
-  margin: 0 10px 0 0;
+
 }
 
 .pet-details-1 {
@@ -1137,7 +1138,7 @@ a {
   }
 
   .image-upload-button-container {
-    display: contents;
+    width: 100%;
   }
 
   .profile-image-upload {

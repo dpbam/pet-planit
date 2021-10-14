@@ -39,7 +39,7 @@ const ProfileBox = (props) => {
             </div>
           </div>
           <div className="profile-image-holder">
-            
+
             <div className="profile-image-container">
               <img src={currentProfile.image} alt={"Picture of " + currentProfile.username} id="profile-image" />
             </div>
@@ -53,7 +53,7 @@ const ProfileBox = (props) => {
               <div className="profile-button-holder">
                 <button type="button" className="profile-edit profile-save button" onClick={editProfile}>Save</button>
               </div>
-              </div>
+            </div>
           </div>
         </>
         :
@@ -82,7 +82,7 @@ const ProfileBox = (props) => {
           </div>
           <div className="profile-image-holder">
             <div className="profile-image-container">
-              <img src={currentProfile.image} alt={"Picture of " + currentProfile.username} id="profile-image"/>
+              <img src={currentProfile.image} alt={"Picture of " + currentProfile.username} id="profile-image" />
             </div>
             {!otherUser ? <>
               <div className="profile-button-holder">
