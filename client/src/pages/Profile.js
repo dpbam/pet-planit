@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Redirect } from 'react-router';
 import $ from 'jquery';
 import Auth from '../utils/auth';
 import { useQuery, useMutation } from '@apollo/client';
@@ -25,20 +26,29 @@ const Profile = (props) => {
 
   let otherUsername;
   let otherUser = false;
-  if (props.location.state) {
+  const loggedIn = Auth.loggedIn();
+  let authProfile;
+  let authUsername;
+  if (loggedIn) {
+    authProfile = Auth.getProfile();
+    authUsername = authProfile.data.username;
+  }
+
+  if (props.location.state && props.location.state.username != authUsername) {
     otherUsername = String(props.location.state.username);
     otherUser = true;
+  } else if (props.location.state && props.location.state.username == authUsername) {
+    otherUser = false;
   }
 
   const [currentProfile, setCurrentProfile] = useState(exampleProfile);
   const [editingProfile, setEditingProfile] = useState(false);
   const [editingPet, setEditingPet] = useState(false);
+  // const [validFields, setValidFields] = useState(false);
 
-  const loggedIn = Auth.loggedIn();
-
-  const { loading } = useQuery(otherUsername ? QUERY_USERS : QUERY_ME_PROFILE, {
+  const { loading } = useQuery(otherUser ? QUERY_USERS : QUERY_ME_PROFILE, {
     variables: { username: otherUsername },
-    onCompleted: data => { setCurrentProfile(otherUsername ? data.user : data.me) },
+    onCompleted: data => { setCurrentProfile(otherUser ? data.user : data.me) },
     fetchPolicy: "network-only"
   });
 
@@ -59,10 +69,6 @@ const Profile = (props) => {
     });
   }
 
-  // if (loading === true || currentProfile === undefined || currentProfile.username === "") {
-  //   //return <div><h2>Loading</h2></div>;
-  // }
-
   const newPetTemplate = {
     _id: "",
     petName: "New Pet",
@@ -75,130 +81,182 @@ const Profile = (props) => {
     image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Question_Mark.svg/1200px-Question_Mark.svg.png"
   };
 
+  const validateField = (event, type) => {
+    const errorTextField = $(event.target).next();
+    let errorText;
+    let regex;
+    switch (type) {
+      case "zip":
+        regex = /^[0-9]{0,5}$/;
+        errorText = "Invalid Zip";
+        break;
+      case "name":
+        regex = /^[A-z ]{1,20}$/;
+        errorText = "Invalid Name";
+        break;
+      case "email":
+        regex = /.+@.+\..+/;
+        errorText = "Invalid Email";
+        break;
+      case "age":
+        regex = /^[0-9]{1,2}$/;
+        errorText = "Invalid Age";
+        break;
+      case "about":
+        regex = /^[/^[ A-Za-z0-9_@./#&+-,!?]{0,150}$/;
+        errorText = "Invalid About";
+        break;
+      case "breed":
+        regex = /^[A-z -_?]{0,25}$/;
+        errorText = "Invalid Breed";
+        break;
+      case "type":
+        regex = /^[A-z -_?]{1,25}$/;
+        errorText = "Invalid Type";
+        break;
+      default:
+        regex = /^[0-9A-z]*$/;
+        errorText = "Invalid Field";
+    }
+
+    if (!regex.test(event.target.value)) {
+      $(event.target).addClass('fail-input');
+      errorTextField.text(errorText);
+    }
+    else {
+      $(event.target).removeClass('fail-input');
+      errorTextField.text("ㅤ");
+    }
+  }
 
 
   const editProfile = () => {
-    setEditingProfile(!editingProfile);
-    if (editingProfile) {
+    let errors = $(document.getElementsByClassName("fail-input"));
+    let profileSection = $(document.querySelector("#profile-info"));
+    let profileImage = $(document.querySelector("#profile-image"));
+    if (errors.length < 1) {
+      $(profileImage).attr('readonly', !$(profileImage).is('[readonly]'));
+      setEditingProfile(!editingProfile);
+      if (editingProfile) {
+        let textAreas = profileSection.find('textarea');
+        let tempProfile = { ...currentProfile };
 
-
-      let profileSection = $(document.querySelector("#profile-info"));
-      let profileImage = $(document.querySelector("#profile-image"));
-      let textAreas = profileSection.find('textarea');
-      let tempProfile = { ...currentProfile };
-
-      $.each(textAreas, (index, area) => {
-        $(area).attr('readonly', !$(area).is('[readonly]')); // flips the editability of the input fields
-        switch (index) {
-          case 0:
-            tempProfile.firstName = $(area).val();
-            break;
-          case 1:
-            tempProfile.lastName = $(area).val();
-            break;
-          case 2:
-            tempProfile.email = $(area).val();
-            break;
-          case 3:
-            tempProfile.zipcode = $(area).val();
-            break;
-          default:
-            console.log(index, $(area).val());
-        }
-      });
-      tempProfile.image = profileImage.attr("src");
-      setCurrentProfile(tempProfile);
-      updateProfileDb(tempProfile);
-
+        $.each(textAreas, (index, area) => {
+          $(area).attr('readonly', !$(area).is('[readonly]')); // flips the editability of the input fields
+          switch (index) {
+            case 0:
+              tempProfile.firstName = $(area).val();
+              break;
+            case 1:
+              tempProfile.lastName = $(area).val();
+              break;
+            case 2:
+              tempProfile.email = $(area).val();
+              break;
+            case 3:
+              tempProfile.zipcode = $(area).val();
+              break;
+            default:
+              console.log(index, $(area).val());
+          }
+        });
+        tempProfile.image = profileImage.attr("src");
+        setCurrentProfile(tempProfile);
+        updateProfileDb(tempProfile);
+      }
     }
   }
 
   const editPet = async (petnum, petId) => {
-    setEditingPet(!editingPet);
-
+    setEditingPet(true);
     let pets = $(document.getElementsByClassName("pet-box"));
     let petEditButtons = $(document.getElementsByClassName("pet-edit"));
     let petPlayButtons = $(document.getElementsByClassName("pet-play-button"));
     let petImgButtons = $(document.getElementsByClassName("pet-image-upload"));
     let petImages = $(document.getElementsByClassName("pet-image"));
+    let errors = $(document.getElementsByClassName("fail-input"));
     let currentPetButton = $(petEditButtons[petnum]);
 
     let pet = $(pets[petnum]);
     let textAreas = pet.find('textarea');
     let tempPet = { ...newPetTemplate };
     let updatedPetArr = [...currentProfile.pets];
-
-    $.each(petPlayButtons, (index, button) => {
-      if (Number($(button).attr('pet')) === petnum) {
-        $(button).attr('disabled', !$(button).is('[disabled]')); // flips the editability of the radial buttons
-        tempPet.playDate = !($(button).is(':checked')); // this runs twice (once for each button) so by setting the inverse we get the flipped value of the "no" button, which is the value of the "Yes" button
-      }
-    });
-
-    $.each(petImgButtons, (index, button) => {
-      if (Number($(button).attr('pet')) === petnum && $(button).css('display') === 'none') {
-        $(button).show();
-      } else if (Number($(button).attr('pet')) === petnum) {
-        $(button).hide();
-      }
-    });
-
-    $.each(petImages, (index, image) => {
-      if (Number($(image).attr('pet')) === petnum) {
-        tempPet.image = $(image)[0].currentSrc;
-      }
-    });
-
-    $.each(textAreas, (index, area) => {
-      $(area).attr('readonly', !$(area).is('[readonly]')); // flips the editability of the input fields
-      switch (index) {
-        case 0:
-          tempPet.petName = $(area).val();
-          break;
-        case 1:
-          tempPet.petType = $(area).val();
-          break;
-        case 2:
-          tempPet.petBreed = $(area).val();
-          break;
-        case 3:
-          tempPet.petAge = $(area).val();
-          break;
-        case 4:
-          tempPet.about = $(area).val();
-          break;
-        default:
-          console.log(index, $(area).val());
-      }
-    });
-
-    tempPet._id = petId;
-
-    if (currentPetButton.hasClass("pet-save")) { // when the user clicks save...
-      currentPetButton.removeClass('pet-save');
-      currentPetButton.text('Edit');
-      updatedPetArr.splice(petnum, 1, tempPet); // replace old pet with new pet
-      let tempProf = { ...currentProfile };
-      tempProf.pets = [...updatedPetArr];
-      setCurrentProfile(tempProf);
-      const mutationResponse = await updatePetMutation({
-        variables: {
-          petId: petId,
-          petName: tempPet.petName,
-          petType: tempPet.petType,
-          petAge: Number(tempPet.petAge),
-          petBreed: tempPet.petBreed,
-          about: tempPet.about,
-          playDate: tempPet.playDate,
-          image: tempPet.image
+    if (errors.length < 1) {
+      $.each(petPlayButtons, (index, button) => {
+        if (Number($(button).attr('pet')) === petnum) {
+          $(button).attr('disabled', !$(button).is('[disabled]')); // flips the editability of the radial buttons
+          tempPet.playDate = !($(button).is(':checked')); // this runs twice (once for each button) so by setting the inverse we get the flipped value of the "no" button, which is the value of the "Yes" button
         }
       });
-    } else {
-      currentPetButton.addClass('pet-save');
-      currentPetButton.text('Save');
+
+      $.each(petImgButtons, (index, button) => {
+        if (Number($(button).attr('pet')) === petnum && $(button).css('display') === 'none') {
+          $(button).show();
+        } else if (Number($(button).attr('pet')) === petnum) {
+          $(button).hide();
+        }
+      });
+
+      $.each(petImages, (index, image) => {
+        if (Number($(image).attr('pet')) === petnum) {
+          $(image).attr('readonly', !$(image).is('[readonly]'));
+          tempPet.image = $(image)[0].currentSrc;
+        }
+      });
+
+      $.each(textAreas, (index, area) => {
+        $(area).attr('readonly', !$(area).is('[readonly]')); // flips the editability of the input fields
+        switch (index) {
+          case 0:
+            tempPet.petName = $(area).val();
+            break;
+          case 1:
+            tempPet.petType = $(area).val();
+            break;
+          case 2:
+            tempPet.petBreed = $(area).val();
+            break;
+          case 3:
+            tempPet.petAge = $(area).val();
+            break;
+          case 4:
+            tempPet.about = $(area).val();
+            break;
+          default:
+            console.log(index, $(area).val());
+        }
+      });
+
+      tempPet._id = petId;
+
+
+      if (currentPetButton.hasClass("pet-save")) { // when the user clicks save...
+        currentPetButton.removeClass('pet-save');
+        currentPetButton.text('Edit');
+        updatedPetArr.splice(petnum, 1, tempPet); // replace old pet with new pet
+        let tempProf = { ...currentProfile };
+        tempProf.pets = [...updatedPetArr];
+        setCurrentProfile(tempProf);
+        const mutationResponse = await updatePetMutation({
+          variables: {
+            petId: petId,
+            petName: tempPet.petName,
+            petType: tempPet.petType,
+            petAge: Number(tempPet.petAge),
+            petBreed: tempPet.petBreed,
+            about: tempPet.about,
+            playDate: tempPet.playDate,
+            image: tempPet.image
+          }
+        });
+        setEditingPet(false);
+      } else {
+        currentPetButton.addClass('pet-save');
+        currentPetButton.text('Save');
+      }
     }
   }
-  console.log(currentProfile.posts);
+
   const deletePet = async (petnum) => {
     if (petnum > -1) {
       let tempArr = [];
@@ -293,6 +351,12 @@ const Profile = (props) => {
     }
   }
 
+  if (loggedIn == false && otherUser == false) { // redirects users to homepage if they try to go to the profile while not signed in OR viewing someone
+    let HomeURL = "./";
+    return (<Redirect to = {HomeURL} />);
+  }
+
+
   return (
     <section className="content" id="profile-section">
       <h2><span>{currentProfile.username}'s Profile</span></h2>
@@ -302,7 +366,8 @@ const Profile = (props) => {
           editingProfile: editingProfile,
           otherUser: otherUser,
           uploadImage: uploadImage,
-          editProfile: editProfile
+          editProfile: editProfile,
+          validateField: validateField
         }} />
         <div id="profile-posts">
           <label>Posts</label>
@@ -328,7 +393,8 @@ const Profile = (props) => {
             otherUser: otherUser,
             editPet: editPet,
             deletePet: deletePet,
-            uploadImage: uploadImage
+            uploadImage: uploadImage,
+            validateField: validateField
           }} key={index} />
         ))}
         {!otherUser ? <button type="button" className="pet-add button" onClick={addPet} >Add another pet</button> : null}

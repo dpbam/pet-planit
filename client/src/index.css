@@ -396,7 +396,7 @@ footer a:hover {
 .profile-detail-container {
   display: flex;
   flex-wrap: wrap;
-  padding: 0px 0px 10px 10px;
+  padding: 0px 0px 0px 10px;
   justify-content: space-between;
 }
 
@@ -408,6 +408,19 @@ footer a:hover {
   margin-top: 5px;
   resize: none;
 }
+
+.fail-input {
+  outline: 1px solid red !important;
+  border: 1px solid red !important;
+  background-color: #ffbec2;
+}
+
+.error-text {
+  color: red;
+  font-size: 13px;
+  font-weight: bold;
+}
+
 
 .profile-detail-container label {
   width: 100%;
@@ -435,11 +448,12 @@ footer a:hover {
 
 .image-upload-button-container {
   display: flex;
-  justify-content: space-between;
+  width: 100%;
+  justify-content: space-around;
 }
 
 .image-upload-button-container div {
-  margin: 0 10px 0 0;
+
 }
 
 .pet-details-1 {
@@ -460,7 +474,7 @@ footer a:hover {
 }
 
 .pet-about-textarea {
-  height: 104px !important;
+  height: 109px !important;
 }
 
 .pet-about-label {
@@ -611,6 +625,10 @@ input[type="radio"]:checked {
   position: absolute;
   width: 100%;
   height: 100%;
+}
+
+img[readonly="readonly"] {
+  border-color: #000000 !important;
 }
 
 .profile-image-holder {
@@ -943,6 +961,7 @@ a {
   margin-bottom: 10px;
 }
 
+
 @media screen and (max-width: 800px) {
   .site-name {
     margin-left: 25px;
@@ -1119,7 +1138,7 @@ a {
   }
 
   .image-upload-button-container {
-    display: contents;
+    width: 100%;
   }
 
   .profile-image-upload {

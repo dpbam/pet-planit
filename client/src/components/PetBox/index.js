@@ -8,7 +8,8 @@ const PetBox = (props) => {
     otherUser,
     editPet,
     deletePet,
-    uploadImage
+    uploadImage,
+    validateField
   } = props.props;
 
   return (
@@ -18,15 +19,18 @@ const PetBox = (props) => {
       <div className="pet-details-1">
         <div className="profile-detail-container" key={pet.petName}>
           <label>Name</label>
-          <textarea type="text" name="pet-name" defaultValue={pet.petName} readOnly />
+          <textarea type="text" name="pet-name" defaultValue={pet.petName} readOnly onKeyUp={event => validateField(event, "name")} />
+          <p className="error-text">ㅤ</p>
         </div>
         <div className="profile-detail-container" key={pet.petType}>
           <label>Kind of Pet</label>
-          <textarea type="text" name="pet-type" defaultValue={pet.petType} readOnly />
+          <textarea type="text" name="pet-type" defaultValue={pet.petType} readOnly onKeyUp={event => validateField(event, "type")} />
+          <p className="error-text">ㅤ</p>
         </div>
         <div className="profile-detail-container" key={pet.petBreed}>
           <label>Breed</label>
-          <textarea type="text" name="pet-breed" defaultValue={pet.petBreed} readOnly />
+          <textarea type="text" name="pet-breed" defaultValue={pet.petBreed} readOnly onKeyUp={event => validateField(event, "breed")} />
+          <p className="error-text">ㅤ</p>
         </div>
       </div>
 
@@ -34,7 +38,8 @@ const PetBox = (props) => {
         <div className="profile-detail-container">
           <div className="pet-age-wrapper" key={pet.petAge}>
             <label className="pet-age-label">Age</label>
-            <textarea className="pet-age-textarea" type="text" name="pet-age" defaultValue={pet.petAge} readOnly />
+            <textarea className="pet-age-textarea" type="text" name="pet-age" defaultValue={pet.petAge} readOnly onKeyUp={event => validateField(event, "age")} />
+            <p className="error-text">ㅤ</p>
           </div>
           <div className="pet-play-wrapper" key={pet.playDate}>
             <label className="pet-playdate-label">Playdates?</label>
@@ -48,7 +53,8 @@ const PetBox = (props) => {
         </div>
         <div className="profile-detail-container about-container" key={pet.about}>
           <label className="pet-about-label">About me</label>
-          <textarea className="pet-about-textarea" type="text" name="pet-about" defaultValue={pet.about} readOnly />
+          <textarea className="pet-about-textarea" type="text" name="pet-about" defaultValue={pet.about} readOnly onKeyUp={event => validateField(event, "about")} />
+          <p className="error-text">ㅤ</p>
         </div>
       </div>
 
