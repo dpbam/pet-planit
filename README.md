@@ -26,7 +26,7 @@ When I go to the Newsfeed page, I can make posts about my pet and see other user
 
 screen shots go here:
 
-- deployed website link
+- https://enigmatic-temple-75821.herokuapp.com/
 
 ## Contributing
 
