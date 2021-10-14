@@ -55,8 +55,15 @@ const addDateSuffix = date => {
     if (hour === 0) {
       hour = 12;
     }
-  
-    const minutes = dateObj.getMinutes();
+
+    function addZero(i) {
+      if (i < 10) {
+        i = "0" + i;
+      }
+      return i;
+    }
+    
+    const minutes = addZero(dateObj.getMinutes());
   
     // set `am` or `pm`
     const periodOfDay = dateObj.getHours() >= 12 ? 'pm' : 'am';
