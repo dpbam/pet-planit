@@ -24,7 +24,7 @@ When I go to the Newsfeed page, I can make posts about my pet and see other user
 
 ## Usage
 
-- Insert screen shots here: ![Pet Social Network Screen Shot 2021-10-10 at 8 18 10 PM](https://user-images.githubusercontent.com/82355287/136724214-7ba48251-2aaa-42d7-b006-adb37c7abbcd.png)
+screen shots go here:
 
 - deployed website link
 
