@@ -1,17 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { Redirect } from 'react-router';
-import $ from 'jquery';
-import Auth from '../utils/auth';
-import { useQuery, useMutation } from '@apollo/client';
-import { QUERY_ME_PROFILE, QUERY_USERS } from '../utils/queries';
-import { UPDATE_USER, ADD_PET, DELETE_PET, UPDATE_PET } from '../utils/mutations';
-import PetBox from '../components/PetBox';
-import ProfileBox from '../components/ProfileBox';
+import React, { useState, useEffect } from "react";
+import { Redirect } from "react-router";
+import $ from "jquery";
+import Auth from "../utils/auth";
+import { useQuery, useMutation } from "@apollo/client";
+import { QUERY_ME_PROFILE, QUERY_USERS } from "../utils/queries";
+import {
+  UPDATE_USER,
+  ADD_PET,
+  DELETE_PET,
+  UPDATE_PET,
+} from "../utils/mutations";
+import PetBox from "../components/PetBox";
+import ProfileBox from "../components/ProfileBox";
 
 // TODO add interests
 
 const Profile = (props) => {
-
   const exampleProfile = {
     _id: "",
     username: "",
@@ -21,8 +25,8 @@ const Profile = (props) => {
     zipcode: "",
     image: "",
     pets: [],
-    posts: []
-  }
+    posts: [],
+  };
 
   let otherUsername;
   let otherUser = false;
@@ -37,26 +41,36 @@ const Profile = (props) => {
   if (props.location.state && props.location.state.username != authUsername) {
     otherUsername = String(props.location.state.username);
     otherUser = true;
-  } else if (props.location.state && props.location.state.username == authUsername) {
+  } else if (
+    props.location.state &&
+    props.location.state.username == authUsername
+  ) {
     otherUser = false;
   }
 
   const [currentProfile, setCurrentProfile] = useState(exampleProfile);
   const [editingProfile, setEditingProfile] = useState(false);
   const [editingPet, setEditingPet] = useState(false);
-  const [numberPets, setNumberPets] = useState("");
+  const [numberPets, setNumberPets] = useState("0");
+  const [numberPosts, setNumberPosts] = useState("0");
   // const [validFields, setValidFields] = useState(false);
 
   const { loading } = useQuery(otherUser ? QUERY_USERS : QUERY_ME_PROFILE, {
     variables: { username: otherUsername },
-    onCompleted: data => { setCurrentProfile(otherUser ? data.user : data.me); setNumberPets(otherUser ? data.user.petCount : data.me.petCount) },
-    fetchPolicy: "network-only"
+    onCompleted: (data) => {
+      setCurrentProfile(otherUser ? data.user : data.me);
+      setNumberPets(otherUser ? data.user.petCount : data.me.petCount);
+      setNumberPosts(otherUser ? data.user.postCount : data.me.postCount);
+    },
+    fetchPolicy: "network-only",
   });
 
   const [updateUserMutation] = useMutation(UPDATE_USER);
   const [addPetMutation] = useMutation(ADD_PET);
   const [deletePetMutation] = useMutation(DELETE_PET);
-  const [updatePetMutation] = useMutation(UPDATE_PET, { refetchQueries: [{ query: QUERY_ME_PROFILE }] });
+  const [updatePetMutation] = useMutation(UPDATE_PET, {
+    refetchQueries: [{ query: QUERY_ME_PROFILE }],
+  });
 
   const updateProfileDb = async (profile) => {
     const mutationResponse = await updateUserMutation({
@@ -65,10 +79,10 @@ const Profile = (props) => {
         firstName: profile.firstName,
         lastName: profile.lastName,
         zipcode: profile.zipcode,
-        image: profile.image
+        image: profile.image,
       },
     });
-  }
+  };
 
   const newPetTemplate = {
     _id: "",
@@ -79,7 +93,8 @@ const Profile = (props) => {
     about: "N/A",
     owner: currentProfile.username,
     playDate: false,
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Question_Mark.svg/1200px-Question_Mark.svg.png"
+    image:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Question_Mark.svg/1200px-Question_Mark.svg.png",
   };
 
   const validateField = (event, type) => {
@@ -121,29 +136,27 @@ const Profile = (props) => {
     }
 
     if (!regex.test(event.target.value)) {
-      $(event.target).addClass('fail-input');
+      $(event.target).addClass("fail-input");
       errorTextField.text(errorText);
-    }
-    else {
-      $(event.target).removeClass('fail-input');
+    } else {
+      $(event.target).removeClass("fail-input");
       errorTextField.text("ㅤ");
     }
-  }
-
+  };
 
   const editProfile = () => {
     let errors = $(document.getElementsByClassName("fail-input"));
     let profileSection = $(document.querySelector("#profile-info"));
     let profileImage = $(document.querySelector("#profile-image"));
     if (errors.length < 1) {
-      $(profileImage).attr('readonly', !$(profileImage).is('[readonly]'));
+      $(profileImage).attr("readonly", !$(profileImage).is("[readonly]"));
       setEditingProfile(!editingProfile);
       if (editingProfile) {
-        let textAreas = profileSection.find('textarea');
+        let textAreas = profileSection.find("textarea");
         let tempProfile = { ...currentProfile };
 
         $.each(textAreas, (index, area) => {
-          $(area).attr('readonly', !$(area).is('[readonly]')); // flips the editability of the input fields
+          $(area).attr("readonly", !$(area).is("[readonly]")); // flips the editability of the input fields
           switch (index) {
             case 0:
               tempProfile.firstName = $(area).val();
@@ -166,7 +179,7 @@ const Profile = (props) => {
         updateProfileDb(tempProfile);
       }
     }
-  }
+  };
 
   const editPet = async (petnum, petId) => {
     setEditingPet(true);
@@ -179,34 +192,37 @@ const Profile = (props) => {
     let currentPetButton = $(petEditButtons[petnum]);
 
     let pet = $(pets[petnum]);
-    let textAreas = pet.find('textarea');
+    let textAreas = pet.find("textarea");
     let tempPet = { ...newPetTemplate };
     let updatedPetArr = [...currentProfile.pets];
     if (errors.length < 1) {
       $.each(petPlayButtons, (index, button) => {
-        if (Number($(button).attr('pet')) === petnum) {
-          $(button).attr('disabled', !$(button).is('[disabled]')); // flips the editability of the radial buttons
-          tempPet.playDate = !($(button).is(':checked')); // this runs twice (once for each button) so by setting the inverse we get the flipped value of the "no" button, which is the value of the "Yes" button
+        if (Number($(button).attr("pet")) === petnum) {
+          $(button).attr("disabled", !$(button).is("[disabled]")); // flips the editability of the radial buttons
+          tempPet.playDate = !$(button).is(":checked"); // this runs twice (once for each button) so by setting the inverse we get the flipped value of the "no" button, which is the value of the "Yes" button
         }
       });
 
       $.each(petImgButtons, (index, button) => {
-        if (Number($(button).attr('pet')) === petnum && $(button).css('display') === 'none') {
+        if (
+          Number($(button).attr("pet")) === petnum &&
+          $(button).css("display") === "none"
+        ) {
           $(button).show();
-        } else if (Number($(button).attr('pet')) === petnum) {
+        } else if (Number($(button).attr("pet")) === petnum) {
           $(button).hide();
         }
       });
 
       $.each(petImages, (index, image) => {
-        if (Number($(image).attr('pet')) === petnum) {
-          $(image).attr('readonly', !$(image).is('[readonly]'));
+        if (Number($(image).attr("pet")) === petnum) {
+          $(image).attr("readonly", !$(image).is("[readonly]"));
           tempPet.image = $(image)[0].currentSrc;
         }
       });
 
       $.each(textAreas, (index, area) => {
-        $(area).attr('readonly', !$(area).is('[readonly]')); // flips the editability of the input fields
+        $(area).attr("readonly", !$(area).is("[readonly]")); // flips the editability of the input fields
         switch (index) {
           case 0:
             tempPet.petName = $(area).val();
@@ -230,10 +246,10 @@ const Profile = (props) => {
 
       tempPet._id = petId;
 
-
-      if (currentPetButton.hasClass("pet-save")) { // when the user clicks save...
-        currentPetButton.removeClass('pet-save');
-        currentPetButton.text('Edit');
+      if (currentPetButton.hasClass("pet-save")) {
+        // when the user clicks save...
+        currentPetButton.removeClass("pet-save");
+        currentPetButton.text("Edit");
         updatedPetArr.splice(petnum, 1, tempPet); // replace old pet with new pet
         let tempProf = { ...currentProfile };
         tempProf.pets = [...updatedPetArr];
@@ -247,16 +263,16 @@ const Profile = (props) => {
             petBreed: tempPet.petBreed,
             about: tempPet.about,
             playDate: tempPet.playDate,
-            image: tempPet.image
-          }
+            image: tempPet.image,
+          },
         });
         setEditingPet(false);
       } else {
-        currentPetButton.addClass('pet-save');
-        currentPetButton.text('Save');
+        currentPetButton.addClass("pet-save");
+        currentPetButton.text("Save");
       }
     }
-  }
+  };
 
   const deletePet = async (petnum) => {
     if (petnum > -1) {
@@ -273,12 +289,12 @@ const Profile = (props) => {
 
       const mutationResponse = await deletePetMutation({
         variables: {
-          petId: currentProfile.pets[petnum]._id
+          petId: currentProfile.pets[petnum]._id,
         },
       });
-        setNumberPets(numberPets-1);
+      setNumberPets(numberPets - 1);
     }
-  }
+  };
 
   const addPet = async () => {
     let tempArr = [...currentProfile.pets]; // Have to use the spread operator so it creates a new reference. aka without this it wont re-render on state change
@@ -290,90 +306,98 @@ const Profile = (props) => {
         petBreed: newPetTemplate.petBreed,
         about: newPetTemplate.about,
         playDate: newPetTemplate.playDate,
-        image: newPetTemplate.image
+        image: newPetTemplate.image,
       },
     });
     if (mutationResponse) {
       let tempPet = { ...newPetTemplate };
       tempPet._id = mutationResponse.data.addPet._id;
-      tempPet._typename = 'Pet';
+      tempPet._typename = "Pet";
       tempArr.push(tempPet);
       let tempProf = { ...currentProfile };
       tempProf.pets = [...tempArr];
       setCurrentProfile(tempProf);
-      setNumberPets(numberPets+1);
+      setNumberPets(numberPets + 1);
     }
-  }
+  };
 
   const uploadImage = async (event, profile, petNum) => {
     let profileImage = $(document.querySelector("#profile-image"));
     let petImages = $(document.getElementsByClassName("pet-image"));
     let $files = $(event);
 
-    console.log('Uploading images to Imgur..');
+    console.log("Uploading images to Imgur..");
     if ($files.length) {
       // Reject big files
-      if ($files[0].size > $(this).data('max-size') * 1024) {
-        console.log('Please select a smaller file');
+      if ($files[0].size > $(this).data("max-size") * 1024) {
+        console.log("Please select a smaller file");
         return false;
       }
-      let apiUrl = 'https://api.imgur.com/3/image';
-      let apiKey = 'dc0e01b32f67816'; // client id via the imgur application registration 
+      let apiUrl = "https://api.imgur.com/3/image";
+      let apiKey = "dc0e01b32f67816"; // client id via the imgur application registration
       let settings = {
         async: true,
         crossDomain: true,
         processData: false,
         contentType: false,
-        type: 'POST',
+        type: "POST",
         url: apiUrl,
         headers: {
-          Authorization: 'Client-ID ' + apiKey,
-          Accept: 'application/json',
+          Authorization: "Client-ID " + apiKey,
+          Accept: "application/json",
         },
-        mimeType: 'multipart/form-data',
-        error: function (req, err) { console.log(req, err); }
+        mimeType: "multipart/form-data",
+        error: function (req, err) {
+          console.log(req, err);
+        },
       };
       let formData = new FormData();
-      formData.append('image', $files[0]);
+      formData.append("image", $files[0]);
       settings.data = formData;
       // Response contains stringified JSON
       // Image URL available at response.data.link
       $.ajax(settings).done(function (response) {
-        let newPhotoData = (JSON.parse(response).data);
-        console.log('Uploaded image: ', newPhotoData.link);
-        if (profile) { // if we're uploading a profile picture...
+        let newPhotoData = JSON.parse(response).data;
+        console.log("Uploaded image: ", newPhotoData.link);
+        if (profile) {
+          // if we're uploading a profile picture...
           profileImage.attr("src", newPhotoData.link);
-        } else { // if we're uploading a pet picture...
+        } else {
+          // if we're uploading a pet picture...
           $.each(petImages, (index, image) => {
-            if (Number($(image).attr('pet')) === petNum) {
+            if (Number($(image).attr("pet")) === petNum) {
               image.src = newPhotoData.link;
             }
           });
         }
       });
     }
-  }
+  };
 
-  if (loggedIn == false && otherUser == false) { // redirects users to homepage if they try to go to the profile while not signed in OR viewing someone
+  if (loggedIn == false && otherUser == false) {
+    // redirects users to homepage if they try to go to the profile while not signed in OR viewing someone
     let HomeURL = "./";
-    return (<Redirect to = {HomeURL} />);
+    return <Redirect to={HomeURL} />;
   }
-
 
   return (
     <section className="content" id="profile-section">
-      <h2><span>{currentProfile.username}'s Profile</span></h2>
+      <h2>
+        <span>{currentProfile.username}'s Profile</span>
+      </h2>
       <div id="profile-details">
-        <ProfileBox props={{
-          currentProfile: currentProfile,
-          editingProfile: editingProfile,
-          otherUser: otherUser,
-          uploadImage: uploadImage,
-          editProfile: editProfile,
-          validateField: validateField
-        }} />
+        <ProfileBox
+          props={{
+            currentProfile: currentProfile,
+            editingProfile: editingProfile,
+            otherUser: otherUser,
+            uploadImage: uploadImage,
+            editProfile: editProfile,
+            validateField: validateField,
+          }}
+        />
         <div id="profile-posts">
-          <label>Posts</label>
+          <label>Posts ({numberPosts})</label>
           <div id="posts-container">
             <ul>
               {currentProfile.posts.map((post, index) => (
@@ -386,26 +410,38 @@ const Profile = (props) => {
         </div>
       </div>
 
-      <h2><span>My Pets ({numberPets})</span></h2>
+      <h2>
+        <span>My Pets ({numberPets})</span>
+      </h2>
       <form id="profile-pets">
         {currentProfile.pets.map((pet, index) => (
-          <PetBox props={{
-            index: index,
-            pet: pet,
-            currentProfile: currentProfile,
-            otherUser: otherUser,
-            editPet: editPet,
-            deletePet: deletePet,
-            uploadImage: uploadImage,
-            validateField: validateField
-          }} key={index} />
+          <PetBox
+            props={{
+              index: index,
+              pet: pet,
+              currentProfile: currentProfile,
+              otherUser: otherUser,
+              editPet: editPet,
+              deletePet: deletePet,
+              uploadImage: uploadImage,
+              validateField: validateField,
+            }}
+            key={index}
+          />
         ))}
         {!otherUser ? (
-          currentProfile.pets.length > 0 ? ( <button type="button" className="pet-add button" onClick={addPet} >Add another pet</button> ) : (<button type="button" className="pet-add button" onClick={addPet}>
-          Add a pet
-        </button>)) : null}
+          currentProfile.pets.length > 0 ? (
+            <button type="button" className="pet-add button" onClick={addPet}>
+              Add another pet
+            </button>
+          ) : (
+            <button type="button" className="pet-add button" onClick={addPet}>
+              Add a pet
+            </button>
+          )
+        ) : null}
       </form>
-    </section >
+    </section>
   );
 };
 
