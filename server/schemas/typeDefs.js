@@ -59,10 +59,22 @@ const typeDefs = gql`
         createdAt: String
         username: String
     }
+
+    type Order {
+        _id: ID
+        purchaseDate: String
+        donations: [Donation]
+    }
+
     type Auth {
         token: ID!
         user: User
     }
+
+    type Checkout {
+        session: ID
+    }
+
     type Query {
         me: User
         users: [User]
@@ -75,6 +87,12 @@ const typeDefs = gql`
         postsByFeed(feedName: String!): [Post]
         postsByUser(username: String!): [Post]
         post(_id: ID!): Post
+        
+        donations(username: ID, recipient: String): [Donation]
+    
+        donation(_id: ID!): Donation
+        order(_id: ID!): Order
+        checkout(donations: [ID]!): Checkout
     }
     type Mutation {
         login(email: String!, password: String!): Auth

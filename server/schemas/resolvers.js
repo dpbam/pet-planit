@@ -59,6 +59,42 @@ const resolvers = {
     post: async (parent, { _id }) => {
       return Post.findOne({ _id });
     },
+    checkout: async (parent, args, context) => {
+      const url = new URL(context.headers.referer).origin;
+      const order = new Order({ donations: args.donations });
+      const { donations } = await order.populate('donations').execPopulate();
+
+      const line_items = [];
+      for (let i = 0; i < donations.length; i++) {
+        //generate product id
+        const donation = await stripe.donations.create({
+          recipient: donations[i].recipient,
+        });
+
+        //generate price id using the donation id
+        const donationMoney = await stripe.donationMoneys.create({
+          donation: donation.id,
+          unit_amount: donations[i].donationMoney * 100,
+          currency: 'usd',
+        });
+
+        //add price id to the line items array
+        line_items.push({
+          donationMoney: donationMoney.id,
+          quantity: 1
+        })
+      };
+
+      const session = await stripe.checkout.sessions.create({
+        payment_method_types: ['card'],
+        line_items,
+        mode: 'payment',
+        success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID`,
+        cancel_url: `${url}/cancel`
+      });
+
+      return { session: session.id };
+    },
   },
   Mutation: {
     login: async (parent, { email, password }) => {
