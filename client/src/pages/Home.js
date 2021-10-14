@@ -23,7 +23,7 @@ const Home = () => {
       </div>
       <div className="about">
         <h2 id="about">About</h2>
-        <p>Pet Planit is an app where users can sign up, then sign in and create a profile where they can add their pet(s) along with descriptions, photos, and pet friends. In addition, the user can organize playdates with other owners' pets, make posts about their pet in the pawfeed, and make donation to a local shelter.</p>
+        <p>Welcome to PET PLANiT! PET PLANiT is all about connecting pet parents and animal lovers. When you signup, you'll create a profile for yourself and your pet(s). Connect with other users on the pawfeed, where you can create posts sharing general information, adoptions, pet sitting, advice, set up playdates, post about lost pets, and reply to other users posts. Be sure to also check out the donate page where we have a few non-profit organizations listed that are doing incredible work for animals around the world and in your community. If you don't see your favorite non-profit listed, create a post and we'll look into adding it! Here at PET PLANiT, all pets are welcome, whether it's dogs, cats, hamsters, or snakes, we're all connected by our love of our furry (or not so furry) friends.</p>
       </div>
     </main>
   )
