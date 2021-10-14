@@ -9,6 +9,8 @@
   --tomato-red: #b93625;
   --dark-red: #78261b;
   --light-grey: #D8D6D6;
+  --seagreen: #2f7a47;
+  --dark-green: #245533;
 }
 
 body {
@@ -343,7 +345,7 @@ footer a:hover {
 }
 
 #profile-section label {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 500;
 }
 
@@ -354,6 +356,7 @@ footer a:hover {
   vertical-align: middle;
   border: 1px solid #000000;
   border-width: 1px;
+  padding: 5px;
 }
 
 #profile-section textarea:read-only {
@@ -373,9 +376,15 @@ footer a:hover {
   width: 100%;
 }
 
-.pet-box, #profile-info, #profile-posts {
+/* .pet-box, #profile-info, #profile-posts {
   border-style: solid;
   border-width: 1px;
+} */
+
+.pet-box {
+  border-bottom: 2px solid var(--light-grey);
+  margin: 10px 0 20px;
+  padding: 0 0 20px;
 }
 
 .profile-detail-container {
@@ -418,6 +427,15 @@ footer a:hover {
   align-items: center;
 }
 
+.image-upload-button-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.image-upload-button-container div {
+  margin: 0 10px 0 0;
+}
+
 .pet-details-1 {
   width: 30%;
 }
@@ -450,11 +468,15 @@ footer a:hover {
 .pet-play-wrapper {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: center;
 }
 
 .pet-play-wrapper label {
   text-align: center;
+}
+
+.playdate-buttons:first-of-type {
+  padding-right: 25px;
 }
 
 input[type="radio"], input[type="radio"]:disabled {
@@ -473,7 +495,7 @@ input[type="radio"]:enabled {
 }
 
 input[type="radio"]:checked {
-  background-color: #6666FF;
+  background-color: var(--seagreen);
 }
 
 .button, #profile-pic-button, .pet-pic-button {
@@ -500,12 +522,29 @@ input[type="radio"]:checked {
   filter: brightness(75%);
 }
 
-.pet-edit, .profile-edit, .pet-add, #profile-pic-button, .pet-pic-button {
-  background-color: #6666FF;
+.pet-edit, .profile-edit, .pet-add {
+  background-color: var(--seagreen);
+  font-size: 16px;
+}
+
+.pet-edit:hover, .profile-edit:hover, .pet-add:hover  {
+  background-color: var(--dark-green);
+}
+
+#profile-pic-button, .pet-pic-button {
+  background-color: #2020a7;
+}
+
+#profile-pic-button:hover, .pet-pic-button:hover {
+  background-color: var(--dark-blue);
 }
 
 .profile-save, .pet-save {
-  background-color: #44ad52;
+  background-color: var(--seagreen);
+}
+
+.profile-save:hover, .pet-save:hover {
+  background-color: var(--dark-green);
 }
 
 .pet-add {
@@ -513,7 +552,12 @@ input[type="radio"]:checked {
 }
 
 .pet-delete {
-  background-color: #FF666F;
+  background-color: var(--tomato-red);
+  margin-left: 10px;
+}
+
+.pet-delete:hover {
+  background-color: var(--dark-red);
 }
 
 .pet-button-holder {
@@ -979,6 +1023,104 @@ a {
   footer p {
     padding: 15px 10px;
   }
+
+  #profile-section {
+    padding: 0px 20px 20px 20px;
+  }
+
+  #profile-details {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  #profile-info, #profile-posts {
+    width: 100%;
+  }
+
+  #profile-info {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  #profile-posts {
+    margin: 0 0 20px 0;
+    padding: 0;
+  }
+
+  .profile-image-holder {
+    width: 100%;
+    display: contents;
+  }
+
+  .profile-detail-container {
+    padding: 0px 0px 10px 0;
+  }
+
+  .profile-details-holder {
+    width: 100%;
+  }
+
+  .profile-image-container {
+    width: 25%;
+    grid-row: 1;
+    margin: 0 auto;
+  }
+
+  .profile-button-holder {
+    padding-top: 20px;
+  }
+
+  .profile-edit {
+    width: 125px;
+  }
+
+  #profile-section h2:nth-of-type(2) {
+    padding-top: 30px;
+    border-top: 2px solid var(--light-grey);
+    margin-top: 30px;
+    font-size: 30px;
+  }
+
+  .pet-box {
+    display: grid;
+    grid-template-columns: 1fr;
+    margin-top: 20px;
+  }
+
+  .pet-details-3 {
+    display: contents;
+  }
+
+  .pet-image-container {
+    grid-row: 1;
+    margin: 0 auto;
+    width: 25%;
+  }
+
+  .pet-details-1, .pet-details-2 {
+    width: 100%;
+  }
+
+  .pet-button-holder {
+    justify-content: space-evenly;
+  }
+
+  .pet-button-holder button {
+    width: 125px;
+  }
+
+  .image-upload-button-container {
+    display: contents;
+  }
+
+  .profile-image-upload {
+    grid-row: 2;
+  }
+  .pet-image-upload {
+    grid-row: 2;
+    margin: 0 auto;
+  }
+  
 }
 
 @media screen and (max-width: 525px) {
