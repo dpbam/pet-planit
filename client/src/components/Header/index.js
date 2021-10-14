@@ -23,11 +23,11 @@ const Header = () => {
     <header>
       {Auth.loggedIn() ? (
         <Link to="/pawfeed" className="site-name" onClick={() => setActiveNav("pawfeed")}>
-          Pet Social Network
+          PET PLANiT
         </Link>
       ) : (
         <Link to="/" className="site-name">
-          Pet Social Network
+          PET PLANiT
         </Link>
       )}
       

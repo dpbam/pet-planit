@@ -44,38 +44,31 @@ const Signup = () => {
 
   return (
     <div className="signup">
-      <p>Welcome!</p>
+      {/* <p>Welcome!</p> */}
       <h1>Sign Up</h1>
         <form onSubmit={handleFormSubmit}>
-        {/* <form> */}
-          <div className="full-name">
-            <div>
-              <label htmlFor="first-name">First name&#42;</label>
-              <input
-                className='form-input'
-                placeholder='Your first name'
-                name='firstName'
-                type='text'
-                id='first-name'
-                value={formState.firstName}
-                onChange={handleChange}
-                required={true}
-              />
-            </div>
-            <div>
-              <label htmlFor="last-name">Last name&#42;</label>
-              <input
-                className='form-input'
-                placeholder='Your last name'
-                name='lastName'
-                type='text'
-                id='last-name'
-                value={formState.lastName}
-                onChange={handleChange}
-                required={true}
-              />
-            </div>
-          </div>
+          <label htmlFor="first-name">First name&#42;</label>
+          <input
+            className='form-input'
+            placeholder='Your first name'
+            name='firstName'
+            type='text'
+            id='first-name'
+            value={formState.firstName}
+            onChange={handleChange}
+            required={true}
+          />
+          <label htmlFor="last-name">Last name&#42;</label>
+          <input
+            className='form-input'
+            placeholder='Your last name'
+            name='lastName'
+            type='text'
+            id='last-name'
+            value={formState.lastName}
+            onChange={handleChange}
+            required={true}
+          />
           <label htmlFor="email">Zipcode&#42;</label>
           <input
             className='form-input'
@@ -122,11 +115,10 @@ const Signup = () => {
           />
           {error && <span className="signup-error">Signup failed</span>}
           <p className="required">&#42;Required field</p>
-          <button className='btn d-block w-100' type='submit'>
+          <button type='submit'> 
             Submit
           </button>
         </form>
-        
     </div>
   );
 };

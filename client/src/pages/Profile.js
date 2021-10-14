@@ -358,8 +358,8 @@ const Profile = (props) => {
 
 
   return (
-    <section id="profile-section">
-      <h2>{currentProfile.username}'s Farm</h2>
+    <section className="content" id="profile-section">
+      <h2><span>{currentProfile.username}'s Profile</span></h2>
       <div id="profile-details">
         <ProfileBox props={{
           currentProfile: currentProfile,
@@ -383,7 +383,7 @@ const Profile = (props) => {
         </div>
       </div>
 
-      <h2>Pets</h2>
+      <h2><span>My Pets</span></h2>
       <form id="profile-pets">
         {currentProfile.pets.map((pet, index) => (
           <PetBox props={{

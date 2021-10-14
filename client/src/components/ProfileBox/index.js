@@ -39,18 +39,21 @@ const ProfileBox = (props) => {
             </div>
           </div>
           <div className="profile-image-holder">
-            <div className="profile-button-holder">
-              <button type="button" className="profile-edit profile-save button" onClick={editProfile}>Save</button>
-            </div>
+            
             <div className="profile-image-container">
               <img src={currentProfile.image} alt={"Picture of " + currentProfile.username} id="profile-image" />
             </div>
-            <div className="profile-image-upload">
-              <input type="file" id="profile-upload" accept="image/*" style={{ display: 'none' }} onChange={e => uploadImage(e.target.files[0], true)} />
-              <button type="button" id="profile-pic-button">
-                <label htmlFor="profile-upload">Upload</label>
-              </button>
-            </div>
+            <div className="image-upload-button-container">
+              <div className="profile-image-upload">
+                <input type="file" id="profile-upload" accept="image/*" style={{ display: 'none' }} onChange={e => uploadImage(e.target.files[0], true)} />
+                <button type="button" id="profile-pic-button">
+                  <label htmlFor="profile-upload">Upload</label>
+                </button>
+              </div>
+              <div className="profile-button-holder">
+                <button type="button" className="profile-edit profile-save button" onClick={editProfile}>Save</button>
+              </div>
+              </div>
           </div>
         </>
         :
@@ -78,6 +81,9 @@ const ProfileBox = (props) => {
             </div>
           </div>
           <div className="profile-image-holder">
+            <div className="profile-image-container">
+              <img src={currentProfile.image} alt={"Picture of " + currentProfile.username} />
+            </div>
             {!otherUser ? <>
               <div className="profile-button-holder">
                 <button type="button" className="profile-edit button" onClick={editProfile}>Edit</button>

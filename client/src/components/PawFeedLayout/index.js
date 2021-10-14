@@ -9,37 +9,32 @@ function PawFeedLayout(post) {
         createdAt,
         username,
         replyCount,
+        feedName
     } = post;
 
     return (
         <div key={_id} className="card">
-
-            <h3><Link
-                to={`/pawfeed/${_id}`}
-                style={{ fontWeight: 700 }}
-                className="text-light"
-            >
-                {postTitle}
-            </Link></h3>
-            <p className="card-header">
-                <Link
-                    to={{pathname: "/profile",state: {username: username}}}
-                    style={{ fontWeight: 700 }}
-                    className="text-light"
-                >
-                    {username}
-                </Link>{' '}
-                post on {createdAt}
-            </p>
-            <div className="card-body">
-                <Link to={`/pawfeed/${_id}`}>
-                    <p>{postText}</p>
-                    <p className="mb-0">
-                        Replies: {replyCount} || Click to{' '}
-                        {replyCount ? 'see' : 'start'} the pets fun!
-                    </p>
-                </Link>
+            <div className="card-header">
+                <div>
+                    <Link to={{pathname: "/profile",state: {username:username}}} className="username-link">
+                        {username}
+                    </Link>
+                    <hr className="post-card-hr" />
+                    {postTitle}
+                </div>
+                <span className="created-at">{createdAt}</span>
             </div>
+
+            <div className="card-body">
+                <span>{postText}</span>
+                
+            </div>
+            <span>{feedName}</span>
+            <hr className="post-card-hr" />
+            <Link to={`/pawfeed/${_id}`}>
+                <span className="view-replies">View replies({replyCount}) {">"}</span>
+            </Link>
+            
         </div >
     );
 }
