@@ -383,7 +383,7 @@ const Profile = (props) => {
         </div>
       </div>
 
-      <h2><span>My Pets</span></h2>
+      <h2><span>My Pets ({currentProfile.petCount})</span></h2>
       <form id="profile-pets">
         {currentProfile.pets.map((pet, index) => (
           <PetBox props={{
@@ -397,7 +397,10 @@ const Profile = (props) => {
             validateField: validateField
           }} key={index} />
         ))}
-        {!otherUser ? <button type="button" className="pet-add button" onClick={addPet} >Add another pet</button> : null}
+        {!otherUser ? (
+          currentProfile.pets.length > 0 ? ( <button type="button" className="pet-add button" onClick={addPet} >Add another pet</button> ) : (<button type="button" className="pet-add button" onClick={addPet}>
+          Add a pet
+        </button>)) : null}
       </form>
     </section >
   );
