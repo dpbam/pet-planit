@@ -344,6 +344,11 @@ footer a:hover {
   margin: 20px 0px 5px 0px;
 }
 
+#profile-section h2 span {
+  border-bottom: 2px solid var(--light-grey);
+  padding-bottom: 5px;
+}
+
 #profile-section label {
   font-size: 18px;
   font-weight: 500;
@@ -360,8 +365,9 @@ footer a:hover {
 }
 
 #profile-section textarea:read-only {
-  border: 1px solid #c4c4c4;
-  border-width: 1px;
+  /* border: 1px solid #c4c4c4;
+  border-width: 1px; */
+  border: none;
 }
 
 #profile-pets {
@@ -383,14 +389,14 @@ footer a:hover {
 
 .pet-box {
   border-bottom: 2px solid var(--light-grey);
-  margin: 10px 0 20px;
+  margin: 20px 0 20px;
   padding: 0 0 20px;
 }
 
 .profile-detail-container {
   display: flex;
   flex-wrap: wrap;
-  padding: 0px 0px 10px 10px;
+  padding: 0px 0px 0px 10px;
   justify-content: space-between;
 }
 
@@ -402,6 +408,19 @@ footer a:hover {
   margin-top: 5px;
   resize: none;
 }
+
+.fail-input {
+  outline: 1px solid red !important;
+  border: 1px solid red !important;
+  background-color: #ffbec2;
+}
+
+.error-text {
+  color: red;
+  font-size: 13px;
+  font-weight: bold;
+}
+
 
 .profile-detail-container label {
   width: 100%;
@@ -429,11 +448,12 @@ footer a:hover {
 
 .image-upload-button-container {
   display: flex;
-  justify-content: space-between;
+  width: 100%;
+  justify-content: space-around;
 }
 
 .image-upload-button-container div {
-  margin: 0 10px 0 0;
+
 }
 
 .pet-details-1 {
@@ -454,7 +474,7 @@ footer a:hover {
 }
 
 .pet-about-textarea {
-  height: 104px !important;
+  height: 109px !important;
 }
 
 .pet-about-label {
@@ -488,6 +508,8 @@ input[type="radio"], input[type="radio"]:disabled {
   border: 1px solid #bbbbbb;
   background-color: white;
   border-radius: 50%;
+  margin-right: 5px;
+  vertical-align: bottom;
 }
 
 input[type="radio"]:enabled {
@@ -605,6 +627,10 @@ input[type="radio"]:checked {
   height: 100%;
 }
 
+img[readonly="readonly"] {
+  border-color: #000000 !important;
+}
+
 .profile-image-holder {
   display: flex;
   flex-wrap: wrap;
@@ -655,6 +681,7 @@ input[type="radio"]:checked {
 
 #profile-details {
   display: flex;
+  padding-top: 10px;
 }
 
 /* Pawfeed styles */
@@ -934,6 +961,7 @@ a {
   margin-bottom: 10px;
 }
 
+
 @media screen and (max-width: 800px) {
   .site-name {
     margin-left: 25px;
@@ -1110,7 +1138,7 @@ a {
   }
 
   .image-upload-button-container {
-    display: contents;
+    width: 100%;
   }
 
   .profile-image-upload {
