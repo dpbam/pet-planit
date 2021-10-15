@@ -571,6 +571,7 @@ input[type="radio"]:checked {
 
 .pet-add {
   width: 150px;
+  margin-top: 20px;
 }
 
 .pet-delete {
@@ -1098,7 +1099,7 @@ a {
     padding-top: 20px;
   }
 
-  .profile-edit {
+  .profile-edit, #profile-pic-button, .pet-pic-button {
     width: 125px;
   }
 
@@ -1139,6 +1140,7 @@ a {
 
   .image-upload-button-container {
     width: 100%;
+    display: contents;
   }
 
   .profile-image-upload {

@@ -1,4 +1,4 @@
-# pet-social-network
+# PET PLANiT
 
 ## Table of Contents
 
@@ -12,14 +12,14 @@
 
 ## Description
 
-Pet Social Network (name pending: Animal House or Animal Farm) is an app where users can sign up, then sign in and create a profile where they can add their pet(s) along with descriptions, photos, and pet friends. In addition, the user can organize playdates with other owners' pets, make donation to a local shelter, and make posts about their pet in the newsfeed.
+PET PLANiT is an app where users can sign up and create a profile for themselves and their pet(s). Users can head over to the pawfeed to organize playdates with other owners' pets, create pet related posts, and reply to other users’ posts. Users can also choose a non-profit from the donate page to donate to.
 
 ## User Story
 
-When I sign up and sign in to the app, I want to be able to create a profile
-When I create my profile, I want to be able to add my pet(s) along with my pet's story, description, species, breed, favorite activity (probably napping or eating trash), photos, and pet friends.
-When I see other user's profiles I can make friends, organize pet playdates, and share information about my pet
-When I go to the Newsfeed page, I can make posts about my pet and see other user's posts.
+When I sign up and sign in to the app, I want to be able to create a profile.
+When I create my profile, I want to be able to add my pet(s) along with my pet's story, description, species, breed, favorite activity (probably napping or eating trash), a photo.
+When I click to view other users’ profiles, I can view the information of the user and user’s pet(s). I can also see the user’s posts. 
+When I go to the Pawfeed page, I can make posts about my pet and see other user's posts, filter by topics, and reply to individual posts. 
 
 ## Usage
 
