@@ -1099,7 +1099,7 @@ a {
     padding-top: 20px;
   }
 
-  .profile-edit {
+  .profile-edit, #profile-pic-button, .pet-pic-button {
     width: 125px;
   }
 
