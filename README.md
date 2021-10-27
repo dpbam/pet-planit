@@ -12,7 +12,7 @@
 
 ## Description
 
-PET PLANiT is an app where users can sign up and create a profile for themselves and their pet(s). Users can head over to the pawfeed to organize playdates with other owners' pets, create pet related posts, and reply to other users’ posts. Users can also choose a non-profit from the donate page to donate to.
+PET PLANiT is an app where users can sign up and create a profile for themselves and their pet(s). Users can head over to the Pawfeed to organize playdates with other owners' pets, create pet related posts, and reply to other users’ posts. Users can also choose a non-profit from the donate page to donate to.
 
 ## User Story
 
