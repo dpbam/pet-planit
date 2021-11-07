@@ -6,6 +6,7 @@ function PawFeedLayout(post) {
         _id,
         postTitle,
         postText,
+        photo,
         createdAt,
         username,
         replyCount,
@@ -23,7 +24,7 @@ function PawFeedLayout(post) {
             </Link></h3>
             <p className="card-header">
                 <Link
-                    to={{pathname: "/profile",state: {username: username}}}
+                    to={{ pathname: "/profile", state: { username: username } }}
                     style={{ fontWeight: 700 }}
                     className="text-light"
                 >
@@ -34,6 +35,7 @@ function PawFeedLayout(post) {
             <div className="card-body">
                 <Link to={`/pawfeed/${_id}`}>
                     <p>{postText}</p>
+                    <img />
                     <p className="mb-0">
                         Replies: {replyCount} || Click to{' '}
                         {replyCount ? 'see' : 'start'} the pets fun!
