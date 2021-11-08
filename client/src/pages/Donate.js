@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import foundations from '../non-profits.json';
+import { loadStripe } from '@stripe/stripe-js';
+import { QUERY_CHECKOUT } from '../utils/queries';
+import { useLazyQuery } from '@apollo/client';
 
 const Donate = () => {
   return (
