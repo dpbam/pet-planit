@@ -2,8 +2,7 @@ import { gql } from '@apollo/client';
 
 export const QUERY_ME_PROFILE = gql`
   {
-    me 
-    { 
+    me {
       _id
       username
       email
@@ -42,7 +41,7 @@ export const QUERY_ME_PROFILE = gql`
 `;
 
 export const QUERY_ME = gql`
-  { 
+  {
     _id
     username
     email
@@ -168,8 +167,8 @@ export const QUERY_USER = gql`
         username
         replyCount
         replies {
-        _id
-      }
+          _id
+        }
       }
       donations {
         _id
@@ -326,22 +325,30 @@ export const QUERY_POSTS_BY_USER = gql`
 `;
 
 export const QUERY_ME_FORM = gql`
-    {
-        me {
-            _id
-            username
-            email
-            postCount
-            posts {
-                _id
-                postTitle
-                postText
-                feedName
-                replyCount
-                replies {
-                  _id
-                }
-            }
+  {
+    me {
+      _id
+      username
+      email
+      postCount
+      posts {
+        _id
+        postTitle
+        postText
+        feedName
+        replyCount
+        replies {
+          _id
         }
+      }
     }
+  }
+`;
+
+export const QUERY_CHECKOUT = gql`
+  query getCheckout($products: [ID]!) {
+    checkout(products: $products) {
+      session
+    }
+  }
 `;

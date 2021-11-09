@@ -4,6 +4,8 @@ import { loadStripe } from '@stripe/stripe-js';
 import { QUERY_CHECKOUT } from '../utils/queries';
 import { useLazyQuery } from '@apollo/client';
 
+const stripePromise = loadStripe(process.env.STRIPE_PRIVATE_KEY);
+
 const Donate = () => {
   const [getCheckout, { data }] = useLazyQuery(QUERY_CHECKOUT);
 
@@ -27,11 +29,12 @@ const Donate = () => {
       variables: { products: productIds },
     });
   }
+
   return (
     <main className='content'>
       <div className='hero-donate'></div>
       <h1 className='donate-h1'>Donate</h1>
-      <section className='donate-paws'>
+      <section class='donate-paws'>
         <p>
           Lend a helping paw, consider donating to one of these wonderful
           organizations.
@@ -59,6 +62,19 @@ const Donate = () => {
           each month.
         </small>
       </section>
+      {/* maybe radio button for each price point of their donation with submit button OR buttons for each price point*/}
+      <form action='/create-checkout-session' method='POST'>
+        <button type='submit'>Checkout</button>
+        <button onClick={submitCheckout} id='donation-20'>
+          $20
+        </button>
+        <button onClick={submitCheckout} id='donation-50'>
+          $50
+        </button>
+        <button onClick={submitCheckout} id='donation-100'>
+          $100
+        </button>
+      </form>
     </main>
   );
 };
