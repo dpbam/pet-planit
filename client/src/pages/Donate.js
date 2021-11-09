@@ -4,7 +4,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { QUERY_CHECKOUT } from '../utils/queries';
 import { useLazyQuery } from '@apollo/client';
 
-const stripePromise = loadStripe(process.env.STRIPE_PRIVATE_KEY);
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
 
 const Donate = () => {
   const [getCheckout, { data }] = useLazyQuery(QUERY_CHECKOUT);
