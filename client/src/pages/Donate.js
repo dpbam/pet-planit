@@ -5,6 +5,28 @@ import { QUERY_CHECKOUT } from '../utils/queries';
 import { useLazyQuery } from '@apollo/client';
 
 const Donate = () => {
+  const [getCheckout, { data }] = useLazyQuery(QUERY_CHECKOUT);
+
+  useEffect(() => {
+    if (data) {
+      stripePromise.then((res) => {
+        res.redirectToCheckout({ sessionId: data.checkout.session });
+      });
+    }
+  }, [data]);
+
+  function submitCheckout(event) {
+    event.preventDefault();
+    // split it at the dash to grab the number in the id below
+    const donationId = event.target.id.split('-')[1];
+
+    const productIds = [];
+    productIds.push({ id: donationId });
+
+    getCheckout({
+      variables: { products: productIds },
+    });
+  }
   return (
     <main className='content'>
       <div className='hero-donate'></div>
