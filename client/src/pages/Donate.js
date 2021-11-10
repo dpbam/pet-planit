@@ -34,7 +34,7 @@ const Donate = () => {
     <main className='content'>
       <div className='hero-donate'></div>
       <h1 className='donate-h1'>Donate</h1>
-      <section class='donate-paws'>
+      <section className='donate-paws'>
         <p>
           Lend a helping paw, consider donating to one of these wonderful
           organizations.
